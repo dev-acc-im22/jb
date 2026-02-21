@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useJobs } from '../context/JobContext';
 import Button from '../components/ui/Button';
 
-const RecruiterDashboard = ({ onPostJob }) => {
+const RecruiterDashboard = () => {
     const { jobs, user } = useJobs();
 
     // Filter jobs by current company
@@ -51,17 +51,23 @@ const RecruiterDashboard = ({ onPostJob }) => {
                         <Button variant="outline" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1rem', fontSize: '0.85rem' }}>
                             <Settings size={16} /> Settings
                         </Button>
-                        <Button
-                            onClick={onPostJob}
+                        <Link
+                            to="/post-job"
                             style={{
-                                display: 'flex', alignItems: 'center', gap: '0.5rem',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                color: 'white',
+                                textDecoration: 'none',
                                 background: 'linear-gradient(135deg, #2563EB, #4F46E5)',
-                                padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '8px',
+                                padding: '0.6rem 1.25rem',
+                                fontSize: '0.85rem',
+                                borderRadius: '8px',
                                 boxShadow: '0 4px 10px rgba(37, 99, 235, 0.2)'
                             }}
                         >
                             <PlusCircle size={16} /> Post a Job
-                        </Button>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -102,7 +108,15 @@ const RecruiterDashboard = ({ onPostJob }) => {
                                     </div>
                                     <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#334155', margin: '0 0 0.5rem 0' }}>No active jobs found</h3>
                                     <p style={{ fontSize: '0.85rem', color: '#64748B', marginBottom: '1.5rem' }}>Create a listing to start receiving applications.</p>
-                                    <Button onClick={onPostJob} style={{ fontSize: '0.85rem', padding: '0.5rem 1rem' }}>Post Your First Job</Button>
+                                    <Link
+                                        to="/post-job"
+                                        style={{
+                                            fontSize: '0.85rem', padding: '0.6rem 1.25rem', backgroundColor: '#2563EB', color: 'white',
+                                            borderRadius: '8px', textDecoration: 'none', fontWeight: 600, display: 'inline-block'
+                                        }}
+                                    >
+                                        Post Your First Job
+                                    </Link>
                                 </div>
                             ) : (
                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -135,29 +149,6 @@ const RecruiterDashboard = ({ onPostJob }) => {
 
                     {/* Right Column: Sidebar / Recent Activity */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-
-                        {/* New Applicants Widget */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 }}
-                            style={{
-                                backgroundColor: 'white', borderRadius: '16px', border: '1px solid #E2E8F0',
-                                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', padding: '1.25rem'
-                            }}
-                        >
-                            <h2 style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', margin: '0 0 1rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                <Clock size={16} color="#2563EB" /> Recent Applications
-                            </h2>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                                <ApplicantItem name="Alex Chen" role="Senior Frontend Eng" time="2h ago" img="A" color="#e11d48" />
-                                <ApplicantItem name="Sarah Miller" role="Product Designer" time="4h ago" img="S" color="#059669" />
-                                <ApplicantItem name="David Kim" role="Marketing Manager" time="1d ago" img="D" color="#2563eb" />
-                            </div>
-                            <Button variant="ghost" style={{ width: '100%', marginTop: '1rem', fontSize: '0.85rem', color: '#64748B', display: 'flex', justifyContent: 'center', gap: '0.5rem' }}>
-                                View All Candidates <ArrowRight size={14} />
-                            </Button>
-                        </motion.div>
 
                         {/* Quick Action / Promotion */}
                         <div style={{

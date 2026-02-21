@@ -37,7 +37,7 @@ const Navbar = ({ onPostJob }) => {
                 justifyContent: 'space-between'
             }}>
                 {/* Logo */}
-                <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+                <Link to={user?.role === 'employer' ? '/recruiter-dashboard' : '/'} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
                     <div style={{
                         width: '40px',
                         height: '40px',

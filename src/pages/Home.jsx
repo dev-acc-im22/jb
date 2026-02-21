@@ -36,7 +36,7 @@ const ScrollReveal = ({ children, delay = 0, direction = 'up' }) => {
     );
 };
 
-const Home = ({ onPostJob }) => {
+const Home = () => {
     const { filteredJobs, searchFilter } = useJobs();
 
     return (

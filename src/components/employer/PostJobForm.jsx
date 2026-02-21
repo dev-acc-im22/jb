@@ -7,10 +7,8 @@ const PostJobForm = ({ onSuccess }) => {
     const [formData, setFormData] = useState({
         title: '',
         company: '',
-        companyLogo: '',
         location: '',
         type: 'Full-time',
-        salary: '',
         category: 'Development',
         description: '',
         requirements: ''
@@ -28,22 +26,24 @@ const PostJobForm = ({ onSuccess }) => {
 
     const inputStyles = {
         width: '100%',
-        padding: '0.8rem 1rem',
-        borderRadius: 'var(--radius-md)',
-        border: '1px solid var(--neutral-200)',
-        fontSize: '0.95rem',
-        fontFamily: 'Montserrat, sans-serif',
+        padding: '1rem 1.25rem',
+        borderRadius: '12px',
+        border: '1px solid #E2E8F0',
+        fontSize: '1rem',
+        fontFamily: "'Montserrat', sans-serif",
         outline: 'none',
-        transition: 'var(--transition-fast)',
-        marginBottom: '1rem'
+        transition: 'all 0.2s',
+        marginBottom: '1.5rem',
+        backgroundColor: '#F8FAFC',
+        color: '#0F172A'
     };
 
     const labelStyles = {
         display: 'block',
-        fontSize: '0.85rem',
+        fontSize: '0.95rem',
         fontWeight: 600,
-        color: 'var(--neutral-600)',
-        marginBottom: '0.5rem'
+        color: '#334155',
+        marginBottom: '0.6rem'
     };
 
     return (
@@ -71,13 +71,7 @@ const PostJobForm = ({ onSuccess }) => {
                 </div>
             </div>
 
-            <label style={labelStyles}>Company Logo URL (Optional)</label>
-            <input
-                style={inputStyles}
-                placeholder="https://example.com/logo.png"
-                value={formData.companyLogo}
-                onChange={(e) => setFormData({ ...formData, companyLogo: e.target.value })}
-            />
+
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <div>
@@ -105,32 +99,18 @@ const PostJobForm = ({ onSuccess }) => {
                 </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                <div>
-                    <label style={labelStyles}>Salary Range</label>
-                    <input
-                        required
-                        style={inputStyles}
-                        placeholder="e.g. $100k - $120k"
-                        value={formData.salary}
-                        onChange={(e) => setFormData({ ...formData, salary: e.target.value })}
-                    />
-                </div>
-                <div>
-                    <label style={labelStyles}>Category</label>
-                    <select
-                        style={inputStyles}
-                        value={formData.category}
-                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    >
-                        <option>Development</option>
-                        <option>Design</option>
-                        <option>Marketing</option>
-                        <option>Finance</option>
-                        <option>Management</option>
-                    </select>
-                </div>
-            </div>
+            <label style={labelStyles}>Category</label>
+            <select
+                style={inputStyles}
+                value={formData.category}
+                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+            >
+                <option>Development</option>
+                <option>Design</option>
+                <option>Marketing</option>
+                <option>Finance</option>
+                <option>Management</option>
+            </select>
 
             <label style={labelStyles}>Requirements (Comma separated)</label>
             <input
@@ -153,16 +133,23 @@ const PostJobForm = ({ onSuccess }) => {
             <Button
                 type="submit"
                 style={{
-                    width: '100%',
-                    marginTop: '1rem',
+                    width: 'auto',
+                    minWidth: '200px',
+                    marginTop: '1.5rem',
                     background: 'linear-gradient(135deg, #2563EB, #4F46E5)',
                     color: 'white',
                     border: 'none',
-                    padding: '0.8rem'
+                    padding: '1rem 2rem',
+                    fontSize: '1rem',
+                    fontWeight: 600,
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 14px rgba(37, 99, 235, 0.4)',
+                    float: 'right'
                 }}
             >
-                Post Job Listing
+                Publish Job Listing
             </Button>
+            <div style={{ clear: 'both' }}></div>
         </form>
     );
 };
