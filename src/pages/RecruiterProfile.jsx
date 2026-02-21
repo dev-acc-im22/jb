@@ -341,17 +341,23 @@ const RecruiterProfile = () => {
                                 >
                                     Back
                                 </Button>
-                                <Button
+                                <button
                                     type="submit"
+                                    disabled={isLoading}
                                     style={{
                                         background: 'linear-gradient(135deg, #2563EB, #4F46E5)',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '12px',
+                                        cursor: isLoading ? 'not-allowed' : 'pointer',
+                                        fontWeight: 600,
                                         width: 'auto',
                                         padding: '0.8rem 2.5rem',
                                         boxShadow: '0 4px 14px rgba(37, 99, 235, 0.4)'
                                     }}
                                 >
                                     {isLoading ? 'Creating Profile...' : 'Complete Setup'}
-                                </Button>
+                                </button>
                             </div>
                         </motion.div>
                     )}
