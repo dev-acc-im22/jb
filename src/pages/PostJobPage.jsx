@@ -12,41 +12,41 @@ const PostJobPage = () => {
         <div style={{
             minHeight: '100vh',
             backgroundColor: '#F8FAFC',
-            paddingTop: '5rem',
+            paddingTop: '8rem',
             paddingBottom: '4rem',
             fontFamily: "'Montserrat', sans-serif"
         }}>
             <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
 
-                {/* Compact Header Area */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                {/* Header Area */}
+                <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '3rem' }}>
                     <Button
                         variant="ghost"
                         onClick={() => navigate('/recruiter-dashboard')}
-                        style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#64748B', padding: '0', alignSelf: 'flex-start' }}
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#64748B', padding: '0', alignSelf: 'flex-start', marginBottom: '2.5rem' }}
                     >
                         <ArrowLeft size={18} /> Back to Dashboard
                     </Button>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
                         <div style={{
-                            width: '48px',
-                            height: '48px',
+                            width: '64px',
+                            height: '64px',
                             flexShrink: 0,
-                            borderRadius: '12px',
+                            borderRadius: '16px',
                             background: 'linear-gradient(135deg, #2563EB, #4F46E5)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            boxShadow: '0 10px 25px rgba(37, 99, 235, 0.3)'
+                            boxShadow: '0 10px 25px rgba(37, 99, 235, 0.25)'
                         }}>
-                            <Briefcase color="white" size={24} />
+                            <Briefcase color="white" size={32} />
                         </div>
-                        <div>
-                            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.2rem', letterSpacing: '-0.5px', marginTop: 0 }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                            <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.4rem', letterSpacing: '-0.5px', marginTop: 0, lineHeight: 1.1 }}>
                                 Post a New Job
                             </h1>
-                            <p style={{ color: '#64748B', fontSize: '0.95rem', margin: 0 }}>
+                            <p style={{ color: '#64748B', fontSize: '1.1rem', margin: 0 }}>
                                 Create a detailed listing to attract the best talent for your team.
                             </p>
                         </div>

@@ -26,28 +26,29 @@ const PostJobForm = ({ onSuccess }) => {
 
     const inputStyles = {
         width: '100%',
-        padding: '0.75rem 1rem',
-        borderRadius: '10px',
+        padding: '0.85rem 1.15rem',
+        borderRadius: '12px',
         border: '1px solid #E2E8F0',
         fontSize: '0.95rem',
         fontFamily: "'Montserrat', sans-serif",
         outline: 'none',
         transition: 'all 0.2s',
+        marginBottom: '1.5rem',
         backgroundColor: '#F8FAFC',
         color: '#0F172A'
     };
 
     const labelStyles = {
         display: 'block',
-        fontSize: '0.85rem',
+        fontSize: '0.9rem',
         fontWeight: 600,
         color: '#334155',
-        marginBottom: '0.4rem'
+        marginBottom: '0.6rem'
     };
 
     return (
         <form onSubmit={handleSubmit}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem', alignItems: 'start', marginBottom: '1.25rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', alignItems: 'start', marginBottom: '1.5rem' }}>
                 <div>
                     <label style={labelStyles}>Job Title</label>
                     <input
@@ -133,15 +134,16 @@ const PostJobForm = ({ onSuccess }) => {
                 type="submit"
                 style={{
                     width: 'auto',
-                    minWidth: '200px',
+                    minWidth: '220px',
+                    marginTop: '2rem',
                     background: 'linear-gradient(135deg, #2563EB, #4F46E5)',
                     color: 'white',
                     border: 'none',
-                    padding: '0.8rem 2rem',
-                    fontSize: '0.95rem',
+                    padding: '1rem 2.5rem',
+                    fontSize: '1rem',
                     fontWeight: 600,
-                    borderRadius: '10px',
-                    boxShadow: '0 4px 14px rgba(37, 99, 235, 0.4)',
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 14px rgba(37, 99, 235, 0.3)',
                     float: 'right'
                 }}
             >
