@@ -22,7 +22,7 @@ const RecruiterDashboard = ({ onPostJob }) => {
         }}>
             {/* Slim Profile Header Row */}
             <div style={{ backgroundColor: 'white', borderBottom: '1px solid #E2E8F0', padding: '1.25rem 0' }}>
-                <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <div style={{
                             width: '48px', height: '48px', borderRadius: '10px',
@@ -66,7 +66,7 @@ const RecruiterDashboard = ({ onPostJob }) => {
                 </div>
             </div>
 
-            <div className="container" style={{ marginTop: '1.5rem' }}>
+            <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', marginTop: '1.5rem' }}>
                 {/* 4-Column KPI Stats Row */}
                 <div style={{
                     display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.5rem'
