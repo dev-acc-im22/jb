@@ -1,6 +1,7 @@
 import React from 'react';
 import { Home, Building2, GraduationCap, Briefcase, Rocket, TrendingUp, Code, DollarSign, Settings, Monitor, BarChart } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { useJobs } from '../../context/JobContext';
 
 const categories = [
@@ -19,8 +20,13 @@ const categories = [
 
 const CategorySection = () => {
     const { setSearchFilter } = useJobs();
+    const navigate = useNavigate();
 
     const handleCategoryClick = (category) => {
+        if (category === 'Marketing') {
+            navigate('/marketing-jobs');
+            return;
+        }
         setSearchFilter(prev => ({ ...prev, category: category }));
         const jobSection = document.getElementById('job-listing-section');
         if (jobSection) {

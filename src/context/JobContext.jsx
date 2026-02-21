@@ -227,10 +227,72 @@ const MOCK_JOBS = [
         type: "Full-time", posted: "4 hours ago", applicants: 10, category: "Marketing",
         description: "Scale user acquisition campaigns across Google, Meta, and programmatic channels. Optimize CAC, manage multi-crore budgets, and run creative experiments.\n\nJoin India's leading digital payments company and drive growth at scale.",
         requirements: ["Google Ads", "Facebook Ads", "App Install Campaigns", "Attribution", "SQL"], industry: "Fintech", department: "Growth Marketing", roleCategory: "Performance Marketing", education: "Any Graduate", experience: "2-4 Years"
+    },
+
+    // ========== Digital Marketing (10 new) ==========
+    {
+        id: 34, title: "SEO Specialist", company: "Nykaa", location: "Mumbai", salary: "₹8L - ₹14L",
+        type: "Full-time", posted: "3 hours ago", applicants: 15, category: "Marketing",
+        description: "Own the organic search strategy for India's leading beauty and fashion e-commerce platform. Conduct keyword research, on-page optimization, technical SEO audits, and link-building campaigns.\n\nKey Responsibilities:\n• Develop and execute comprehensive SEO strategies\n• Perform technical SEO audits and implement fixes\n• Build high-quality backlink profiles\n• Track and report on KPIs including organic traffic, rankings, and conversions",
+        requirements: ["SEO", "Google Search Console", "Ahrefs/SEMrush", "Technical SEO", "Content Strategy"], industry: "E-Commerce / Beauty", department: "Marketing", roleCategory: "SEO & Organic Growth", education: "Any Graduate", experience: "2-4 Years"
+    },
+    {
+        id: 35, title: "Social Media Manager", company: "Swiggy", location: "Bangalore", salary: "₹10L - ₹16L",
+        type: "Full-time", posted: "Just now", applicants: 8, category: "Marketing",
+        description: "Lead Swiggy's social media presence across Instagram, Twitter, LinkedIn, and YouTube. Create viral content strategies, manage community engagement, and build a brand voice loved by millions.\n\nKey Responsibilities:\n• Plan and publish content across all social platforms\n• Monitor trends and execute real-time marketing\n• Manage community engagement and crisis communications\n• Report on social KPIs and optimize strategy accordingly",
+        requirements: ["Social Media Strategy", "Content Creation", "Community Management", "Instagram & Twitter", "Analytics"], industry: "Food Tech", department: "Brand Marketing", roleCategory: "Social Media", education: "Any Graduate", experience: "3-5 Years"
+    },
+    {
+        id: 36, title: "Content Marketing Lead", company: "Razorpay", location: "Bangalore", salary: "₹14L - ₹22L",
+        type: "Full-time", posted: "1 day ago", applicants: 22, category: "Marketing",
+        description: "Build and lead Razorpay's content marketing engine. Develop thought leadership content, whitepapers, case studies, and blog articles that position Razorpay as the go-to fintech platform.\n\nKey Responsibilities:\n• Develop and execute a B2B content strategy\n• Create long-form content: guides, whitepapers, case studies\n• Lead a team of content writers and editors\n• Measure content performance and iterate on strategy",
+        requirements: ["Content Marketing", "B2B Writing", "SEO", "Editorial Management", "HubSpot"], industry: "Fintech", department: "Marketing", roleCategory: "Content Marketing", education: "MBA / Any Graduate", experience: "4-7 Years"
+    },
+    {
+        id: 37, title: "PPC Campaign Manager", company: "MakeMyTrip", location: "Gurgaon", salary: "₹12L - ₹20L",
+        type: "Full-time", posted: "2 days ago", applicants: 18, category: "Marketing",
+        description: "Manage high-budget PPC campaigns across Google Ads, Bing Ads, and Meta for India's leading travel platform. Optimize keyword bidding, ad copy, landing pages and targeting to maximize ROI.\n\nKey Responsibilities:\n• Plan, execute and optimize PPC campaigns across search and display\n• Manage multi-crore monthly ad budgets\n• A/B test ad creatives, landing pages, and bidding strategies\n• Build weekly/monthly performance reports with actionable insights",
+        requirements: ["Google Ads", "Meta Ads", "PPC Strategy", "A/B Testing", "Google Analytics"], industry: "Travel & Tourism", department: "Performance Marketing", roleCategory: "PPC / Paid Media", education: "Any Graduate", experience: "3-5 Years"
+    },
+    {
+        id: 38, title: "Email Marketing Specialist", company: "Myntra", location: "Bangalore", salary: "₹7L - ₹12L",
+        type: "Full-time", posted: "5 hours ago", applicants: 12, category: "Marketing",
+        description: "Design and execute email marketing campaigns that drive engagement, retention, and revenue for Myntra's 50M+ user base. Build automated email journeys for onboarding, cart abandonment, and seasonal promotions.\n\nKey Responsibilities:\n• Design and send marketing emails and newsletters\n• Build automated lifecycle email campaigns\n• Segment audiences and personalize messaging\n• Analyze email performance and optimize continuously",
+        requirements: ["Email Marketing", "Marketing Automation", "CleverTap/MoEngage", "HTML Email", "A/B Testing"], industry: "E-Commerce / Fashion", department: "CRM & Lifecycle Marketing", roleCategory: "Email & CRM", education: "Any Graduate", experience: "2-4 Years"
+    },
+    {
+        id: 39, title: "Growth Marketing Manager", company: "CRED", location: "Bangalore", salary: "₹18L - ₹30L",
+        type: "Full-time", posted: "1 day ago", applicants: 25, category: "Marketing",
+        description: "Drive user acquisition and retention for CRED's premium user base. Design and execute growth experiments across paid, organic, and referral channels. Own the full marketing funnel.\n\nKey Responsibilities:\n• Design and run growth experiments across channels\n• Own key metrics: CAC, LTV, activation rate, retention\n• Build referral and viral growth loops\n• Collaborate with product and engineering on growth features",
+        requirements: ["Growth Hacking", "Data Analysis", "SQL", "A/B Testing", "Product Marketing"], industry: "Fintech", department: "Growth", roleCategory: "Growth Marketing", education: "MBA / B.Tech", experience: "4-7 Years"
+    },
+    {
+        id: 40, title: "Influencer Marketing Coordinator", company: "boAt", location: "Delhi NCR", salary: "₹6L - ₹10L",
+        type: "Full-time", posted: "2 days ago", applicants: 30, category: "Marketing",
+        description: "Manage influencer partnerships and creator collaborations for India's #1 audio brand. Identify, negotiate, and onboard influencers across Instagram, YouTube, and emerging platforms.\n\nKey Responsibilities:\n• Scout and onboard influencers across multiple platforms\n• Manage end-to-end influencer campaigns\n• Negotiate contracts and manage partnerships\n• Track ROI and report on influencer campaign metrics",
+        requirements: ["Influencer Marketing", "Instagram", "YouTube", "Negotiation", "Campaign Management"], industry: "Consumer Electronics / D2C", department: "Brand Marketing", roleCategory: "Influencer Marketing", education: "Any Graduate", experience: "1-3 Years"
+    },
+    {
+        id: 41, title: "Marketing Analytics Manager", company: "Paytm", location: "Noida", salary: "₹16L - ₹24L",
+        type: "Full-time", posted: "3 days ago", applicants: 14, category: "Marketing",
+        description: "Build the marketing analytics infrastructure for one of India's largest digital payment platforms. Create dashboards, attribution models, and customer segmentation frameworks.\n\nKey Responsibilities:\n• Build marketing attribution models (multi-touch, incrementality)\n• Create dashboards and automated reports for marketing teams\n• Analyze customer journeys and identify optimization opportunities\n• Manage the marketing analytics tech stack",
+        requirements: ["SQL", "Python", "Tableau/PowerBI", "Marketing Attribution", "Google Analytics"], industry: "Fintech", department: "Marketing Analytics", roleCategory: "Marketing Analytics", education: "B.Tech / MBA Analytics", experience: "4-6 Years"
+    },
+    {
+        id: 42, title: "Brand Strategist", company: "Zomato", location: "Gurgaon", salary: "₹14L - ₹22L",
+        type: "Full-time", posted: "1 day ago", applicants: 20, category: "Marketing",
+        description: "Shape the future of one of India's most iconic consumer brands. Develop brand guidelines, positioning frameworks, and creative strategies that keep Zomato top-of-mind for 200M+ users.\n\nKey Responsibilities:\n• Develop and maintain brand identity and guidelines\n• Lead ideation and execution of brand campaigns\n• Manage creative and media agency relationships\n• Conduct consumer research and competitive analysis",
+        requirements: ["Brand Strategy", "Campaign Planning", "Creative Direction", "Consumer Insights", "Agency Management"], industry: "Food Tech", department: "Brand Marketing", roleCategory: "Brand Strategy", education: "MBA Marketing", experience: "4-7 Years"
+    },
+    {
+        id: 43, title: "Digital Marketing Director", company: "Flipkart", location: "Bangalore", salary: "₹35L - ₹55L",
+        type: "Full-time", posted: "Just now", applicants: 5, category: "Marketing",
+        description: "Lead the entire digital marketing function for one of India's largest e-commerce companies. Own strategy, team leadership, and P&L for digital channels including search, social, email, app marketing, and programmatic.\n\nKey Responsibilities:\n• Set digital marketing strategy and annual budgets\n• Lead and mentor a 20+ person marketing team\n• Drive innovation in martech and AI-powered marketing\n• Own digital channel P&L and report to CMO",
+        requirements: ["Digital Strategy", "Team Leadership", "P&L Management", "MarTech", "Data-Driven Marketing"], industry: "E-Commerce", department: "Marketing", roleCategory: "Marketing Leadership", education: "MBA", experience: "10-15 Years"
     }
 ];
 
-const MOCK_VERSION = 'v3'; // Bump this when MOCK_JOBS changes to invalidate stale cache
+const MOCK_VERSION = 'v4'; // Bump this when MOCK_JOBS changes to invalidate stale cache
 
 export const JobProvider = ({ children }) => {
     const [jobs, setJobs] = useState(() => {

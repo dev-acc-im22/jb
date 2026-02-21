@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const AuthLayout = ({ children, title, subtitle }) => {
+const AuthLayout = ({ children, title, subtitle, maxWidth = '480px' }) => {
     return (
         <div style={{
             minHeight: '100vh',
@@ -32,7 +32,7 @@ const AuthLayout = ({ children, title, subtitle }) => {
                     borderRadius: '24px',
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.1)',
                     border: '1px solid rgba(255,255,255,0.8)',
-                    maxWidth: '480px',
+                    maxWidth,
                     width: '100%',
                     position: 'relative',
                     zIndex: 10

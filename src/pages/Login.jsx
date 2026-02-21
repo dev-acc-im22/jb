@@ -27,7 +27,7 @@ const Login = () => {
         if (mockUser.role === 'employer') {
             navigate('/recruiter-profile');
         } else if (mockUser.isNewUser && mockUser.role === 'job_seeker') {
-            navigate('/profile'); // Redirect to profile creation for new job seekers
+            navigate('/register-profile'); // Redirect to profile creation for new job seekers
         } else {
             navigate('/'); // Default redirect
         }

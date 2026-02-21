@@ -1,10 +1,33 @@
 import React, { useState } from 'react';
 import AuthLayout from '../components/layout/AuthLayout';
 import Button from '../components/ui/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useJobs } from '../context/JobContext';
 
 const Register = () => {
     const [isEmployer, setIsEmployer] = useState(false);
+    const navigate = useNavigate();
+    const { login } = useJobs();
+
+    const handleGoogleLogin = () => {
+        // Mock Google Registration User Data
+        const mockUser = {
+            id: 'demo-user-123',
+            name: 'New User',
+            email: 'new.user@example.com',
+            role: isEmployer ? 'employer' : 'job_seeker',
+            profileImage: `https://ui-avatars.com/api/?name=New+User&background=0D8ABC&color=fff`,
+            isNewUser: true
+        };
+
+        login(mockUser);
+
+        if (mockUser.role === 'employer') {
+            navigate('/recruiter-profile');
+        } else {
+            navigate('/register-profile');
+        }
+    };
 
     return (
         <AuthLayout
@@ -108,19 +131,23 @@ const Register = () => {
                     <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--neutral-200)' }} />
                 </div>
 
-                <button type="button" style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '1rem',
-                    padding: '0.8rem',
-                    borderRadius: 'var(--radius-md)',
-                    border: '1px solid var(--neutral-300)',
-                    backgroundColor: 'white',
-                    fontWeight: 600,
-                    color: 'var(--neutral-700)',
-                    transition: 'var(--transition-fast)'
-                }}
+                <button
+                    type="button"
+                    onClick={handleGoogleLogin}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '1rem',
+                        padding: '0.8rem',
+                        borderRadius: 'var(--radius-md)',
+                        border: '1px solid var(--neutral-300)',
+                        backgroundColor: 'white',
+                        fontWeight: 600,
+                        color: 'var(--neutral-700)',
+                        transition: 'var(--transition-fast)',
+                        cursor: 'pointer'
+                    }}
                     onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--neutral-50)'}
                     onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'white'}
                 >

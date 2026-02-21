@@ -9,6 +9,8 @@ import Register from './pages/Register'
 import UserProfile from './pages/UserProfile'
 import RecruiterProfile from './pages/RecruiterProfile';
 import JobPage from './pages/JobPage'
+import MarketingJobs from './pages/MarketingJobs'
+import RegisterProfile from './pages/RegisterProfile'
 
 import Modal from './components/ui/Modal'
 import PostJobForm from './components/employer/PostJobForm'
@@ -37,6 +39,8 @@ function App() {
               <Route path="/recruiter-profile" element={<RecruiterProfile />} />
               <Route path="/employer-profile" element={<Navigate to="/recruiter-profile" replace />} />
               <Route path="/jobs/:id" element={<JobPage />} />
+              <Route path="/marketing-jobs" element={<MarketingJobs />} />
+              <Route path="/register-profile" element={<RegisterProfile />} />
             </Routes>
 
             {/* Global Modals */}
