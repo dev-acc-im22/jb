@@ -59,7 +59,7 @@ const RecruiterProfile = () => {
                 isProfileComplete: true,
                 companyLogo: logoPreview || 'https://ui-avatars.com/api/?name=' + formData.companyName + '&background=random'
             });
-            navigate('/recruiter-profile'); // Redirect to dashboard or home after setup
+            navigate('/recruiter-dashboard'); // Redirect to dashboard after setup
         }, 1500);
     };
 

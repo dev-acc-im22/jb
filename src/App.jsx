@@ -11,6 +11,7 @@ import RecruiterProfile from './pages/RecruiterProfile';
 import JobPage from './pages/JobPage'
 import MarketingJobs from './pages/MarketingJobs'
 import RegisterProfile from './pages/RegisterProfile'
+import RecruiterDashboard from './pages/RecruiterDashboard'
 
 import Modal from './components/ui/Modal'
 import PostJobForm from './components/employer/PostJobForm'
@@ -37,7 +38,8 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/profile" element={<UserProfile />} />
               <Route path="/recruiter-profile" element={<RecruiterProfile />} />
-              <Route path="/employer-profile" element={<Navigate to="/recruiter-profile" replace />} />
+              <Route path="/recruiter-dashboard" element={<RecruiterDashboard onPostJob={() => setIsPostingJob(true)} />} />
+              <Route path="/employer-profile" element={<Navigate to="/recruiter-dashboard" replace />} />
               <Route path="/jobs/:id" element={<JobPage />} />
               <Route path="/marketing-jobs" element={<MarketingJobs />} />
               <Route path="/register-profile" element={<RegisterProfile />} />

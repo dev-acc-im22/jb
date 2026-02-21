@@ -182,7 +182,7 @@ const Navbar = ({ onPostJob }) => {
                                     gap: '0.2rem',
                                     zIndex: 1001
                                 }}>
-                                    <Link to={user.role === 'employer' ? '/recruiter-profile' : '/profile'} onClick={() => setShowDropdown(false)} style={{
+                                    <Link to={user.role === 'employer' ? '/recruiter-dashboard' : '/profile'} onClick={() => setShowDropdown(false)} style={{
                                         display: 'flex',
                                         alignItems: 'center',
                                         gap: '0.8rem',
@@ -198,7 +198,7 @@ const Navbar = ({ onPostJob }) => {
                                         onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                                     >
                                         {user.role === 'employer' ? <CircleUser size={32} /> : <User size={32} />}
-                                        {user.role === 'employer' ? 'Recruiter Profile' : 'My Profile'}
+                                        {user.role === 'employer' ? 'Recruiter Dashboard' : 'My Profile'}
                                     </Link>
 
                                     <div style={{ height: '1px', backgroundColor: 'var(--neutral-100)', margin: '0.2rem 0' }}></div>
