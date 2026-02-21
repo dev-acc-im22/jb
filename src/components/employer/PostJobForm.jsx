@@ -26,29 +26,28 @@ const PostJobForm = ({ onSuccess }) => {
 
     const inputStyles = {
         width: '100%',
-        padding: '1rem 1.25rem',
-        borderRadius: '12px',
+        padding: '0.75rem 1rem',
+        borderRadius: '10px',
         border: '1px solid #E2E8F0',
-        fontSize: '1rem',
+        fontSize: '0.95rem',
         fontFamily: "'Montserrat', sans-serif",
         outline: 'none',
         transition: 'all 0.2s',
-        marginBottom: '1.5rem',
         backgroundColor: '#F8FAFC',
         color: '#0F172A'
     };
 
     const labelStyles = {
         display: 'block',
-        fontSize: '0.95rem',
+        fontSize: '0.85rem',
         fontWeight: 600,
         color: '#334155',
-        marginBottom: '0.6rem'
+        marginBottom: '0.4rem'
     };
 
     return (
         <form onSubmit={handleSubmit}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem', alignItems: 'start', marginBottom: '1.25rem' }}>
                 <div>
                     <label style={labelStyles}>Job Title</label>
                     <input
@@ -69,11 +68,21 @@ const PostJobForm = ({ onSuccess }) => {
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     />
                 </div>
-            </div>
+                <div>
+                    <label style={labelStyles}>Category</label>
+                    <select
+                        style={inputStyles}
+                        value={formData.category}
+                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    >
+                        <option>Development</option>
+                        <option>Design</option>
+                        <option>Marketing</option>
+                        <option>Finance</option>
+                        <option>Management</option>
+                    </select>
+                </div>
 
-
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <div>
                     <label style={labelStyles}>Location</label>
                     <input
@@ -97,52 +106,41 @@ const PostJobForm = ({ onSuccess }) => {
                         <option>Hybrid</option>
                     </select>
                 </div>
+                <div>
+                    <label style={labelStyles}>Requirements (Comma separated)</label>
+                    <input
+                        required
+                        style={inputStyles}
+                        placeholder="e.g. React, Node.js, AWS"
+                        value={formData.requirements}
+                        onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
+                    />
+                </div>
             </div>
 
-            <label style={labelStyles}>Category</label>
-            <select
-                style={inputStyles}
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-            >
-                <option>Development</option>
-                <option>Design</option>
-                <option>Marketing</option>
-                <option>Finance</option>
-                <option>Management</option>
-            </select>
-
-            <label style={labelStyles}>Requirements (Comma separated)</label>
-            <input
-                required
-                style={inputStyles}
-                placeholder="e.g. React, Node.js, AWS"
-                value={formData.requirements}
-                onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
-            />
-
-            <label style={labelStyles}>Job Description</label>
-            <textarea
-                required
-                style={{ ...inputStyles, minHeight: '120px', resize: 'vertical' }}
-                placeholder="Describe the role and responsibilities..."
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            />
+            <div style={{ marginBottom: '1.25rem' }}>
+                <label style={labelStyles}>Job Description</label>
+                <textarea
+                    required
+                    style={{ ...inputStyles, minHeight: '120px', resize: 'vertical' }}
+                    placeholder="Describe the role and responsibilities..."
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                />
+            </div>
 
             <Button
                 type="submit"
                 style={{
                     width: 'auto',
                     minWidth: '200px',
-                    marginTop: '1.5rem',
                     background: 'linear-gradient(135deg, #2563EB, #4F46E5)',
                     color: 'white',
                     border: 'none',
-                    padding: '1rem 2rem',
-                    fontSize: '1rem',
+                    padding: '0.8rem 2rem',
+                    fontSize: '0.95rem',
                     fontWeight: 600,
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     boxShadow: '0 4px 14px rgba(37, 99, 235, 0.4)',
                     float: 'right'
                 }}

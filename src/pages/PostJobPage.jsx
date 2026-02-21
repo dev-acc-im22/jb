@@ -12,53 +12,56 @@ const PostJobPage = () => {
         <div style={{
             minHeight: '100vh',
             backgroundColor: '#F8FAFC',
-            paddingTop: '100px', // Below navbar
+            paddingTop: '5rem',
             paddingBottom: '4rem',
             fontFamily: "'Montserrat', sans-serif"
         }}>
-            <div style={{ width: '100%', maxWidth: '800px', margin: '0 auto', padding: '0 2rem' }}>
+            <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
 
-                {/* Back Navigation */}
-                <Button
-                    variant="ghost"
-                    onClick={() => navigate('/recruiter-dashboard')}
-                    style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#64748B', padding: '0', marginBottom: '2rem' }}
-                >
-                    <ArrowLeft size={18} /> Back to Dashboard
-                </Button>
+                {/* Compact Header Area */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                    <Button
+                        variant="ghost"
+                        onClick={() => navigate('/recruiter-dashboard')}
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#64748B', padding: '0', alignSelf: 'flex-start' }}
+                    >
+                        <ArrowLeft size={18} /> Back to Dashboard
+                    </Button>
 
-                {/* Header */}
-                <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                    <div style={{
-                        width: '64px',
-                        height: '64px',
-                        borderRadius: '16px',
-                        background: 'linear-gradient(135deg, #2563EB, #4F46E5)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        margin: '0 auto 1.5rem',
-                        boxShadow: '0 10px 25px rgba(37, 99, 235, 0.3)'
-                    }}>
-                        <Briefcase color="white" size={32} />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                        <div style={{
+                            width: '48px',
+                            height: '48px',
+                            flexShrink: 0,
+                            borderRadius: '12px',
+                            background: 'linear-gradient(135deg, #2563EB, #4F46E5)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            boxShadow: '0 10px 25px rgba(37, 99, 235, 0.3)'
+                        }}>
+                            <Briefcase color="white" size={24} />
+                        </div>
+                        <div>
+                            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.2rem', letterSpacing: '-0.5px', marginTop: 0 }}>
+                                Post a New Job
+                            </h1>
+                            <p style={{ color: '#64748B', fontSize: '0.95rem', margin: 0 }}>
+                                Create a detailed listing to attract the best talent for your team.
+                            </p>
+                        </div>
                     </div>
-                    <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.5rem', letterSpacing: '-1px' }}>
-                        Post a New Job
-                    </h1>
-                    <p style={{ color: '#64748B', fontSize: '1.1rem' }}>
-                        Create a detailed listing to attract the best talent for your team.
-                    </p>
                 </div>
 
                 {/* Form Container */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.4 }}
                     style={{
                         backgroundColor: 'white',
-                        borderRadius: '24px',
-                        padding: '3rem',
+                        borderRadius: '20px',
+                        padding: '1.5rem 2.5rem',
                         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.05)',
                         border: '1px solid #E2E8F0'
                     }}
