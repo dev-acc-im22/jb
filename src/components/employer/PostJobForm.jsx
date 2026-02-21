@@ -26,29 +26,29 @@ const PostJobForm = ({ onSuccess }) => {
 
     const inputStyles = {
         width: '100%',
-        padding: '0.85rem 1.15rem',
-        borderRadius: '12px',
+        padding: '0.75rem 1rem',
+        borderRadius: '10px',
         border: '1px solid #E2E8F0',
-        fontSize: '0.95rem',
+        fontSize: '0.9rem',
         fontFamily: "'Montserrat', sans-serif",
         outline: 'none',
         transition: 'all 0.2s',
-        marginBottom: '1.5rem',
+        marginBottom: '1.25rem',
         backgroundColor: '#F8FAFC',
         color: '#0F172A'
     };
 
     const labelStyles = {
         display: 'block',
-        fontSize: '0.9rem',
+        fontSize: '0.85rem',
         fontWeight: 600,
         color: '#334155',
-        marginBottom: '0.6rem'
+        marginBottom: '0.4rem'
     };
 
     return (
         <form onSubmit={handleSubmit}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', alignItems: 'start', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', alignItems: 'start', marginBottom: '1.5rem' }}>
                 <div>
                     <label style={labelStyles}>Job Title</label>
                     <input
@@ -123,7 +123,7 @@ const PostJobForm = ({ onSuccess }) => {
                 <label style={labelStyles}>Job Description</label>
                 <textarea
                     required
-                    style={{ ...inputStyles, minHeight: '120px', resize: 'vertical' }}
+                    style={{ ...inputStyles, minHeight: '100px', resize: 'vertical', marginBottom: 0 }}
                     placeholder="Describe the role and responsibilities..."
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -134,15 +134,15 @@ const PostJobForm = ({ onSuccess }) => {
                 type="submit"
                 style={{
                     width: 'auto',
-                    minWidth: '220px',
-                    marginTop: '2rem',
+                    minWidth: '200px',
+                    marginTop: '1.75rem',
                     background: 'linear-gradient(135deg, #2563EB, #4F46E5)',
                     color: 'white',
                     border: 'none',
-                    padding: '1rem 2.5rem',
-                    fontSize: '1rem',
+                    padding: '0.8rem 2rem',
+                    fontSize: '0.9rem',
                     fontWeight: 600,
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     boxShadow: '0 4px 14px rgba(37, 99, 235, 0.3)',
                     float: 'right'
                 }}
