@@ -7,6 +7,7 @@ const PostJobForm = ({ onSuccess }) => {
     const [formData, setFormData] = useState({
         title: '',
         company: '',
+        companyLogo: '',
         location: '',
         type: 'Full-time',
         salary: '',
@@ -69,6 +70,14 @@ const PostJobForm = ({ onSuccess }) => {
                     />
                 </div>
             </div>
+
+            <label style={labelStyles}>Company Logo URL (Optional)</label>
+            <input
+                style={inputStyles}
+                placeholder="https://example.com/logo.png"
+                value={formData.companyLogo}
+                onChange={(e) => setFormData({ ...formData, companyLogo: e.target.value })}
+            />
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <div>
