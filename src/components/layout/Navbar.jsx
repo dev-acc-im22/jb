@@ -171,7 +171,7 @@ const Navbar = ({ onPostJob }) => {
                                     position: 'absolute',
                                     top: '120%',
                                     right: 0,
-                                    width: '200px',
+                                    width: '240px',
                                     backgroundColor: 'white',
                                     borderRadius: '12px',
                                     boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
@@ -197,7 +197,7 @@ const Navbar = ({ onPostJob }) => {
                                         onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--neutral-50)'}
                                         onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                                     >
-                                        {user.role === 'employer' ? <CircleUser size={32} /> : <User size={32} />}
+                                        {user.role !== 'employer' && <User size={32} />}
                                         {user.role === 'employer' ? 'Recruiter Dashboard' : 'My Profile'}
                                     </Link>
 

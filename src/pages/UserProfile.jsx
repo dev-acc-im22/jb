@@ -14,7 +14,8 @@ const UserProfile = () => {
         phone: '+91 ',
         skills: '',
         experience: '',
-        resumeName: ''
+        resumeName: '',
+        resumeData: ''
     });
     const [isSaved, setIsSaved] = useState(false);
 
@@ -34,7 +35,8 @@ const UserProfile = () => {
                 phone: user.phone || '+91 ',
                 skills: user.skills ? (Array.isArray(user.skills) ? user.skills.join(', ') : user.skills) : '',
                 experience: user.experience || '',
-                resumeName: user.resumeName || ''
+                resumeName: user.resumeName || '',
+                resumeData: user.resumeData || ''
             }));
 
             lastUserId.current = user.id;
@@ -53,7 +55,15 @@ const UserProfile = () => {
     const handleResumeUpload = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setFormData(prev => ({ ...prev, resumeName: file.name }));
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setFormData(prev => ({
+                    ...prev,
+                    resumeName: file.name,
+                    resumeData: event.target.result
+                }));
+            };
+            reader.readAsDataURL(file);
         }
     };
 
@@ -68,7 +78,8 @@ const UserProfile = () => {
             phone: formData.phone,
             skills: formData.skills.split(',').map(s => s.trim()), // Store as array
             experience: formData.experience,
-            resumeName: formData.resumeName
+            resumeName: formData.resumeName,
+            resumeData: formData.resumeData
         };
 
         updateUser(updatedUser);

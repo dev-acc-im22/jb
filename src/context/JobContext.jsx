@@ -298,7 +298,6 @@ export const JobProvider = ({ children }) => {
     const [jobs, setJobs] = useState(() => {
         try {
             const savedVersion = localStorage.getItem('jb_jobs_version');
-            // If version doesn't match, clear stale cache and use fresh MOCK_JOBS
             if (savedVersion !== MOCK_VERSION) {
                 localStorage.removeItem('jb_jobs');
                 localStorage.setItem('jb_jobs_version', MOCK_VERSION);
@@ -322,6 +321,17 @@ export const JobProvider = ({ children }) => {
         return savedApps ? JSON.parse(savedApps) : [];
     });
 
+    const [locations, setLocations] = useState(() => {
+        const savedLocations = localStorage.getItem('jb_locations');
+        return savedLocations ? JSON.parse(savedLocations) : [
+            'Remote', 'Bangalore', 'Mumbai', 'Delhi NCR', 'Pune',
+            'Hyderabad', 'Chennai', 'Gurgaon', 'Noida', 'Kolkata', 'Ahmedabad',
+            'Chandigarh', 'Jaipur', 'Kochi', 'Thiruvananthapuram', 'Indore',
+            'Coimbatore', 'Mysore', 'Bhubaneswar', 'Nagpur', 'Lucknow',
+            'Navi Mumbai', 'Surat', 'Vadodara', 'Visakhapatnam'
+        ];
+    });
+
     const [searchFilter, setSearchFilter] = useState({
         keyword: '',
         location: '',
@@ -336,6 +346,10 @@ export const JobProvider = ({ children }) => {
         localStorage.setItem('jb_applications', JSON.stringify(applications));
     }, [applications]);
 
+    useEffect(() => {
+        localStorage.setItem('jb_locations', JSON.stringify(locations));
+    }, [locations]);
+
     const addJob = (newJob) => {
         const jobWithId = {
             ...newJob,
@@ -346,11 +360,26 @@ export const JobProvider = ({ children }) => {
         setJobs(prev => [jobWithId, ...prev]);
     };
 
+    const updateJob = (id, updatedData) => {
+        setJobs(prev => prev.map(job =>
+            job.id === id ? { ...job, ...updatedData } : job
+        ));
+    };
+
+    const deleteJob = (id) => {
+        setJobs(prev => prev.filter(job => job.id !== id));
+        setApplications(prev => prev.filter(app => app.jobId !== id));
+    };
+
     const applyToJob = (application) => {
-        const newApp = { ...application, id: Date.now(), appliedDate: new Date().toISOString() };
+        const newApp = {
+            ...application,
+            id: Date.now(),
+            appliedDate: new Date().toISOString(),
+            status: 'new'
+        };
         setApplications(prev => [...prev, newApp]);
 
-        // Increment applicant count for the job
         setJobs(prev => prev.map(job =>
             job.id === application.jobId
                 ? { ...job, applicants: (job.applicants || 0) + 1 }
@@ -358,6 +387,27 @@ export const JobProvider = ({ children }) => {
         ));
 
         return true;
+    };
+
+    const getApplicationsForJob = (jobId) => {
+        return applications.filter(app => app.jobId === jobId);
+    };
+
+    const addLocation = (newLocation) => {
+        const normalizedLocation = newLocation.trim();
+        if (normalizedLocation) {
+            setLocations(prev => {
+                const lowerNewLocation = normalizedLocation.toLowerCase();
+                if (!prev.some(loc => loc.toLowerCase() === lowerNewLocation)) {
+                    return [...prev, normalizedLocation].sort((a, b) => {
+                        if (a === 'Remote') return -1;
+                        if (b === 'Remote') return 1;
+                        return a.localeCompare(b);
+                    });
+                }
+                return prev;
+            });
+        }
     };
 
     const filteredJobs = jobs.filter(job => {
@@ -407,10 +457,15 @@ export const JobProvider = ({ children }) => {
             jobs,
             filteredJobs,
             applications,
+            locations,
             searchFilter,
             setSearchFilter,
             addJob,
+            updateJob,
+            deleteJob,
             applyToJob,
+            getApplicationsForJob,
+            addLocation,
             user,
             login,
             logout,

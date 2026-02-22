@@ -19,6 +19,7 @@ const Login = () => {
             email: 'alex.johnson@example.com',
             role: isEmployer ? 'employer' : 'job_seeker',
             profileImage: `https://ui-avatars.com/api/?name=${isEmployer ? 'Test+Employer' : 'Test+Job+Seeker'}&background=0D8ABC&color=fff`,
+            ...(isEmployer && { companyName: 'Your Company' }),
             isNewUser: true // Flag to indicate new user for redirection
         };
 

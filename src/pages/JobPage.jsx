@@ -38,6 +38,13 @@ const JobPage = () => {
                 jobId: job.id,
                 jobTitle: job.title,
                 company: job.company,
+                applicantName: user?.name || user?.fullName || 'Anonymous',
+                applicantEmail: user?.email || '',
+                applicantPhone: user?.phone || '',
+                applicantSkills: user?.skills || [],
+                applicantExperience: user?.experience || '',
+                resumeName: user?.resumeName || '',
+                resumeData: user?.resumeData || '',
                 appliedDate: new Date().toISOString()
             });
 

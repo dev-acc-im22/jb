@@ -17,6 +17,7 @@ const Register = () => {
             email: 'new.user@example.com',
             role: isEmployer ? 'employer' : 'job_seeker',
             profileImage: `https://ui-avatars.com/api/?name=New+User&background=0D8ABC&color=fff`,
+            ...(isEmployer && { companyName: 'Your Company' }),
             isNewUser: true
         };
 
