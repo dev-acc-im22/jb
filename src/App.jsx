@@ -9,7 +9,7 @@ import Register from './pages/Register'
 import UserProfile from './pages/UserProfile'
 import RecruiterProfile from './pages/RecruiterProfile';
 import JobPage from './pages/JobPage'
-import MarketingJobs from './pages/MarketingJobs'
+import CategoryJobs from './pages/CategoryJobs'
 import RegisterProfile from './pages/RegisterProfile'
 import RecruiterDashboard from './pages/RecruiterDashboard'
 import PostJobPage from './pages/PostJobPage'
@@ -24,6 +24,8 @@ import SettingsEmailTemplates from './pages/settings/EmailTemplates'
 
 import { JobProvider, useJobs } from './context/JobContext'
 import './App.css'
+
+import JobSeekerHomepage from './pages/JobSeekerHomepage'
 
 const HomeRoute = () => {
   const { user } = useJobs();
@@ -60,7 +62,7 @@ function App() {
               <Route path="/edit-job/:id" element={<PostJobPage />} />
               <Route path="/job/:id/applicants" element={<JobApplicants />} />
               <Route path="/jobs/:id" element={<JobPage />} />
-              <Route path="/marketing-jobs" element={<MarketingJobs />} />
+              <Route path="/jobs/category/:slug" element={<CategoryJobs />} />
               <Route path="/register-profile" element={<RegisterProfile />} />
             </Routes>
           </div>

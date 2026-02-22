@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { Briefcase, User, PlusCircle, LogOut, ChevronDown, Building2, CircleUser, Crown, Settings, HelpCircle, BookOpen, ChevronRight, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Briefcase, User, PlusCircle, LogOut, ChevronDown, Building2, CircleUser } from 'lucide-react';
+import React, { useState } from 'react';
 import Button from '../ui/Button';
 import { useJobs } from '../../context/JobContext';
 
@@ -14,6 +15,19 @@ const Navbar = ({ onPostJob }) => {
         logout();
         setShowDropdown(false);
         navigate('/');
+    };
+
+    const menuItemStyle = {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '1rem',
+        padding: '0.85rem 1rem',
+        borderRadius: '12px',
+        color: '#475569',
+        fontWeight: 600,
+        textDecoration: 'none',
+        fontSize: '0.9rem',
+        transition: 'all 0.2s'
     };
 
     return (
@@ -166,66 +180,133 @@ const Navbar = ({ onPostJob }) => {
                             </button>
 
                             {/* Dropdown Menu */}
-                            {showDropdown && (
-                                <div style={{
-                                    position: 'absolute',
-                                    top: '120%',
-                                    right: 0,
-                                    width: '240px',
-                                    backgroundColor: 'white',
-                                    borderRadius: '12px',
-                                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                                    border: '1px solid var(--neutral-200)',
-                                    padding: '0.5rem',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: '0.2rem',
-                                    zIndex: 1001
-                                }}>
-                                    <Link to={user.role === 'employer' ? '/recruiter-dashboard' : '/profile'} onClick={() => setShowDropdown(false)} style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '0.8rem',
-                                        padding: '0.8rem 1rem',
-                                        borderRadius: '8px',
-                                        color: 'var(--neutral-700)',
-                                        fontWeight: 500,
-                                        textDecoration: 'none',
-                                        transition: 'background-color 0.2s',
-                                        whiteSpace: 'nowrap'
-                                    }}
-                                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--neutral-50)'}
-                                        onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                            <AnimatePresence>
+                                {showDropdown && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                        transition={{ duration: 0.2 }}
+                                        style={{
+                                            position: 'absolute',
+                                            top: '120%',
+                                            right: 0,
+                                            width: '320px',
+                                            backgroundColor: 'white',
+                                            borderRadius: '20px',
+                                            boxShadow: '0 10px 40px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05)',
+                                            padding: '0',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            zIndex: 1001,
+                                            overflow: 'hidden',
+                                            fontFamily: "'Montserrat', sans-serif"
+                                        }}
                                     >
-                                        {user.role !== 'employer' && <User size={32} />}
-                                        {user.role === 'employer' ? 'Recruiter Dashboard' : 'My Profile'}
-                                    </Link>
+                                        {/* Close Button (Mock for reference) */}
+                                        <button
+                                            onClick={() => setShowDropdown(false)}
+                                            style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'none', border: 'none', cursor: 'pointer', color: '#94A3B8' }}
+                                        >
+                                            <X size={20} />
+                                        </button>
 
-                                    <div style={{ height: '1px', backgroundColor: 'var(--neutral-100)', margin: '0.2rem 0' }}></div>
+                                        {/* Profile Header */}
+                                        <div style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+                                            <div style={{ position: 'relative', width: '64px', height: '64px' }}>
+                                                {/* Progress Circle SVGs */}
+                                                <svg style={{ position: 'absolute', top: -4, left: -4, width: '72px', height: '72px', transform: 'rotate(-90deg)' }}>
+                                                    <circle cx="36" cy="36" r="34" fill="none" stroke="#F1F5F9" strokeWidth="3" />
+                                                    <circle cx="36" cy="36" r="34" fill="none" stroke="#EF4444" strokeWidth="3" strokeDasharray="213.6" strokeDashoffset="203" strokeLinecap="round" />
+                                                </svg>
+                                                <div style={{
+                                                    width: '64px', height: '64px', borderRadius: '50%', overflow: 'hidden',
+                                                    backgroundColor: 'var(--primary-50)', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                                }}>
+                                                    {user.profileImage ? (
+                                                        <img src={user.profileImage} alt={user.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                                    ) : (
+                                                        <User size={32} color="var(--primary-600)" />
+                                                    )}
+                                                </div>
+                                                <div style={{
+                                                    position: 'absolute', bottom: -5, left: '50%', transform: 'translateX(-50%)',
+                                                    backgroundColor: 'white', padding: '1px 4px', borderRadius: '100px',
+                                                    fontSize: '10px', fontWeight: 800, color: '#EF4444', boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                                                }}>
+                                                    5%
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800, color: '#0F172A' }}>{user.name || 'User'}</h3>
+                                                <p style={{ margin: '0.1rem 0 0.5rem 0', fontSize: '0.85rem', color: '#64748B' }}>
+                                                    {user.headline || 'Not Mentioned'}
+                                                </p>
+                                                <Link to="/profile" onClick={() => setShowDropdown(false)} style={{ fontSize: '0.85rem', fontWeight: 700, color: '#2563EB', textDecoration: 'none' }}>
+                                                    View & Update Profile
+                                                </Link>
+                                            </div>
+                                        </div>
 
-                                    <button onClick={handleLogout} style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '0.8rem',
-                                        padding: '0.8rem 1rem',
-                                        borderRadius: '8px',
-                                        color: '#ef4444',
-                                        fontWeight: 500,
-                                        width: '100%',
-                                        border: 'none',
-                                        background: 'none',
-                                        cursor: 'pointer',
-                                        textAlign: 'left',
-                                        fontSize: '0.9rem',
-                                        transition: 'background-color 0.2s'
-                                    }}
-                                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#FEF2F2'}
-                                        onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                                    >
-                                        <LogOut size={18} /> Logout
-                                    </button>
-                                </div>
-                            )}
+                                        {/* Upgrade Banner */}
+                                        <div style={{ padding: '0 1rem 1rem' }}>
+                                            <div style={{
+                                                backgroundColor: '#FFF7ED', border: '1px solid #FFEDD5', borderRadius: '16px',
+                                                padding: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                                                cursor: 'pointer'
+                                            }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#F59E0B', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+                                                        <Crown size={18} />
+                                                    </div>
+                                                    <span style={{ fontWeight: 700, fontSize: '0.9rem', color: '#92400E' }}>Upgrade to Board Pro</span>
+                                                </div>
+                                                <ChevronRight size={18} color="#92400E" />
+                                            </div>
+                                        </div>
+
+                                        {/* Divider */}
+                                        <div style={{ height: '1px', backgroundColor: '#F1F5F9', margin: '0 1.5rem' }}></div>
+
+                                        {/* Performance Section */}
+                                        <div style={{ padding: '1.25rem 1.5rem' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1rem' }}>
+                                                <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: '#0F172A' }}>Your profile performance</h4>
+                                                <span style={{ fontSize: '0.75rem', color: '#94A3B8' }}>Last 90 days</span>
+                                            </div>
+
+                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                                                <div style={{ backgroundColor: '#F0F9FF', padding: '1.25rem 0.75rem', borderRadius: '12px', textAlign: 'center' }}>
+                                                    <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.25rem' }}>0</div>
+                                                    <div style={{ fontSize: '0.75rem', color: '#64748B', marginBottom: '0.5rem' }}>Search Appearances</div>
+                                                    <Link to="#" style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textDecoration: 'none' }}>View all</Link>
+                                                </div>
+                                                <div style={{ backgroundColor: '#F0F9FF', padding: '1.25rem 0.75rem', borderRadius: '12px', textAlign: 'center' }}>
+                                                    <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.25rem' }}>0</div>
+                                                    <div style={{ fontSize: '0.75rem', color: '#64748B', marginBottom: '0.5rem' }}>Recruiter Actions</div>
+                                                    <Link to="#" style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textDecoration: 'none' }}>View all</Link>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Menu List */}
+                                        <div style={{ padding: '0.5rem', display: 'flex', flexDirection: 'column', backgroundColor: '#F8FAFC' }}>
+                                            <Link to="#" style={menuItemStyle}>
+                                                <BookOpen size={18} /> JobBoard Blog
+                                            </Link>
+                                            <Link to="/profile" onClick={() => setShowDropdown(false)} style={menuItemStyle}>
+                                                <Settings size={18} /> Settings
+                                            </Link>
+                                            <Link to="#" style={menuItemStyle}>
+                                                <HelpCircle size={18} /> FAQs
+                                            </Link>
+                                            <button onClick={handleLogout} style={{ ...menuItemStyle, color: '#64748B', border: 'none', background: 'none', width: '100%', textAlign: 'left', cursor: 'pointer' }}>
+                                                <LogOut size={18} /> Logout
+                                            </button>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     )}
 

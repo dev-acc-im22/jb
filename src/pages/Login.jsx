@@ -25,6 +25,12 @@ const Login = () => {
 
         login(mockUser);
 
+        const returnUrl = searchParams.get('returnUrl');
+        if (returnUrl) {
+            navigate(returnUrl);
+            return;
+        }
+
         if (mockUser.role === 'employer') {
             navigate('/recruiter-dashboard');
         } else if (mockUser.isNewUser && mockUser.role === 'job_seeker') {
@@ -32,6 +38,11 @@ const Login = () => {
         } else {
             navigate('/'); // Default redirect
         }
+    };
+
+    const handleEmailLogin = (e) => {
+        e.preventDefault();
+        handleGoogleLogin();
     };
 
     return (
@@ -193,6 +204,7 @@ const Login = () => {
 
                 <Button
                     variant="primary"
+                    onClick={handleEmailLogin}
                     style={{
                         marginTop: '0.5rem',
                         background: 'linear-gradient(135deg, #2563EB, #4F46E5)',

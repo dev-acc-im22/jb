@@ -1,17 +1,23 @@
 import React, { useState, useMemo } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { TrendingUp, Search, SlidersHorizontal, Megaphone, BarChart3, Target, Sparkles } from 'lucide-react';
+import { TrendingUp, Search, SlidersHorizontal, BarChart3, Target, Sparkles, AlertCircle } from 'lucide-react';
 import { useJobs } from '../context/JobContext';
 import JobCard from '../components/job/JobCard';
 import Footer from '../components/layout/Footer';
+import { categoryConfig } from '../data/categoryConfig';
 
-const MarketingJobs = () => {
+const CategoryJobs = () => {
+    const { slug } = useParams();
     const { jobs } = useJobs();
+    const config = categoryConfig[slug];
+
     const [searchTerm, setSearchTerm] = useState('');
     const [sortBy, setSortBy] = useState('recent');
 
-    const marketingJobs = useMemo(() => {
-        let filtered = jobs.filter(job => job.category === 'Marketing');
+    const categoryJobs = useMemo(() => {
+        if (!config) return [];
+        let filtered = jobs.filter(job => job.category === config.contextCategory);
 
         // Search filter
         if (searchTerm) {
@@ -41,18 +47,31 @@ const MarketingJobs = () => {
                 return getMin(a.salary) - getMin(b.salary);
             });
         } else if (sortBy === 'applicants') {
-            filtered.sort((a, b) => b.applicants - a.applicants);
+            filtered.sort((a, b) => (b.applicants || 0) - (a.applicants || 0));
         }
         // 'recent' is the default order from MOCK_JOBS
 
         return filtered;
-    }, [jobs, searchTerm, sortBy]);
+    }, [jobs, searchTerm, sortBy, config]);
+
+    if (!config) {
+        return (
+            <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F9FAFB' }}>
+                <AlertCircle size={48} color="#9CA3AF" style={{ marginBottom: '1rem' }} />
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#111827', marginBottom: '0.5rem' }}>Category Not Found</h2>
+                <p style={{ color: '#6B7280', marginBottom: '1.5rem' }}>The job category you're looking for doesn't exist.</p>
+                <Link to="/" style={{ color: '#2563EB', fontWeight: 600, textDecoration: 'none' }}>← Back to home</Link>
+            </div>
+        );
+    }
+
+    const StatIcon = config.icon;
 
     const stats = [
-        { icon: Megaphone, label: 'Open Roles', value: marketingJobs.length, color: '#8B5CF6' },
-        { icon: BarChart3, label: 'Avg. Salary', value: '₹14L+', color: '#06B6D4' },
+        { icon: StatIcon, label: 'Open Roles', value: categoryJobs.length, color: '#8B5CF6' },
+        { icon: BarChart3, label: 'Avg. Salary', value: 'Competitive', color: '#06B6D4' },
         { icon: Target, label: 'Top Companies', value: '10+', color: '#F59E0B' },
-        { icon: Sparkles, label: 'Posted Today', value: marketingJobs.filter(j => j.posted?.includes('hour') || j.posted === 'Just now').length, color: '#10B981' },
+        { icon: Sparkles, label: 'Posted Today', value: categoryJobs.filter(j => j.posted?.includes('hour') || j.posted === 'Just now').length, color: '#10B981' },
     ];
 
     return (
@@ -66,7 +85,7 @@ const MarketingJobs = () => {
                     position: 'relative',
                     overflow: 'hidden',
                     padding: '120px 2rem 60px',
-                    background: 'linear-gradient(135deg, #4C1D95 0%, #1E3A8A 50%, #0F4C75 100%)',
+                    background: config.gradient,
                 }}
             >
                 {/* Animated Background Shapes */}
@@ -111,13 +130,13 @@ const MarketingJobs = () => {
                             lineHeight: 1.2, marginBottom: '1rem', maxWidth: '700px',
                             fontFamily: 'Montserrat, sans-serif'
                         }}>
-                            Digital Marketing Jobs
+                            {config.label}
                         </h1>
                         <p style={{
                             fontSize: '1.15rem', color: 'rgba(255,255,255,0.85)',
                             lineHeight: 1.6, maxWidth: '600px', marginBottom: '2rem'
                         }}>
-                            From SEO to social media, PPC to brand strategy — find your next marketing role at India's top companies.
+                            {config.description}
                         </p>
                     </motion.div>
 
@@ -170,7 +189,7 @@ const MarketingJobs = () => {
                     <Search size={18} color="#9CA3AF" />
                     <input
                         type="text"
-                        placeholder="Search marketing jobs..."
+                        placeholder={`Search ${config.label.toLowerCase()}...`}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         style={{
@@ -212,7 +231,7 @@ const MarketingJobs = () => {
                 maxWidth: '1200px', margin: '0 auto', padding: '1rem 2rem 0',
                 fontSize: '0.9rem', color: '#6B7280', fontWeight: 500
             }}>
-                Showing <strong style={{ color: '#111827' }}>{marketingJobs.length}</strong> marketing jobs
+                Showing <strong style={{ color: '#111827' }}>{categoryJobs.length}</strong> {config.label.toLowerCase()}
             </div>
 
             {/* Job Cards Grid */}
@@ -228,7 +247,7 @@ const MarketingJobs = () => {
                     gap: '1.5rem'
                 }}
             >
-                {marketingJobs.map((job, index) => (
+                {categoryJobs.map((job, index) => (
                     <motion.div
                         key={job.id}
                         initial={{ opacity: 0, y: 20 }}
@@ -239,13 +258,13 @@ const MarketingJobs = () => {
                     </motion.div>
                 ))}
 
-                {marketingJobs.length === 0 && (
+                {categoryJobs.length === 0 && (
                     <div style={{
                         gridColumn: '1 / -1', textAlign: 'center',
                         padding: '4rem 2rem', color: '#9CA3AF'
                     }}>
                         <Search size={48} style={{ marginBottom: '1rem', opacity: 0.4 }} />
-                        <p style={{ fontSize: '1.1rem', fontWeight: 600 }}>No marketing jobs match your search.</p>
+                        <p style={{ fontSize: '1.1rem', fontWeight: 600 }}>No jobs match your search.</p>
                         <p style={{ fontSize: '0.9rem' }}>Try adjusting your search term.</p>
                     </div>
                 )}
@@ -256,4 +275,4 @@ const MarketingJobs = () => {
     );
 };
 
-export default MarketingJobs;
+export default CategoryJobs;

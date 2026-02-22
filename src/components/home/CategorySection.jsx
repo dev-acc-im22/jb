@@ -3,6 +3,7 @@ import { Home, Building2, GraduationCap, Briefcase, Rocket, TrendingUp, Code, Do
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useJobs } from '../../context/JobContext';
+import { getCategoryByContext } from '../../data/categoryConfig';
 
 const categories = [
     { label: 'Remote', icon: Home, value: 'Remote' },
@@ -22,15 +23,10 @@ const CategorySection = () => {
     const { setSearchFilter } = useJobs();
     const navigate = useNavigate();
 
-    const handleCategoryClick = (category) => {
-        if (category === 'Marketing') {
-            navigate('/marketing-jobs');
-            return;
-        }
-        setSearchFilter(prev => ({ ...prev, category: category }));
-        const jobSection = document.getElementById('job-listing-section');
-        if (jobSection) {
-            jobSection.scrollIntoView({ behavior: 'smooth' });
+    const handleCategoryClick = (categoryContext) => {
+        const config = getCategoryByContext(categoryContext);
+        if (config) {
+            navigate(`/jobs/category/${config.slug}`);
         }
     };
 

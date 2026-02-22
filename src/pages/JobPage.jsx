@@ -5,15 +5,27 @@ import { motion } from 'framer-motion';
 import { MapPin, DollarSign, Clock, Briefcase, CheckCircle, ArrowLeft, Share2, Bookmark, Building, Users, GraduationCap, Globe, Zap, AlertCircle } from 'lucide-react';
 import Button from '../components/ui/Button';
 import JobCard from '../components/job/JobCard';
+import { getCategoryByContext } from '../data/categoryConfig';
 
 const JobPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { jobs, applyToJob, user, applications } = useJobs();
+    const { jobs, applyToJob, user, applications, setSearchFilter } = useJobs();
     const [job, setJob] = useState(null);
     const [similarJobs, setSimilarJobs] = useState([]);
     const [isApplying, setIsApplying] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+
+    const handleCategoryClick = (e) => {
+        e.preventDefault();
+        const config = getCategoryByContext(job.category);
+        if (config) {
+            navigate(`/jobs/category/${config.slug}`);
+        } else {
+            setSearchFilter(prev => ({ ...prev, category: job.category }));
+            navigate('/');
+        }
+    };
 
     // Check if user already applied
     const hasApplied = applications.some(app => app.jobId === parseInt(id));
@@ -78,6 +90,18 @@ const JobPage = () => {
                         </Link>
                         <span>/</span>
                         <Link to="/" style={{ color: '#6B7280', textDecoration: 'none' }}>Jobs</Link>
+                        <span>/</span>
+                        <button
+                            onClick={handleCategoryClick}
+                            style={{
+                                background: 'none', border: 'none', padding: 0,
+                                color: '#2563EB', cursor: 'pointer', fontSize: '0.85rem'
+                            }}
+                            onMouseOver={(e) => e.target.style.textDecoration = 'underline'}
+                            onMouseOut={(e) => e.target.style.textDecoration = 'none'}
+                        >
+                            {job.category || 'Category'}
+                        </button>
                         <span>/</span>
                         <span style={{ color: '#111827', fontWeight: 500, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', maxWidth: '300px' }}>{job.title}</span>
                     </div>
@@ -274,13 +298,13 @@ const JobPage = () => {
                                     <p style={{ color: '#6B7280', fontSize: '0.9rem', lineHeight: 1.5 }}>
                                         Your application has been submitted to {job.company}. Good luck!
                                     </p>
-                                    <Link to="/" style={{
+                                    <button onClick={handleCategoryClick} style={{
                                         display: 'inline-block', marginTop: '1rem',
                                         color: '#2563EB', fontWeight: 600, fontSize: '0.9rem',
-                                        textDecoration: 'none'
-                                    }}>
+                                        background: 'none', border: 'none', padding: 0, cursor: 'pointer',
+                                    }} onMouseOver={(e) => e.target.style.textDecoration = 'underline'} onMouseOut={(e) => e.target.style.textDecoration = 'none'}>
                                         Browse more jobs →
-                                    </Link>
+                                    </button>
                                 </div>
                             ) : (
                                 <>
@@ -316,7 +340,7 @@ const JobPage = () => {
                                         variant="primary"
                                         fullWidth
                                         size="lg"
-                                        onClick={user ? handleApply : () => navigate('/login')}
+                                        onClick={user ? handleApply : () => navigate(`/login?returnUrl=/jobs/${job.id}`)}
                                         disabled={isApplying}
                                         style={{
                                             height: '52px', fontSize: '1rem', fontWeight: 700,
@@ -387,7 +411,7 @@ const JobPage = () => {
                     </div>
                 </aside>
             </main>
-        </div>
+        </div >
     );
 };
 
