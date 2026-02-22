@@ -452,6 +452,43 @@ export const JobProvider = ({ children }) => {
         setUser(prev => ({ ...prev, ...updatedData }));
     };
 
+    // Profile Performance Metrics (Simulated Live Data)
+    const [profileMetrics, setProfileMetrics] = useState(() => {
+        try {
+            const savedMetrics = localStorage.getItem('jb_metrics');
+            return savedMetrics ? JSON.parse(savedMetrics) : { searchAppearances: 12, recruiterActions: 3 };
+        } catch (e) {
+            return { searchAppearances: 12, recruiterActions: 3 };
+        }
+    });
+
+    useEffect(() => {
+        localStorage.setItem('jb_metrics', JSON.stringify(profileMetrics));
+    }, [profileMetrics]);
+
+    // Simulate Live Traffic
+    useEffect(() => {
+        if (!user || user.role !== 'job_seeker') return;
+
+        const intervalId = setInterval(() => {
+            setProfileMetrics(prev => {
+                // Adjust increment chances to look natural over time
+                const addAppearance = Math.random() > 0.6; // 40% chance every interval
+                const addAction = Math.random() > 0.9;     // 10% chance every interval
+
+                if (addAppearance || addAction) {
+                    return {
+                        searchAppearances: prev.searchAppearances + (addAppearance ? 1 : 0),
+                        recruiterActions: prev.recruiterActions + (addAction ? 1 : 0)
+                    };
+                }
+                return prev;
+            });
+        }, 8000); // Check every 8 seconds
+
+        return () => clearInterval(intervalId);
+    }, [user]);
+
     return (
         <JobContext.Provider value={{
             jobs,
@@ -469,7 +506,8 @@ export const JobProvider = ({ children }) => {
             user,
             login,
             logout,
-            updateUser
+            updateUser,
+            profileMetrics
         }}>
             {children}
         </JobContext.Provider>

@@ -8,7 +8,7 @@ import { useJobs } from '../../context/JobContext';
 const Navbar = ({ onPostJob }) => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { user, logout } = useJobs();
+    const { user, logout, profileMetrics } = useJobs();
     const [showDropdown, setShowDropdown] = useState(false);
 
     const handleLogout = () => {
@@ -20,8 +20,8 @@ const Navbar = ({ onPostJob }) => {
     const menuItemStyle = {
         display: 'flex',
         alignItems: 'center',
-        gap: '1rem',
-        padding: '0.85rem 1rem',
+        gap: '0.85rem',
+        padding: '0.65rem 1rem',
         borderRadius: '12px',
         color: '#475569',
         fontWeight: 600,
@@ -83,9 +83,22 @@ const Navbar = ({ onPostJob }) => {
                     fontWeight: 600,
                     fontSize: '0.95rem'
                 }}>
-                    <Link to="/" style={{ color: 'var(--neutral-800)' }}>Jobs</Link>
-                    <a href="#">Companies</a>
-                    <a href="#">Services</a>
+                    <Link to="/" style={{ color: 'var(--neutral-800)', textDecoration: 'none' }}>Jobs</Link>
+                    <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Companies</a>
+                    <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Services</a>
+
+                    {/* Items moved from Dropdown */}
+                    <a href="#" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                        <BookOpen size={16} /> Blog
+                    </a>
+                    {user && (
+                        <Link to="/profile" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                            <Settings size={16} /> Settings
+                        </Link>
+                    )}
+                    <a href="#" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                        <HelpCircle size={16} /> FAQs
+                    </a>
                 </div>
 
                 {/* Actions */}
@@ -191,7 +204,7 @@ const Navbar = ({ onPostJob }) => {
                                             position: 'absolute',
                                             top: '120%',
                                             right: 0,
-                                            width: '320px',
+                                            width: '300px',
                                             backgroundColor: 'white',
                                             borderRadius: '20px',
                                             boxShadow: '0 10px 40px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05)',
@@ -212,56 +225,56 @@ const Navbar = ({ onPostJob }) => {
                                         </button>
 
                                         {/* Profile Header */}
-                                        <div style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-                                            <div style={{ position: 'relative', width: '64px', height: '64px' }}>
+                                        <div style={{ padding: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                            <div style={{ position: 'relative', width: '48px', height: '48px' }}>
                                                 {/* Progress Circle SVGs */}
-                                                <svg style={{ position: 'absolute', top: -4, left: -4, width: '72px', height: '72px', transform: 'rotate(-90deg)' }}>
-                                                    <circle cx="36" cy="36" r="34" fill="none" stroke="#F1F5F9" strokeWidth="3" />
-                                                    <circle cx="36" cy="36" r="34" fill="none" stroke="#EF4444" strokeWidth="3" strokeDasharray="213.6" strokeDashoffset="203" strokeLinecap="round" />
+                                                <svg style={{ position: 'absolute', top: -3, left: -3, width: '54px', height: '54px', transform: 'rotate(-90deg)' }}>
+                                                    <circle cx="27" cy="27" r="25" fill="none" stroke="#F1F5F9" strokeWidth="2.5" />
+                                                    <circle cx="27" cy="27" r="25" fill="none" stroke="#EF4444" strokeWidth="2.5" strokeDasharray="157" strokeDashoffset="149" strokeLinecap="round" />
                                                 </svg>
                                                 <div style={{
-                                                    width: '64px', height: '64px', borderRadius: '50%', overflow: 'hidden',
+                                                    width: '48px', height: '48px', borderRadius: '50%', overflow: 'hidden',
                                                     backgroundColor: 'var(--primary-50)', display: 'flex', alignItems: 'center', justifyContent: 'center'
                                                 }}>
                                                     {user.profileImage ? (
                                                         <img src={user.profileImage} alt={user.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                                     ) : (
-                                                        <User size={32} color="var(--primary-600)" />
+                                                        <User size={24} color="var(--primary-600)" />
                                                     )}
                                                 </div>
                                                 <div style={{
-                                                    position: 'absolute', bottom: -5, left: '50%', transform: 'translateX(-50%)',
-                                                    backgroundColor: 'white', padding: '1px 4px', borderRadius: '100px',
-                                                    fontSize: '10px', fontWeight: 800, color: '#EF4444', boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                                                    position: 'absolute', bottom: -6, left: '50%', transform: 'translateX(-50%)',
+                                                    backgroundColor: 'white', padding: '1px 3px', borderRadius: '100px',
+                                                    fontSize: '9px', fontWeight: 800, color: '#EF4444', boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                                                 }}>
                                                     5%
                                                 </div>
                                             </div>
                                             <div>
-                                                <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800, color: '#0F172A' }}>{user.name || 'User'}</h3>
-                                                <p style={{ margin: '0.1rem 0 0.5rem 0', fontSize: '0.85rem', color: '#64748B' }}>
+                                                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 800, color: '#0F172A' }}>{user.name || 'User'}</h3>
+                                                <p style={{ margin: '0.1rem 0 0.25rem 0', fontSize: '0.8rem', color: '#64748B', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '180px' }}>
                                                     {user.headline || 'Not Mentioned'}
                                                 </p>
-                                                <Link to="/profile" onClick={() => setShowDropdown(false)} style={{ fontSize: '0.85rem', fontWeight: 700, color: '#2563EB', textDecoration: 'none' }}>
+                                                <Link to="/profile" onClick={() => setShowDropdown(false)} style={{ fontSize: '0.8rem', fontWeight: 700, color: '#2563EB', textDecoration: 'none' }}>
                                                     View & Update Profile
                                                 </Link>
                                             </div>
                                         </div>
 
                                         {/* Upgrade Banner */}
-                                        <div style={{ padding: '0 1rem 1rem' }}>
+                                        <div style={{ padding: '0 1rem 0.6rem' }}>
                                             <div style={{
-                                                backgroundColor: '#FFF7ED', border: '1px solid #FFEDD5', borderRadius: '16px',
-                                                padding: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                                                backgroundColor: '#FFF7ED', border: '1px solid #FFEDD5', borderRadius: '12px',
+                                                padding: '0.6rem 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                                                 cursor: 'pointer'
                                             }}>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#F59E0B', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
-                                                        <Crown size={18} />
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                                                    <div style={{ width: '28px', height: '28px', borderRadius: '8px', backgroundColor: '#F59E0B', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+                                                        <Crown size={16} />
                                                     </div>
-                                                    <span style={{ fontWeight: 700, fontSize: '0.9rem', color: '#92400E' }}>Upgrade to Board Pro</span>
+                                                    <span style={{ fontWeight: 700, fontSize: '0.85rem', color: '#92400E' }}>Upgrade to Board Pro</span>
                                                 </div>
-                                                <ChevronRight size={18} color="#92400E" />
+                                                <ChevronRight size={16} color="#92400E" />
                                             </div>
                                         </div>
 
@@ -269,21 +282,37 @@ const Navbar = ({ onPostJob }) => {
                                         <div style={{ height: '1px', backgroundColor: '#F1F5F9', margin: '0 1.5rem' }}></div>
 
                                         {/* Performance Section */}
-                                        <div style={{ padding: '1.25rem 1.5rem' }}>
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1rem' }}>
-                                                <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: '#0F172A' }}>Your profile performance</h4>
-                                                <span style={{ fontSize: '0.75rem', color: '#94A3B8' }}>Last 90 days</span>
+                                        <div style={{ padding: '1rem 1rem' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.75rem' }}>
+                                                <h4 style={{ margin: 0, fontSize: '0.9rem', fontWeight: 700, color: '#0F172A' }}>Your profile performance</h4>
+                                                <span style={{ fontSize: '0.7rem', color: '#94A3B8' }}>Last 90 days</span>
                                             </div>
 
-                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-                                                <div style={{ backgroundColor: '#F0F9FF', padding: '1.25rem 0.75rem', borderRadius: '12px', textAlign: 'center' }}>
-                                                    <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.25rem' }}>0</div>
-                                                    <div style={{ fontSize: '0.75rem', color: '#64748B', marginBottom: '0.5rem' }}>Search Appearances</div>
+                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
+                                                <div style={{ backgroundColor: '#F0F9FF', padding: '0.75rem 0.5rem', borderRadius: '12px', textAlign: 'center' }}>
+                                                    <motion.div
+                                                        key={`sa-${profileMetrics?.searchAppearances}`}
+                                                        initial={{ scale: 1.2, color: '#3B82F6' }}
+                                                        animate={{ scale: 1, color: '#0F172A' }}
+                                                        transition={{ duration: 0.4 }}
+                                                        style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.1rem', display: 'inline-block' }}
+                                                    >
+                                                        {profileMetrics?.searchAppearances || 0}
+                                                    </motion.div>
+                                                    <div style={{ fontSize: '0.7rem', color: '#64748B', marginBottom: '0.25rem' }}>Search Appearances</div>
                                                     <Link to="#" style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textDecoration: 'none' }}>View all</Link>
                                                 </div>
-                                                <div style={{ backgroundColor: '#F0F9FF', padding: '1.25rem 0.75rem', borderRadius: '12px', textAlign: 'center' }}>
-                                                    <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.25rem' }}>0</div>
-                                                    <div style={{ fontSize: '0.75rem', color: '#64748B', marginBottom: '0.5rem' }}>Recruiter Actions</div>
+                                                <div style={{ backgroundColor: '#F0F9FF', padding: '0.75rem 0.5rem', borderRadius: '12px', textAlign: 'center' }}>
+                                                    <motion.div
+                                                        key={`ra-${profileMetrics?.recruiterActions}`}
+                                                        initial={{ scale: 1.2, color: '#3B82F6' }}
+                                                        animate={{ scale: 1, color: '#0F172A' }}
+                                                        transition={{ duration: 0.4 }}
+                                                        style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.1rem', display: 'inline-block' }}
+                                                    >
+                                                        {profileMetrics?.recruiterActions || 0}
+                                                    </motion.div>
+                                                    <div style={{ fontSize: '0.7rem', color: '#64748B', marginBottom: '0.25rem' }}>Recruiter <br />Actions</div>
                                                     <Link to="#" style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textDecoration: 'none' }}>View all</Link>
                                                 </div>
                                             </div>
@@ -291,15 +320,7 @@ const Navbar = ({ onPostJob }) => {
 
                                         {/* Menu List */}
                                         <div style={{ padding: '0.5rem', display: 'flex', flexDirection: 'column', backgroundColor: '#F8FAFC' }}>
-                                            <Link to="#" style={menuItemStyle}>
-                                                <BookOpen size={18} /> JobBoard Blog
-                                            </Link>
-                                            <Link to="/profile" onClick={() => setShowDropdown(false)} style={menuItemStyle}>
-                                                <Settings size={18} /> Settings
-                                            </Link>
-                                            <Link to="#" style={menuItemStyle}>
-                                                <HelpCircle size={18} /> FAQs
-                                            </Link>
+                                            {/* Blog, Settings, and FAQs moved to main Navbar */}
                                             <button onClick={handleLogout} style={{ ...menuItemStyle, color: '#64748B', border: 'none', background: 'none', width: '100%', textAlign: 'left', cursor: 'pointer' }}>
                                                 <LogOut size={18} /> Logout
                                             </button>
