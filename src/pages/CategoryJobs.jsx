@@ -146,9 +146,9 @@ const CategoryJobs = () => {
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.4, duration: 0.5 }}
                         style={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-                            gap: '1rem', maxWidth: '700px'
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            gap: '1rem', maxWidth: '750px'
                         }}
                     >
                         {stats.map((stat, i) => (
@@ -156,6 +156,7 @@ const CategoryJobs = () => {
                                 key={i}
                                 whileHover={{ scale: 1.05, y: -4 }}
                                 style={{
+                                    flex: stat.value === 'Competitive' ? '1.5 1 180px' : '1 1 130px',
                                     backgroundColor: 'rgba(255,255,255,0.12)',
                                     backdropFilter: 'blur(10px)',
                                     padding: '1rem', borderRadius: '16px',

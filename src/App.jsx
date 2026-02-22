@@ -10,6 +10,7 @@ import UserProfile from './pages/UserProfile'
 import RecruiterProfile from './pages/RecruiterProfile';
 import JobPage from './pages/JobPage'
 import CategoryJobs from './pages/CategoryJobs'
+import SearchResults from './pages/SearchResults'
 import RegisterProfile from './pages/RegisterProfile'
 import RecruiterDashboard from './pages/RecruiterDashboard'
 import PostJobPage from './pages/PostJobPage'
@@ -63,6 +64,7 @@ function App() {
               <Route path="/job/:id/applicants" element={<JobApplicants />} />
               <Route path="/jobs/:id" element={<JobPage />} />
               <Route path="/jobs/category/:slug" element={<CategoryJobs />} />
+              <Route path="/search" element={<SearchResults />} />
               <Route path="/register-profile" element={<RegisterProfile />} />
             </Routes>
           </div>

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { Search, MapPin, Sparkles, ArrowRight, Briefcase, Building2, Users, TrendingUp } from 'lucide-react';
 import Button from '../ui/Button';
 import { useJobs } from '../../context/JobContext';
@@ -8,8 +9,15 @@ const ROTATING_WORDS = ['Effortlessly', 'Seamlessly', 'Confidently', 'Instantly'
 const TRUSTED_BY = ['Google', 'Microsoft', 'Amazon', 'Flipkart', 'Razorpay', 'Swiggy'];
 
 const Hero = () => {
-    const { searchFilter, setSearchFilter } = useJobs();
+    const { jobs, searchFilter, setSearchFilter } = useJobs();
+    const navigate = useNavigate();
     const [wordIndex, setWordIndex] = useState(0);
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    const [activeSuggestions, setActiveSuggestions] = useState([]);
+    const searchContainerRef = useRef(null);
+    const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
+    const [activeLocationSuggestions, setActiveLocationSuggestions] = useState([]);
+    const locationContainerRef = useRef(null);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -18,17 +26,71 @@ const Hero = () => {
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+                setShowSuggestions(false);
+            }
+            if (locationContainerRef.current && !locationContainerRef.current.contains(event.target)) {
+                setShowLocationSuggestions(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => window.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
     const handleSearchChange = (e) => {
-        setSearchFilter(prev => ({ ...prev, keyword: e.target.value }));
+        const query = e.target.value;
+        setSearchFilter(prev => ({ ...prev, keyword: query }));
+
+        if (query.trim().length > 0) {
+            const term = query.toLowerCase();
+            const matches = jobs
+                .map(job => job.title)
+                .filter(title => title.toLowerCase().includes(term))
+                // Ensure unique titles
+                .filter((value, index, self) => self.indexOf(value) === index)
+                .slice(0, 5); // Max 5 suggestions
+
+            setActiveSuggestions(matches);
+            setShowSuggestions(matches.length > 0);
+        } else {
+            setShowSuggestions(false);
+        }
+    };
+
+    const handleSuggestionClick = (suggestion) => {
+        setSearchFilter(prev => ({ ...prev, keyword: suggestion }));
+        setShowSuggestions(false);
     };
 
     const handleLocationChange = (e) => {
-        setSearchFilter(prev => ({ ...prev, location: e.target.value }));
+        const query = e.target.value;
+        setSearchFilter(prev => ({ ...prev, location: query }));
+
+        if (query.trim().length > 0) {
+            const term = query.toLowerCase();
+            const matches = jobs
+                .map(job => job.location)
+                .filter(location => location && location.toLowerCase().includes(term))
+                // Ensure unique locations
+                .filter((value, index, self) => self.indexOf(value) === index)
+                .slice(0, 5); // Max 5 suggestions
+
+            setActiveLocationSuggestions(matches);
+            setShowLocationSuggestions(matches.length > 0);
+        } else {
+            setShowLocationSuggestions(false);
+        }
     };
 
-    const scrollToJobs = () => {
-        const jobSection = document.getElementById('job-listing-section');
-        if (jobSection) jobSection.scrollIntoView({ behavior: 'smooth' });
+    const handleLocationSuggestionClick = (suggestion) => {
+        setSearchFilter(prev => ({ ...prev, location: suggestion }));
+        setShowLocationSuggestions(false);
+    };
+
+    const handleSearchSubmit = () => {
+        navigate('/search');
     };
 
     return (
@@ -96,7 +158,7 @@ const Hero = () => {
                 <motion.div
                     key={i}
                     initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 0.6, scale: 1 }}
+                    animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.8 + item.delay, duration: 0.5 }}
                     style={{
                         position: 'absolute',
@@ -109,8 +171,18 @@ const Hero = () => {
                     }}
                 >
                     <motion.span
-                        animate={{ y: [0, -12, 0], rotate: [0, 5, -5, 0] }}
-                        transition={{ duration: item.duration, repeat: Infinity, ease: 'easeInOut', delay: item.delay }}
+                        animate={{
+                            y: [0, -35, 0],
+                            x: [0, i % 2 === 0 ? 25 : -25, 0],
+                            rotate: [0, i % 2 === 0 ? 30 : -30, 0],
+                            scale: [1, 1.25, 1]
+                        }}
+                        transition={{
+                            duration: item.duration,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
+                            delay: item.delay
+                        }}
                         style={{ display: 'block' }}
                     >
                         {item.emoji}
@@ -211,44 +283,146 @@ const Hero = () => {
                         maxWidth: '780px',
                         width: '100%',
                         margin: '0 auto',
-                        background: 'rgba(255,255,255,0.85)',
-                        backdropFilter: 'blur(16px)',
-                        WebkitBackdropFilter: 'blur(16px)',
-                        border: '1px solid rgba(0,0,0,0.08)',
-                        boxShadow: '0 20px 60px rgba(37,99,235,0.12), 0 1px 3px rgba(0,0,0,0.04)'
+                        background: '#FFFFFF',
+                        border: '1.5px solid rgba(0,0,0,0.15)',
+                        boxShadow: '0 25px 50px -12px rgba(0,0,0,0.1), 0 0 20px rgba(37,99,235,0.08)'
                     }}
                 >
-                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', padding: '0.6rem 1.25rem', gap: '0.6rem' }}>
+                    <div ref={searchContainerRef} style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', padding: '0.6rem 1.25rem', gap: '0.6rem' }}>
                         <Search size={20} color="#94A3B8" />
                         <input
-                            placeholder="Job title, keywords, or company"
+                            placeholder="Enter Job Title / Designation "
                             value={searchFilter.keyword}
                             onChange={handleSearchChange}
+                            onFocus={() => {
+                                if (activeSuggestions.length > 0) setShowSuggestions(true);
+                            }}
                             style={{
                                 width: '100%', border: 'none', outline: 'none', background: 'none',
                                 fontSize: '0.95rem', fontWeight: 500, color: '#1E293B',
                                 fontFamily: "'Montserrat', sans-serif"
                             }}
                         />
+
+                        {/* Autocomplete Dropdown */}
+                        <AnimatePresence>
+                            {showSuggestions && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 10 }}
+                                    transition={{ duration: 0.2 }}
+                                    style={{
+                                        position: 'absolute',
+                                        top: '100%',
+                                        left: 0,
+                                        width: '100%',
+                                        background: '#FFFFFF',
+                                        borderRadius: '12px',
+                                        marginTop: '0.5rem',
+                                        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+                                        border: '1px solid rgba(0,0,0,0.08)',
+                                        zIndex: 50,
+                                        overflow: 'hidden',
+                                        textAlign: 'left'
+                                    }}
+                                >
+                                    {activeSuggestions.map((suggestion, index) => (
+                                        <div
+                                            key={index}
+                                            onClick={() => handleSuggestionClick(suggestion)}
+                                            style={{
+                                                padding: '0.75rem 1.25rem',
+                                                cursor: 'pointer',
+                                                fontSize: '0.9rem',
+                                                color: '#1E293B',
+                                                fontWeight: 500,
+                                                borderBottom: index < activeSuggestions.length - 1 ? '1px solid #F1F5F9' : 'none',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.5rem'
+                                            }}
+                                            onMouseOver={(e) => Object.assign(e.currentTarget.style, { background: '#F8FAFC', color: '#2563EB' })}
+                                            onMouseOut={(e) => Object.assign(e.currentTarget.style, { background: '#FFFFFF', color: '#1E293B' })}
+                                        >
+                                            <Search size={14} color="#94A3B8" />
+                                            {suggestion}
+                                        </div>
+                                    ))}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                     <div style={{ width: '1px', backgroundColor: '#E2E8F0', margin: '0.6rem 0' }} />
-                    <div style={{ flex: 0.7, display: 'flex', alignItems: 'center', padding: '0.6rem 1.25rem', gap: '0.6rem' }}>
+                    <div ref={locationContainerRef} style={{ flex: 0.7, position: 'relative', display: 'flex', alignItems: 'center', padding: '0.6rem 1.25rem', gap: '0.6rem' }}>
                         <MapPin size={20} color="#94A3B8" />
                         <input
                             placeholder="City or remote"
                             value={searchFilter.location}
                             onChange={handleLocationChange}
+                            onFocus={() => {
+                                if (activeLocationSuggestions.length > 0) setShowLocationSuggestions(true);
+                            }}
                             style={{
                                 width: '100%', border: 'none', outline: 'none', background: 'none',
                                 fontSize: '0.95rem', fontWeight: 500, color: '#1E293B',
                                 fontFamily: "'Montserrat', sans-serif"
                             }}
                         />
+
+                        {/* Location Autocomplete Dropdown */}
+                        <AnimatePresence>
+                            {showLocationSuggestions && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 10 }}
+                                    transition={{ duration: 0.2 }}
+                                    style={{
+                                        position: 'absolute',
+                                        top: '100%',
+                                        left: 0,
+                                        width: '100%',
+                                        background: '#FFFFFF',
+                                        borderRadius: '12px',
+                                        marginTop: '0.5rem',
+                                        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+                                        border: '1px solid rgba(0,0,0,0.08)',
+                                        zIndex: 50,
+                                        overflow: 'hidden',
+                                        textAlign: 'left'
+                                    }}
+                                >
+                                    {activeLocationSuggestions.map((suggestion, index) => (
+                                        <div
+                                            key={index}
+                                            onClick={() => handleLocationSuggestionClick(suggestion)}
+                                            style={{
+                                                padding: '0.75rem 1.25rem',
+                                                cursor: 'pointer',
+                                                fontSize: '0.9rem',
+                                                color: '#1E293B',
+                                                fontWeight: 500,
+                                                borderBottom: index < activeLocationSuggestions.length - 1 ? '1px solid #F1F5F9' : 'none',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.5rem'
+                                            }}
+                                            onMouseOver={(e) => Object.assign(e.currentTarget.style, { background: '#F8FAFC', color: '#2563EB' })}
+                                            onMouseOut={(e) => Object.assign(e.currentTarget.style, { background: '#FFFFFF', color: '#1E293B' })}
+                                        >
+                                            <MapPin size={14} color="#94A3B8" />
+                                            {suggestion}
+                                        </div>
+                                    ))}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                     <motion.button
                         whileHover={{ scale: 1.03, boxShadow: '0 8px 25px rgba(37,99,235,0.3)' }}
                         whileTap={{ scale: 0.97 }}
-                        onClick={scrollToJobs}
+                        onClick={handleSearchSubmit}
                         style={{
                             padding: '0.85rem 2rem', borderRadius: '14px', border: 'none',
                             background: 'linear-gradient(135deg, #2563EB, #4F46E5)',
@@ -277,7 +451,7 @@ const Hero = () => {
                             whileHover={{ color: '#2563EB', cursor: 'pointer' }}
                             onClick={() => {
                                 setSearchFilter(prev => ({ ...prev, keyword: tag }));
-                                scrollToJobs();
+                                navigate('/search');
                             }}
                             style={{ textDecoration: 'underline', textUnderlineOffset: '3px' }}
                         >
