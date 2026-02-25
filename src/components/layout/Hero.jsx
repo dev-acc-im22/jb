@@ -213,7 +213,7 @@ const Hero = () => {
                     }}
                 >
                     <Sparkles size={16} />
-                    #1 Platform for Careers
+                    #1 Platform for Career Building
                 </motion.div>
 
                 {/* Heading with Rotating Word */}
@@ -257,207 +257,221 @@ const Hero = () => {
                     </span>
                 </h1>
 
-                {/* Subtitle */}
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                    style={{
-                        fontSize: '1.2rem', color: '#64748B', lineHeight: 1.7,
-                        maxWidth: '560px', margin: '0 auto 2.5rem'
-                    }}
-                >
-                    Explore thousands of opportunities from top companies and startups worldwide. Your next big career move starts here.
-                </motion.p>
 
-                {/* Search Bar — Glassmorphic */}
+                {/* Boxed Search & Tags Section */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 0.5 }}
+                    transition={{ delay: 0.5, duration: 0.7 }}
                     style={{
-                        padding: '0.5rem',
-                        borderRadius: '20px',
-                        display: 'flex',
-                        gap: '0.5rem',
-                        maxWidth: '780px',
+                        background: 'rgba(255, 255, 255, 0.65)',
+                        backdropFilter: 'blur(16px)',
+                        borderRadius: '32px',
+                        padding: '3rem 2.5rem',
+                        marginTop: '3.5rem',
+                        border: '1px solid rgba(255, 255, 255, 0.7)',
+                        boxShadow: '0 32px 64px -12px rgba(0,0,0,0.14), 0 0 40px rgba(0,0,0,0.05)',
                         width: '100%',
-                        margin: '0 auto',
-                        background: '#FFFFFF',
-                        border: '1.5px solid rgba(0,0,0,0.15)',
-                        boxShadow: '0 25px 50px -12px rgba(0,0,0,0.1), 0 0 20px rgba(37,99,235,0.08)'
+                        maxWidth: '880px',
+                        margin: '3.5rem auto 0',
+                        position: 'relative',
+                        zIndex: 5
                     }}
                 >
-                    <div ref={searchContainerRef} style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', padding: '0.6rem 1.25rem', gap: '0.6rem' }}>
-                        <Search size={20} color="#94A3B8" />
-                        <input
-                            placeholder="Enter Job Title / Designation "
-                            value={searchFilter.keyword}
-                            onChange={handleSearchChange}
-                            onFocus={() => {
-                                if (activeSuggestions.length > 0) setShowSuggestions(true);
-                            }}
-                            style={{
-                                width: '100%', border: 'none', outline: 'none', background: 'none',
-                                fontSize: '0.95rem', fontWeight: 500, color: '#1E293B',
-                                fontFamily: "'Montserrat', sans-serif"
-                            }}
-                        />
-
-                        {/* Autocomplete Dropdown */}
-                        <AnimatePresence>
-                            {showSuggestions && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 10 }}
-                                    transition={{ duration: 0.2 }}
-                                    style={{
-                                        position: 'absolute',
-                                        top: '100%',
-                                        left: 0,
-                                        width: '100%',
-                                        background: '#FFFFFF',
-                                        borderRadius: '12px',
-                                        marginTop: '0.5rem',
-                                        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-                                        border: '1px solid rgba(0,0,0,0.08)',
-                                        zIndex: 50,
-                                        overflow: 'hidden',
-                                        textAlign: 'left'
-                                    }}
-                                >
-                                    {activeSuggestions.map((suggestion, index) => (
-                                        <div
-                                            key={index}
-                                            onClick={() => handleSuggestionClick(suggestion)}
-                                            style={{
-                                                padding: '0.75rem 1.25rem',
-                                                cursor: 'pointer',
-                                                fontSize: '0.9rem',
-                                                color: '#1E293B',
-                                                fontWeight: 500,
-                                                borderBottom: index < activeSuggestions.length - 1 ? '1px solid #F1F5F9' : 'none',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: '0.5rem'
-                                            }}
-                                            onMouseOver={(e) => Object.assign(e.currentTarget.style, { background: '#F8FAFC', color: '#2563EB' })}
-                                            onMouseOut={(e) => Object.assign(e.currentTarget.style, { background: '#FFFFFF', color: '#1E293B' })}
-                                        >
-                                            <Search size={14} color="#94A3B8" />
-                                            {suggestion}
-                                        </div>
-                                    ))}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-                    <div style={{ width: '1px', backgroundColor: '#E2E8F0', margin: '0.6rem 0' }} />
-                    <div ref={locationContainerRef} style={{ flex: 0.7, position: 'relative', display: 'flex', alignItems: 'center', padding: '0.6rem 1.25rem', gap: '0.6rem' }}>
-                        <MapPin size={20} color="#94A3B8" />
-                        <input
-                            placeholder="City or remote"
-                            value={searchFilter.location}
-                            onChange={handleLocationChange}
-                            onFocus={() => {
-                                if (activeLocationSuggestions.length > 0) setShowLocationSuggestions(true);
-                            }}
-                            style={{
-                                width: '100%', border: 'none', outline: 'none', background: 'none',
-                                fontSize: '0.95rem', fontWeight: 500, color: '#1E293B',
-                                fontFamily: "'Montserrat', sans-serif"
-                            }}
-                        />
-
-                        {/* Location Autocomplete Dropdown */}
-                        <AnimatePresence>
-                            {showLocationSuggestions && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 10 }}
-                                    transition={{ duration: 0.2 }}
-                                    style={{
-                                        position: 'absolute',
-                                        top: '100%',
-                                        left: 0,
-                                        width: '100%',
-                                        background: '#FFFFFF',
-                                        borderRadius: '12px',
-                                        marginTop: '0.5rem',
-                                        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-                                        border: '1px solid rgba(0,0,0,0.08)',
-                                        zIndex: 50,
-                                        overflow: 'hidden',
-                                        textAlign: 'left'
-                                    }}
-                                >
-                                    {activeLocationSuggestions.map((suggestion, index) => (
-                                        <div
-                                            key={index}
-                                            onClick={() => handleLocationSuggestionClick(suggestion)}
-                                            style={{
-                                                padding: '0.75rem 1.25rem',
-                                                cursor: 'pointer',
-                                                fontSize: '0.9rem',
-                                                color: '#1E293B',
-                                                fontWeight: 500,
-                                                borderBottom: index < activeLocationSuggestions.length - 1 ? '1px solid #F1F5F9' : 'none',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: '0.5rem'
-                                            }}
-                                            onMouseOver={(e) => Object.assign(e.currentTarget.style, { background: '#F8FAFC', color: '#2563EB' })}
-                                            onMouseOut={(e) => Object.assign(e.currentTarget.style, { background: '#FFFFFF', color: '#1E293B' })}
-                                        >
-                                            <MapPin size={14} color="#94A3B8" />
-                                            {suggestion}
-                                        </div>
-                                    ))}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-                    <motion.button
-                        whileHover={{ scale: 1.03, boxShadow: '0 8px 25px rgba(37,99,235,0.3)' }}
-                        whileTap={{ scale: 0.97 }}
-                        onClick={handleSearchSubmit}
+                    {/* Search Bar — Glassmorphic */}
+                    <div
                         style={{
-                            padding: '0.85rem 2rem', borderRadius: '14px', border: 'none',
-                            background: 'linear-gradient(135deg, #2563EB, #4F46E5)',
-                            color: 'white', fontSize: '0.95rem', fontWeight: 700,
-                            cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem',
-                            boxShadow: '0 4px 16px rgba(37,99,235,0.25)',
-                            fontFamily: "'Montserrat', sans-serif",
-                            whiteSpace: 'nowrap'
+                            padding: '0.5rem',
+                            borderRadius: '20px',
+                            display: 'flex',
+                            gap: '0.5rem',
+                            maxWidth: '780px',
+                            width: '100%',
+                            margin: '0 auto',
+                            background: '#FFFFFF',
+                            border: '1.5px solid rgba(0,0,0,0.25)',
+                            boxShadow: '0 20px 40px rgba(0,0,0,0.12)'
                         }}
                     >
-                        Search <ArrowRight size={18} />
-                    </motion.button>
-                </motion.div>
+                        <div ref={searchContainerRef} style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', padding: '0.6rem 1.25rem', gap: '0.6rem' }}>
+                            <Search size={20} color="#94A3B8" />
+                            <input
+                                placeholder="Enter Job Title / Designation "
+                                value={searchFilter.keyword}
+                                onChange={handleSearchChange}
+                                onFocus={() => {
+                                    if (activeSuggestions.length > 0) setShowSuggestions(true);
+                                }}
+                                style={{
+                                    width: '100%', border: 'none', outline: 'none', background: 'none',
+                                    fontSize: '0.95rem', fontWeight: 500, color: '#1E293B',
+                                    fontFamily: "'Montserrat', sans-serif"
+                                }}
+                            />
 
-                {/* Quick Tags */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.7 }}
-                    style={{ marginTop: '1.25rem', display: 'flex', gap: '0.5rem', justifyContent: 'center', flexWrap: 'wrap', fontSize: '0.8rem', color: '#94A3B8' }}
-                >
-                    <span>Popular:</span>
-                    {['Remote', 'Full Stack', 'Data Science', 'Product Manager', 'UI/UX'].map(tag => (
-                        <motion.span
-                            key={tag}
-                            whileHover={{ color: '#2563EB', cursor: 'pointer' }}
-                            onClick={() => {
-                                setSearchFilter(prev => ({ ...prev, keyword: tag }));
-                                navigate('/search');
+                            {/* Autocomplete Dropdown */}
+                            <AnimatePresence>
+                                {showSuggestions && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: 10 }}
+                                        transition={{ duration: 0.2 }}
+                                        style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            left: 0,
+                                            width: '100%',
+                                            background: '#FFFFFF',
+                                            borderRadius: '12px',
+                                            marginTop: '0.5rem',
+                                            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+                                            border: '1px solid rgba(0,0,0,0.08)',
+                                            zIndex: 50,
+                                            overflow: 'hidden',
+                                            textAlign: 'left'
+                                        }}
+                                    >
+                                        {activeSuggestions.map((suggestion, index) => (
+                                            <div
+                                                key={index}
+                                                onClick={() => handleSuggestionClick(suggestion)}
+                                                style={{
+                                                    padding: '0.75rem 1.25rem',
+                                                    cursor: 'pointer',
+                                                    fontSize: '0.9rem',
+                                                    color: '#1E293B',
+                                                    fontWeight: 500,
+                                                    borderBottom: index < activeSuggestions.length - 1 ? '1px solid #F1F5F9' : 'none',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '0.5rem'
+                                                }}
+                                                onMouseOver={(e) => Object.assign(e.currentTarget.style, { background: '#F8FAFC', color: '#2563EB' })}
+                                                onMouseOut={(e) => Object.assign(e.currentTarget.style, { background: '#FFFFFF', color: '#1E293B' })}
+                                            >
+                                                <Search size={14} color="#94A3B8" />
+                                                {suggestion}
+                                            </div>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+                        <div style={{ width: '1px', backgroundColor: '#E2E8F0', margin: '0.6rem 0' }} />
+                        <div ref={locationContainerRef} style={{ flex: 0.7, position: 'relative', display: 'flex', alignItems: 'center', padding: '0.6rem 1.25rem', gap: '0.6rem' }}>
+                            <MapPin size={20} color="#94A3B8" />
+                            <input
+                                placeholder="City or remote"
+                                value={searchFilter.location}
+                                onChange={handleLocationChange}
+                                onFocus={() => {
+                                    if (activeLocationSuggestions.length > 0) setShowLocationSuggestions(true);
+                                }}
+                                style={{
+                                    width: '100%', border: 'none', outline: 'none', background: 'none',
+                                    fontSize: '0.95rem', fontWeight: 500, color: '#1E293B',
+                                    fontFamily: "'Montserrat', sans-serif"
+                                }}
+                            />
+
+                            {/* Location Autocomplete Dropdown */}
+                            <AnimatePresence>
+                                {showLocationSuggestions && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: 10 }}
+                                        transition={{ duration: 0.2 }}
+                                        style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            left: 0,
+                                            width: '100%',
+                                            background: '#FFFFFF',
+                                            borderRadius: '12px',
+                                            marginTop: '0.5rem',
+                                            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+                                            border: '1px solid rgba(0,0,0,0.08)',
+                                            zIndex: 50,
+                                            overflow: 'hidden',
+                                            textAlign: 'left'
+                                        }}
+                                    >
+                                        {activeLocationSuggestions.map((suggestion, index) => (
+                                            <div
+                                                key={index}
+                                                onClick={() => handleLocationSuggestionClick(suggestion)}
+                                                style={{
+                                                    padding: '0.75rem 1.25rem',
+                                                    cursor: 'pointer',
+                                                    fontSize: '0.9rem',
+                                                    color: '#1E293B',
+                                                    fontWeight: 500,
+                                                    borderBottom: index < activeLocationSuggestions.length - 1 ? '1px solid #F1F5F9' : 'none',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '0.5rem'
+                                                }}
+                                                onMouseOver={(e) => Object.assign(e.currentTarget.style, { background: '#F8FAFC', color: '#2563EB' })}
+                                                onMouseOut={(e) => Object.assign(e.currentTarget.style, { background: '#FFFFFF', color: '#1E293B' })}
+                                            >
+                                                <MapPin size={14} color="#94A3B8" />
+                                                {suggestion}
+                                            </div>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+                        <motion.button
+                            whileHover={{ scale: 1.03, boxShadow: '0 8px 25px rgba(37,99,235,0.3)' }}
+                            whileTap={{ scale: 0.97 }}
+                            onClick={handleSearchSubmit}
+                            style={{
+                                padding: '0.85rem 2rem', borderRadius: '14px', border: 'none',
+                                background: 'linear-gradient(135deg, #2563EB, #4F46E5)',
+                                color: 'white', fontSize: '0.95rem', fontWeight: 700,
+                                cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem',
+                                boxShadow: '0 4px 16px rgba(37,99,235,0.25)',
+                                fontFamily: "'Montserrat', sans-serif",
+                                whiteSpace: 'nowrap'
                             }}
-                            style={{ textDecoration: 'underline', textUnderlineOffset: '3px' }}
                         >
-                            {tag}
-                        </motion.span>
-                    ))}
+                            Search <ArrowRight size={18} />
+                        </motion.button>
+                    </div>
+
+                    {/* Quick Tags */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.7 }}
+                        style={{ marginTop: '1.5rem', display: 'flex', gap: '0.8rem', justifyContent: 'center', flexWrap: 'wrap', fontSize: '0.85rem', color: '#0F172A' }}
+                    >
+                        <span style={{ fontWeight: 700 }}>Popular:</span>
+                        {['Remote', 'Full Stack', 'Data Science', 'Product Manager', 'UI/UX'].map(tag => (
+                            <motion.span
+                                key={tag}
+                                whileHover={{ color: '#2563EB', cursor: 'pointer', scale: 1.05 }}
+                                onClick={() => {
+                                    setSearchFilter(prev => ({ ...prev, keyword: tag }));
+                                    navigate('/search');
+                                }}
+                                style={{
+                                    textDecoration: 'none',
+                                    background: 'rgba(255,255,255,0.8)',
+                                    padding: '0.2rem 0.8rem',
+                                    borderRadius: '100px',
+                                    border: '1px solid rgba(0,0,0,0.05)',
+                                    transition: 'all 0.2s ease',
+                                    fontWeight: 500
+                                }}
+                            >
+                                {tag}
+                            </motion.span>
+                        ))}
+                    </motion.div>
                 </motion.div>
 
                 {/* Stats Strip */}

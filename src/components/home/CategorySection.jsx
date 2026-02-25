@@ -31,7 +31,7 @@ const CategorySection = () => {
     };
 
     return (
-        <section style={{ padding: '2rem 4rem', width: '100%', maxWidth: '1400px', margin: '0 auto' }}>
+        <div style={{ width: '100%', padding: '0' }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
                 {categories.map((cat, index) => (
                     <motion.button
@@ -61,7 +61,7 @@ const CategorySection = () => {
                     </motion.button>
                 ))}
             </div>
-        </section>
+        </div>
     );
 };
 

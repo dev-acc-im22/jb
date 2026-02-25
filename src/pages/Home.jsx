@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Hero from '../components/layout/Hero';
 import Footer from '../components/layout/Footer';
 import CategorySection from '../components/home/CategorySection';
+import SignUpCTA from '../components/home/SignUpCTA';
 import FeaturedCompanies from '../components/home/FeaturedCompanies';
 import TopCompaniesSection from '../components/home/TopCompaniesSection';
 import PromoBanner from '../components/home/PromoBanner';
@@ -45,19 +46,32 @@ const Home = () => {
 
             <ScrollReveal>
                 <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 4rem' }}>
-                    <h2 style={{
-                        fontSize: '1.8rem',
-                        fontWeight: 800,
-                        color: 'var(--primary-900)',
-                        marginBottom: '1.5rem'
+                    <div style={{
+                        background: 'white',
+                        borderRadius: 'var(--radius-lg)',
+                        padding: '3rem 2rem',
+                        border: '1px solid var(--neutral-200)',
+                        boxShadow: '0 20px 50px -20px rgba(0,0,0,0.06)',
+                        marginTop: '-1.5rem',
+                        marginBottom: '6rem',
+                        position: 'relative',
+                        zIndex: 10,
+                        textAlign: 'center'
                     }}>
-                        Latest Remote Jobs For You
-                    </h2>
-                    <CategorySection />
+                        <h2 style={{
+                            fontSize: '2rem',
+                            fontWeight: 800,
+                            color: 'var(--primary-900)',
+                            marginBottom: '2rem'
+                        }}>
+                            Latest Remote Jobs For You
+                        </h2>
+                        <CategorySection />
+                    </div>
                 </div>
             </ScrollReveal>
 
-
+            <SignUpCTA />
 
             <ScrollReveal direction="left">
                 <TopCompaniesSection />
