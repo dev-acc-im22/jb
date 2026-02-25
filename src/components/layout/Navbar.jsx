@@ -250,11 +250,11 @@ const Navbar = ({ onPostJob }) => {
                                     transition={{ duration: 0.15 }}
                                     style={{
                                         position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
-                                        marginTop: '0.6rem', width: '280px',
-                                        background: 'white', borderRadius: '16px',
+                                        marginTop: '0.6rem', width: '270px',
+                                        background: 'white', borderRadius: '14px',
                                         boxShadow: '0 25px 50px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.04)',
-                                        border: '1px solid #000',
-                                        padding: '0.5rem', zIndex: 1002,
+                                        border: '1px solid #E2E8F0',
+                                        padding: '0.35rem', zIndex: 1002,
                                         fontFamily: "'Montserrat', sans-serif"
                                     }}
                                 >
@@ -266,17 +266,17 @@ const Navbar = ({ onPostJob }) => {
                                     }} />
 
                                     {[
-                                        { title: 'AI Resume builder', path: '/resume-builder' },
-                                        { title: 'AI Resume checker', path: '/resume-checker' },
-                                        { title: 'AI Cover letter generator', path: '/cover-letter' },
+                                        { title: 'AI Resume Builder', path: '/resume-builder' },
+                                        { title: 'AI Resume Checker', path: '/resume-checker' },
+                                        { title: 'AI Cover Letter Generator', path: '/cover-letter' },
                                         { title: 'Blog', path: '/blog' },
                                     ].map((item, i) => (
                                         <React.Fragment key={i}>
                                             <Link
                                                 to={item.path}
                                                 style={{
-                                                    display: 'flex', alignItems: 'center', gap: '0.6rem',
-                                                    padding: '0.85rem 1rem', borderRadius: '12px',
+                                                    display: 'flex', alignItems: 'center', gap: '0.5rem',
+                                                    padding: '0.55rem 0.75rem', borderRadius: '10px',
                                                     textDecoration: 'none', transition: 'background 0.15s',
                                                     color: 'inherit', whiteSpace: 'nowrap'
                                                 }}
@@ -285,10 +285,10 @@ const Navbar = ({ onPostJob }) => {
                                             >
                                                 {i < 3 && (
                                                     <span style={{
-                                                        fontSize: '0.6rem', fontWeight: 900,
+                                                        fontSize: '0.55rem', fontWeight: 900,
                                                         backgroundColor: '#EFF6FF',
                                                         color: '#2563EB',
-                                                        padding: '0.15rem 0.6rem',
+                                                        padding: '0.12rem 0.5rem',
                                                         borderRadius: '100px',
                                                         letterSpacing: '0.5px',
                                                         display: 'inline-flex',
@@ -297,12 +297,12 @@ const Navbar = ({ onPostJob }) => {
                                                         FREE
                                                     </span>
                                                 )}
-                                                <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#111827' }}>
+                                                <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#111827' }}>
                                                     {item.title}
                                                 </span>
                                             </Link>
                                             {i < 3 && (
-                                                <div style={{ height: '1px', background: '#E2E8F0', margin: '0.2rem 0.75rem' }} />
+                                                <div style={{ height: '1px', background: '#F1F5F9', margin: '0.1rem 0.6rem' }} />
                                             )}
                                         </React.Fragment>
                                     ))}
