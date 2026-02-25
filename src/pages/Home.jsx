@@ -4,6 +4,7 @@ import Hero from '../components/layout/Hero';
 import Footer from '../components/layout/Footer';
 import CategorySection from '../components/home/CategorySection';
 import SignUpCTA from '../components/home/SignUpCTA';
+import PopularSearches from '../components/home/PopularSearches';
 import FeaturedCompanies from '../components/home/FeaturedCompanies';
 import TopCompaniesSection from '../components/home/TopCompaniesSection';
 import PromoBanner from '../components/home/PromoBanner';
@@ -72,6 +73,10 @@ const Home = () => {
             </ScrollReveal>
 
             <SignUpCTA />
+
+            <ScrollReveal>
+                <PopularSearches />
+            </ScrollReveal>
 
             <ScrollReveal direction="left">
                 <TopCompaniesSection />

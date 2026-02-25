@@ -27,6 +27,10 @@ import { JobProvider, useJobs } from './context/JobContext'
 import './App.css'
 
 import JobSeekerHomepage from './pages/JobSeekerHomepage'
+import ResumeBuilder from './pages/ResumeBuilder'
+import ResumeChecker from './pages/ResumeChecker'
+import CoverLetterGenerator from './pages/CoverLetterGenerator'
+import Blog from './pages/Blog'
 
 const HomeRoute = () => {
   const { user } = useJobs();
@@ -66,6 +70,10 @@ function App() {
               <Route path="/jobs/category/:slug" element={<CategoryJobs />} />
               <Route path="/search" element={<SearchResults />} />
               <Route path="/register-profile" element={<RegisterProfile />} />
+              <Route path="/resume-builder" element={<ResumeBuilder />} />
+              <Route path="/resume-checker" element={<ResumeChecker />} />
+              <Route path="/cover-letter" element={<CoverLetterGenerator />} />
+              <Route path="/blog" element={<Blog />} />
             </Routes>
           </div>
         </Router>
