@@ -217,7 +217,6 @@ const Navbar = ({ onPostJob }) => {
                                                 { title: 'Resume Builder', path: '/resume-builder' },
                                                 { title: 'ATS Resume Checker', path: '/resume-checker' },
                                                 { title: 'Cover Letter Generator', path: '/cover-letter' },
-                                                { title: 'Blog', path: '/blog' },
                                             ].map((item, i) => (
                                                 <React.Fragment key={i}>
                                                     <Link
