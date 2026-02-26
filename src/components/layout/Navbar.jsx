@@ -8,7 +8,7 @@ import { useJobs } from '../../context/JobContext';
 const Navbar = ({ onPostJob }) => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { user, logout, profileMetrics } = useJobs();
+    const { user, logout, profileMetrics, setSearchFilter } = useJobs();
     const [showDropdown, setShowDropdown] = useState(false);
     const [showResumeTools, setShowResumeTools] = useState(false);
     const [showJobs, setShowJobs] = useState(false);
@@ -134,12 +134,23 @@ const Navbar = ({ onPostJob }) => {
                                             }} />
                                             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                                                 {[
-                                                    'Work From Home Jobs', 'Part Time Jobs', 'Freshers Jobs',
-                                                    'Jobs for women', 'Full Time Jobs', 'Night Shift Jobs'
+                                                    { label: 'Work From Home Jobs', filter: 'Remote' },
+                                                    { label: 'Part Time Jobs', filter: 'Part Time' },
+                                                    { label: 'Freshers Jobs', filter: 'Fresher' },
+                                                    { label: 'Jobs for women', filter: 'Women' },
+                                                    { label: 'Full Time Jobs', filter: 'Full-time' },
+                                                    { label: 'Night Shift Jobs', filter: 'Night Shift' }
                                                 ].map((item, i) => (
                                                     <React.Fragment key={i}>
-                                                        <a href="#" style={{ padding: '0.6rem 0.8rem', borderRadius: '100px', textDecoration: 'none', color: '#475569', fontSize: '0.9rem', fontWeight: 600, transition: 'all 0.2s', display: 'block' }} onMouseOver={e => { e.currentTarget.style.background = '#F8FAFC'; e.currentTarget.style.color = '#0F172A'; }} onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#475569'; }}>
-                                                            {item}
+                                                        <a href="#"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                setSearchFilter({ keyword: item.filter, location: '' });
+                                                                setShowJobs(false);
+                                                                navigate('/search');
+                                                            }}
+                                                            style={{ padding: '0.6rem 0.8rem', borderRadius: '100px', textDecoration: 'none', color: '#475569', fontSize: '0.9rem', fontWeight: 600, transition: 'all 0.2s', display: 'block' }} onMouseOver={e => { e.currentTarget.style.background = '#F8FAFC'; e.currentTarget.style.color = '#0F172A'; }} onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#475569'; }}>
+                                                            {item.label}
                                                         </a>
                                                         {i < 5 && <div style={{ height: '1px', backgroundColor: '#E2E8F0', margin: '0.1rem 0.5rem' }} />}
                                                     </React.Fragment>
@@ -152,12 +163,20 @@ const Navbar = ({ onPostJob }) => {
                                                     'Jobs By Qualification', 'Others'
                                                 ].map((item, i) => (
                                                     <React.Fragment key={i}>
-                                                        <a href="#" style={{ padding: '0.6rem 0.8rem', borderRadius: '100px', textDecoration: 'none', color: '#475569', fontSize: '0.9rem', fontWeight: 600, transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} onMouseOver={e => { e.currentTarget.style.background = '#F8FAFC'; e.currentTarget.style.color = '#0F172A'; }} onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#475569'; }}>
+                                                        <a href="#"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                setSearchFilter({ keyword: '', location: '' });
+                                                                setShowJobs(false);
+                                                                navigate('/search');
+                                                            }}
+                                                            style={{ padding: '0.6rem 0.8rem', borderRadius: '100px', textDecoration: 'none', color: '#475569', fontSize: '0.9rem', fontWeight: 600, transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} onMouseOver={e => { e.currentTarget.style.background = '#F8FAFC'; e.currentTarget.style.color = '#0F172A'; }} onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#475569'; }}>
                                                             {item}
                                                             <ChevronRight size={14} color="#94A3B8" />
                                                         </a>
                                                         {i < 4 && <div style={{ height: '1px', backgroundColor: '#E2E8F0', margin: '0.1rem 0.5rem' }} />}
                                                     </React.Fragment>
+
                                                 ))}
                                             </div>
                                         </motion.div>

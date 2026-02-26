@@ -9,286 +9,124 @@ export const useJobs = () => {
 };
 
 const MOCK_JOBS = [
-    // ========== Remote (3) ==========
+    // ========== Work From Home Jobs (Remote) ==========
     {
-        id: 1, title: "Remote React Developer", company: "DistributeHQ", location: "Remote", salary: "₹14L - ₹22L",
-        type: "Full-time", posted: "2 hours ago", applicants: 8, category: "Remote",
-        description: "Join our fully remote team building modern web apps with React. We offer flexible hours, async-first communication, and a culture built on trust.\n\nYou'll work on our flagship SaaS platform used by 10,000+ companies worldwide. We value clean code, thoughtful architecture, and continuous learning.",
-        requirements: ["React", "TypeScript", "GraphQL", "Remote Collaboration"], industry: "SaaS / Internet", department: "Engineering", roleCategory: "Software Development", education: "B.Tech/B.E.", experience: "2-5 Years"
+        id: 1, title: "Remote React Native Developer", company: "Zomato", location: "Remote", salary: "₹18L - ₹28L",
+        type: "Full-time", posted: "2 hours ago", applicants: 45, category: "Remote",
+        description: "Join Zomato's core mobile team building features for millions of daily active users. We are looking for an experienced React Native developer to help us improve performance, build new dining experiences, and scale our app architecture.\n\nThis role is 100% remote within India. You'll work asynchronously with a high-performing engineering team.",
+        requirements: ["React Native", "TypeScript", "Redux", "Mobile UI/UX"], industry: "Food Tech", department: "Engineering", roleCategory: "Mobile Development", education: "B.Tech/B.E.", experience: "3-6 Years"
     },
     {
-        id: 2, title: "Remote Content Strategist", company: "WriteSphere", location: "Remote", salary: "₹8L - ₹14L",
-        type: "Full-time", posted: "1 day ago", applicants: 22, category: "Remote",
-        description: "Craft compelling content strategies for global B2B clients from anywhere in the world. Lead content calendars, SEO strategy, and editorial direction.\n\nThis role is 100% remote with quarterly team meetups in exciting locations.",
-        requirements: ["Content Strategy", "SEO", "Copywriting", "Analytics"], industry: "Digital Media", department: "Marketing", roleCategory: "Content Strategy", education: "Any Graduate", experience: "3-5 Years"
+        id: 2, title: "Remote Content Strategist", company: "HubSpot", location: "Remote", salary: "₹12L - ₹20L",
+        type: "Full-time", posted: "1 day ago", applicants: 112, category: "Remote",
+        description: "Drive the global content strategy for HubSpot's marketing blog. You will manage an editorial calendar, collaborate with freelance writers, and ensure all content ranks highly on search engines while providing immense value to B2B marketers.\n\nWork from Home anywhere in India. Includes allowance for home office setup.",
+        requirements: ["Content Strategy", "SEO", "B2B Writing", "Google Analytics"], industry: "SaaS", department: "Marketing", roleCategory: "Content Marketing", education: "Any Graduate", experience: "4-7 Years"
     },
     {
-        id: 3, title: "Remote DevOps Engineer", company: "CloudFirst", location: "Remote", salary: "₹18L - ₹28L",
-        type: "Full-time", posted: "3 days ago", applicants: 14, category: "Remote",
-        description: "Manage and optimize our cloud infrastructure across AWS and GCP. Automate deployments, monitor systems, and ensure 99.99% uptime for our global platform.\n\nFully remote role with a team spread across 5 time zones.",
-        requirements: ["AWS", "Docker", "Kubernetes", "CI/CD", "Terraform"], industry: "Cloud Computing", department: "Infrastructure", roleCategory: "DevOps", education: "B.Tech/B.E.", experience: "3-6 Years"
-    },
-
-    // ========== MNC (3) ==========
-    {
-        id: 4, title: "Software Engineer II", company: "Google", location: "Bangalore", salary: "₹25L - ₹45L",
-        type: "Full-time", posted: "1 day ago", applicants: 120, category: "MNC",
-        description: "Build and maintain large-scale distributed systems at Google. Work on products used by billions of people worldwide.\n\nYou'll collaborate with world-class engineers, contribute to open-source projects, and have access to cutting-edge technology and resources.",
-        requirements: ["Java", "Distributed Systems", "Data Structures", "System Design"], industry: "Internet / Technology", department: "Engineering", roleCategory: "Software Development", education: "B.Tech/M.Tech in CS", experience: "3-7 Years"
-    },
-    {
-        id: 5, title: "Business Analyst", company: "Deloitte", location: "Mumbai", salary: "₹12L - ₹20L",
-        type: "Full-time", posted: "4 hours ago", applicants: 55, category: "MNC",
-        description: "Drive digital transformation for Fortune 500 clients. Analyze business processes, gather requirements, and deliver data-driven recommendations.\n\nJoin Deloitte's Consulting practice and work on high-impact projects across industries.",
-        requirements: ["Business Analysis", "SQL", "Stakeholder Management", "Agile"], industry: "Consulting", department: "Advisory", roleCategory: "Business Analysis", education: "MBA / B.Tech", experience: "2-5 Years"
-    },
-    {
-        id: 6, title: "Cloud Solutions Architect", company: "Microsoft", location: "Hyderabad", salary: "₹30L - ₹50L",
-        type: "Full-time", posted: "2 days ago", applicants: 38, category: "MNC",
-        description: "Design and implement cloud solutions on Azure for enterprise customers. Lead technical workshops, create reference architectures, and drive cloud adoption.\n\nBe part of Microsoft's mission to empower every person and organization on the planet.",
-        requirements: ["Azure", "Cloud Architecture", "Microservices", "Enterprise Solutions"], industry: "Technology", department: "Cloud & AI", roleCategory: "Solutions Architecture", education: "B.Tech/M.Tech", experience: "5-10 Years"
+        id: 3, title: "Senior Cloud Architect (Remote)", company: "AWS", location: "Remote", salary: "₹35L - ₹50L",
+        type: "Full-time", posted: "3 days ago", applicants: 28, category: "Remote",
+        description: "Help enterprise customers migrate massive workloads to AWS. As a Senior Cloud Architect, you will design highly scalable, resilient, and secure architectures. You will run technical workshops, write whitepapers, and act as a trusted advisor to CTOs.\n\nFully remote role with occasional travel for client summits.",
+        requirements: ["AWS Architecture", "Microservices", "Kubernetes", "Enterprise Migration"], industry: "Cloud Computing", department: "Solutions Architecture", roleCategory: "Cloud Architecture", education: "B.Tech/M.Tech", experience: "8-12 Years"
     },
 
-    // ========== Internship (3) ==========
+    // ========== Part Time Jobs ==========
     {
-        id: 7, title: "Software Development Intern", company: "Flipkart", location: "Bangalore", salary: "₹40K - ₹60K /month",
-        type: "Internship", posted: "Just now", applicants: 3, category: "Internship",
-        description: "6-month internship with Flipkart's engineering team. Work on real production features used by millions of customers.\n\nGet mentored by senior engineers, participate in code reviews, and gain hands-on experience with large-scale systems. PPO available for top performers.",
-        requirements: ["Java/Python", "Data Structures", "Problem Solving", "Git"], industry: "E-Commerce", department: "Engineering", roleCategory: "Software Development", education: "B.Tech (ongoing)", experience: "0-1 Years"
+        id: 4, title: "Part-Time Social Media Manager", company: "The Minimalist", location: "Mumbai (Hybrid)", salary: "₹3L - ₹5L",
+        type: "Part Time", posted: "5 hours ago", applicants: 65, category: "Part Time",
+        description: "Looking for a creative Part-Time Social Media Manager to handle Instagram and LinkedIn for a boutique design agency. You will need to commit 20 hours a week.\n\nResponsibilities include scheduling posts, engaging with the community, and tracking weekly analytics. Perfect for freelancers or students looking for steady part-time work.",
+        requirements: ["Instagram Growth", "LinkedIn Strategy", "Canva", "Copywriting"], industry: "Design Agency", department: "Marketing", roleCategory: "Social Media", education: "Any Graduate", experience: "1-3 Years"
     },
     {
-        id: 8, title: "Marketing Intern", company: "Zomato", location: "Gurgaon", salary: "₹25K - ₹35K /month",
-        type: "Internship", posted: "5 hours ago", applicants: 18, category: "Internship",
-        description: "Join Zomato's marketing team and help craft campaigns that reach millions of food lovers. Work on social media, influencer partnerships, and growth experiments.\n\nThis is a 3-month paid internship with the possibility of a full-time offer.",
-        requirements: ["Social Media", "Content Creation", "Canva", "Communication"], industry: "Food Tech", department: "Marketing", roleCategory: "Digital Marketing", education: "Any Graduate (ongoing)", experience: "0 Years"
+        id: 5, title: "Online Tutor (Mathematics) - Part Time", company: "Vedantu", location: "Remote", salary: "₹4L - ₹6L",
+        type: "Part Time", posted: "1 day ago", applicants: 88, category: "Part Time",
+        description: "Teach Mathematics to high school students (Grade 9-12) on Vedantu's live online platform. This is a part-time role requiring 4 hours of commitment every evening.\n\nYou must have excellent communication skills, a digital pen tablet, and a passion for teaching.",
+        requirements: ["Mathematics", "Online Teaching", "Communication", "Subject Matter Expert"], industry: "EdTech", department: "Teaching", roleCategory: "Online Tutor", education: "B.Sc/M.Sc Mathematics or B.Tech", experience: "1-5 Years"
     },
     {
-        id: 9, title: "Data Analytics Intern", company: "KPMG", location: "Mumbai", salary: "₹30K - ₹45K /month",
-        type: "Internship", posted: "2 days ago", applicants: 25, category: "Internship",
-        description: "Assist the analytics team in building dashboards, cleaning datasets, and creating reports for clients across industries.\n\nGain exposure to real consulting engagements and learn from industry professionals. Duration: 6 months.",
-        requirements: ["Excel", "SQL", "Tableau", "Python Basics"], industry: "Consulting / KPO", department: "Analytics", roleCategory: "Data Analytics", education: "Any Graduate (ongoing)", experience: "0 Years"
-    },
-
-    // ========== Sales (3) ==========
-    {
-        id: 10, title: "Enterprise Sales Executive", company: "Salesforce", location: "Mumbai", salary: "₹15L - ₹25L + Commission",
-        type: "Full-time", posted: "3 hours ago", applicants: 16, category: "Sales",
-        description: "Own the full sales cycle for enterprise accounts. Build relationships with C-level executives, conduct product demos, and close deals worth ₹1Cr+.\n\nJoin Salesforce, the world's #1 CRM, and be part of a high-performance sales culture.",
-        requirements: ["Enterprise Sales", "CRM", "Negotiation", "SaaS"], industry: "SaaS / Technology", department: "Sales", roleCategory: "Enterprise Sales", education: "MBA preferred", experience: "4-8 Years"
-    },
-    {
-        id: 11, title: "Inside Sales Representative", company: "Razorpay", location: "Bangalore", salary: "₹6L - ₹10L + Incentives",
-        type: "Full-time", posted: "1 day ago", applicants: 30, category: "Sales",
-        description: "Drive new business through outbound prospecting and inbound lead qualification. Manage the entire sales process from prospecting to closure.\n\nWork with India's leading fintech company and help businesses accept payments seamlessly.",
-        requirements: ["Cold Calling", "Lead Generation", "B2B Sales", "Communication"], industry: "Fintech", department: "Sales", roleCategory: "Inside Sales", education: "Any Graduate", experience: "1-3 Years"
-    },
-    {
-        id: 12, title: "Regional Sales Manager", company: "HUL", location: "Delhi NCR", salary: "₹18L - ₹28L",
-        type: "Full-time", posted: "4 days ago", applicants: 22, category: "Sales",
-        description: "Lead a team of 15+ sales representatives across the North India region. Drive revenue targets, manage distributor relationships, and launch new products.\n\nJoin Hindustan Unilever and shape the future of India's largest FMCG company.",
-        requirements: ["Team Leadership", "FMCG Sales", "Distribution Management", "P&L"], industry: "FMCG", department: "Sales & Marketing", roleCategory: "Sales Management", education: "MBA", experience: "6-10 Years"
+        id: 6, title: "Freelance/Part-Time Recruiter", company: "HiringMonk", location: "Remote", salary: "Commission Based",
+        type: "Part Time", posted: "2 days ago", applicants: 34, category: "Part Time",
+        description: "We are expanding our network of part-time, freelance recruiters to help source candidates for top-tier IT startups. You will be provided with requirements, and you will earn a lucrative commission for every successful placement.\n\nWork at your own pace, log in whenever you want, and leverage your existing LinkedIn network.",
+        requirements: ["IT Recruitment", "Sourcing", "LinkedIn Recruiter", "Screening"], industry: "HR / Recruitment", department: "Human Resources", roleCategory: "Talent Acquisition", education: "Any Graduate", experience: "2-6 Years"
     },
 
-    // ========== Startup (3) ==========
+    // ========== Freshers Jobs ==========
     {
-        id: 13, title: "Founding Engineer", company: "NeoBank", location: "Bangalore", salary: "₹20L - ₹35L + ESOPs",
-        type: "Full-time", posted: "Just now", applicants: 4, category: "Startup",
-        description: "Be among the first 5 engineers at a Y Combinator-backed fintech startup. Build the core banking platform from scratch.\n\nThis is a once-in-a-career opportunity to shape the architecture, culture, and product of a company that will serve millions. Generous ESOP package included.",
-        requirements: ["Node.js", "React", "PostgreSQL", "System Design", "Fintech"], industry: "Fintech", department: "Engineering", roleCategory: "Full Stack Development", education: "B.Tech/B.E.", experience: "3-7 Years"
+        id: 7, title: "Software Engineer - Fresher", company: "Infosys", location: "Mysore / Pune", salary: "₹3.6L - ₹4.5L",
+        type: "Full-time", posted: "Just now", applicants: 320, category: "Fresher",
+        description: "Kickstart your IT career with Infosys. We are hiring fresh graduates for the role of Systems Engineer. You will undergo an intensive 3-month training program at our world-class Mysore campus before being assigned to exciting global projects.\n\nOpen to 2024 and 2025 batch engineering graduates.",
+        requirements: ["C++ / Java / Python", "Aptitude", "Logical Reasoning", "Communication"], industry: "IT Services", department: "Engineering", roleCategory: "Software Development", education: "B.Tech/B.E/MCA", experience: "0 Years"
     },
     {
-        id: 14, title: "Growth Product Manager", company: "Meesho", location: "Bangalore", salary: "₹22L - ₹38L",
-        type: "Full-time", posted: "2 days ago", applicants: 42, category: "Startup",
-        description: "Own the growth funnel for India's fastest-growing social commerce platform. Run experiments, analyze data, and drive user acquisition and retention.\n\nWork directly with the founders and lead a cross-functional squad of engineers, designers, and analysts.",
-        requirements: ["Growth Hacking", "A/B Testing", "SQL", "Product Analytics"], industry: "E-Commerce", department: "Product", roleCategory: "Product Management", education: "MBA / B.Tech", experience: "3-6 Years"
+        id: 8, title: "Management Trainee - Sales", company: "HUL", location: "Pan India", salary: "₹12L - ₹15L",
+        type: "Full-time", posted: "2 days ago", applicants: 156, category: "Fresher",
+        description: "Join Hindustan Unilever's prestigious Management Trainee program. As a fresher, you will be thrown into real business challenges, managing distribution networks, leading sales teams, and driving revenue growth across regions.\n\nLooking for highly driven MBA freshers ready to accelerate their careers.",
+        requirements: ["Sales Strategy", "Leadership", "Analytical Thinking", "Communication"], industry: "FMCG", department: "Sales", roleCategory: "Management Trainee", education: "MBA (2025/2026 Batch)", experience: "0 Years"
     },
     {
-        id: 15, title: "UI/UX Designer", company: "CRED", location: "Bangalore", salary: "₹16L - ₹26L",
-        type: "Full-time", posted: "1 day ago", applicants: 28, category: "Startup",
-        description: "Design delightful experiences for CRED's premium user base. From concept to pixel-perfect execution, you'll own the design of features used by millions.\n\nWe're obsessed with craft and details. If you are too, we'd love to talk.",
-        requirements: ["Figma", "Interaction Design", "Design Systems", "Prototyping"], industry: "Fintech", department: "Design", roleCategory: "Product Design", education: "Degree in Design", experience: "2-5 Years"
-    },
-
-    // ========== Fresher (3) ==========
-    {
-        id: 16, title: "Graduate Trainee Engineer", company: "TCS", location: "Multiple Cities", salary: "₹3.6L - ₹7L",
-        type: "Full-time", posted: "6 hours ago", applicants: 200, category: "Fresher",
-        description: "Join TCS as a Graduate Trainee and kickstart your career in technology. Undergo an intensive training program and get placed in projects across domains.\n\nTCS offers a structured learning path, mentorship, and global career opportunities for fresh graduates.",
-        requirements: ["Any Programming Language", "Problem Solving", "Communication", "Willingness to Learn"], industry: "IT Services", department: "Engineering", roleCategory: "Software Development", education: "B.Tech/B.E./MCA (2025/2026 batch)", experience: "0 Years"
-    },
-    {
-        id: 17, title: "Junior Business Analyst", company: "Accenture", location: "Pune", salary: "₹4.5L - ₹6.5L",
-        type: "Full-time", posted: "1 day ago", applicants: 85, category: "Fresher",
-        description: "Begin your career in consulting with Accenture. Work alongside experienced consultants, learn industry best practices, and grow rapidly.\n\nFresh graduates with strong analytical skills and communication abilities are encouraged to apply.",
-        requirements: ["Excel", "Presentation Skills", "Analytical Thinking", "Communication"], industry: "IT Consulting", department: "Consulting", roleCategory: "Business Analysis", education: "Any Graduate (2025/2026)", experience: "0 Years"
-    },
-    {
-        id: 18, title: "Associate Software Engineer", company: "Infosys", location: "Mysore", salary: "₹3.6L - ₹5L",
-        type: "Full-time", posted: "3 days ago", applicants: 150, category: "Fresher",
-        description: "Start your IT career with Infosys. Attend the flagship training program at Mysore campus, learn cutting-edge technologies, and work on global projects.\n\nOpen to fresh graduates from all engineering branches. No prior experience required.",
-        requirements: ["Logical Reasoning", "Basic Programming", "Aptitude", "Teamwork"], industry: "IT Services", department: "Engineering", roleCategory: "Software Development", education: "B.Tech/B.E. (2025/2026)", experience: "0 Years"
+        id: 9, title: "Junior Data Analyst (Fresher)", company: "Fractal Analytics", location: "Bangalore", salary: "₹6L - ₹8L",
+        type: "Full-time", posted: "1 day ago", applicants: 215, category: "Fresher",
+        description: "Fractal is looking for sharp, analytical freshers to join our data analytics consulting team. You will work alongside senior data scientists to clean datasets, build dashboards in Tableau, and extract actionable insights for Fortune 500 clients.\n\nA strong foundation in SQL and statistics is mandatory.",
+        requirements: ["SQL", "Excel", "Data Visualization", "Logical Reasoning"], industry: "Analytics Consulting", department: "Data Science", roleCategory: "Data Analyst", education: "B.Tech/B.Sc Statistics", experience: "0 Years"
     },
 
-    // ========== Data Science (3) ==========
+    // ========== Jobs for women ==========
     {
-        id: 19, title: "Senior Data Scientist", company: "Flipkart", location: "Bangalore", salary: "₹25L - ₹40L",
-        type: "Full-time", posted: "2 days ago", applicants: 35, category: "Data Science",
-        description: "Build recommendation engines, search ranking algorithms, and personalization systems for India's largest e-commerce platform.\n\nWork with petabytes of data, cutting-edge ML infrastructure, and a team of world-class scientists.",
-        requirements: ["Python", "Machine Learning", "Deep Learning", "Spark", "A/B Testing"], industry: "E-Commerce", department: "Data Science", roleCategory: "Data Science", education: "M.Tech/PhD in CS/Stats", experience: "4-8 Years"
+        id: 10, title: "Women Returnship Program - Full Stack Developer", company: "Mastercard", location: "Pune", salary: "₹16L - ₹24L",
+        type: "Full-time", posted: "4 hours ago", applicants: 42, category: "Women",
+        description: "Have you taken a career break of 2+ years and are looking to re-enter the workforce? Mastercard's 'Relaunch Your Career' program is specifically designed to support women technologists returning to work.\n\nJoin our payments engineering team. We provide a tailored 16-week onboarding curriculum, mentorship, and a supportive environment for you to regain your momentum.",
+        requirements: ["Java / Spring Boot", "Angular / React", "Microservices", "Career Break > 2 years"], industry: "Fintech", department: "Engineering", roleCategory: "Software Development", education: "B.Tech/B.E.", experience: "3+ Years (Prior to break)"
     },
     {
-        id: 20, title: "ML Engineer", company: "Ola", location: "Bangalore", salary: "₹18L - ₹30L",
-        type: "Full-time", posted: "5 days ago", applicants: 20, category: "Data Science",
-        description: "Build and deploy machine learning models for ride pricing, ETA prediction, and demand forecasting. Work on ML systems that serve millions of requests in real-time.\n\nCollaborate with product and engineering teams to take models from research to production.",
-        requirements: ["Python", "TensorFlow/PyTorch", "MLOps", "SQL", "Statistics"], industry: "Mobility", department: "AI & Data", roleCategory: "Machine Learning", education: "M.Tech/M.S. in CS/ML", experience: "3-6 Years"
+        id: 11, title: "Diversity Hiring: Product Manager (Women)", company: "Microsoft", location: "Hyderabad", salary: "₹25L - ₹40L",
+        type: "Full-time", posted: "3 days ago", applicants: 89, category: "Women",
+        description: "At Microsoft, we believe diversity drives innovation. We are actively inviting applications from talented women Product Managers to lead the next generation of Azure cloud tools.\n\nYou will define product roadmaps, work closely with engineering and design, and drive cloud adoption globally.",
+        requirements: ["Product Strategy", "Cloud Computing", "Agile", "Cross-functional Leadership"], industry: "Technology", department: "Product", roleCategory: "Product Management", education: "B.Tech + MBA", experience: "5-8 Years"
     },
     {
-        id: 21, title: "Data Analyst", company: "Swiggy", location: "Bangalore", salary: "₹10L - ₹16L",
-        type: "Full-time", posted: "1 day ago", applicants: 28, category: "Data Science",
-        description: "Analyse operational and business data to help Swiggy make better decisions. Build dashboards, run deep-dives, and present insights to leadership.\n\nIdeal for someone who loves turning messy data into clear stories.",
-        requirements: ["SQL", "Python", "Tableau/PowerBI", "Statistical Analysis"], industry: "Food Tech", department: "Business Intelligence", roleCategory: "Data Analytics", education: "Any Graduate", experience: "1-3 Years"
-    },
-
-    // ========== Finance / Banking (3) ==========
-    {
-        id: 22, title: "Investment Banking Analyst", company: "Goldman Sachs", location: "Mumbai", salary: "₹18L - ₹30L",
-        type: "Full-time", posted: "3 days ago", applicants: 45, category: "Finance",
-        description: "Join Goldman Sachs' IBD team and work on M&A, IPOs, and capital markets transactions. Prepare pitchbooks, financial models, and client presentations.\n\nThis is a high-intensity, high-reward role with unmatched exposure to global finance.",
-        requirements: ["Financial Modeling", "Valuation", "Excel", "PowerPoint", "Accounting"], industry: "Investment Banking", department: "IBD", roleCategory: "Investment Banking", education: "MBA Finance / CA / CFA", experience: "1-4 Years"
-    },
-    {
-        id: 23, title: "Credit Risk Analyst", company: "HDFC Bank", location: "Mumbai", salary: "₹10L - ₹16L",
-        type: "Full-time", posted: "1 week ago", applicants: 30, category: "Finance",
-        description: "Evaluate credit risk for retail and corporate lending portfolios. Build risk models, assess loan applications, and ensure compliance with RBI guidelines.\n\nJoin India's leading private bank and grow your career in risk management.",
-        requirements: ["Credit Analysis", "Risk Modeling", "SQL", "Basel Norms", "SAS"], industry: "Banking", department: "Risk Management", roleCategory: "Credit Risk", education: "MBA Finance / B.Com", experience: "2-5 Years"
-    },
-    {
-        id: 24, title: "Wealth Management Associate", company: "Morgan Stanley", location: "Mumbai", salary: "₹15L - ₹24L",
-        type: "Full-time", posted: "4 days ago", applicants: 18, category: "Finance",
-        description: "Manage investment portfolios for high-net-worth clients. Provide financial planning advice, execute trades, and build long-term client relationships.\n\nWork at one of the world's most prestigious financial institutions.",
-        requirements: ["Portfolio Management", "Financial Planning", "Equity Research", "CFA"], industry: "Wealth Management", department: "Private Wealth", roleCategory: "Wealth Management", education: "MBA / CFA", experience: "3-6 Years"
+        id: 12, title: "Operations Lead (Women's Special Drive)", company: "Amazon", location: "Delhi NCR", salary: "₹14L - ₹20L",
+        type: "Full-time", posted: "1 week ago", applicants: 67, category: "Women",
+        description: "Amazon is conducting a special hiring drive for Women Operations Leaders. Manage large-scale fulfillment center operations, oversee a team of 100+ associates, and ensure delivery metrics are met safely and efficiently.\n\nWe offer excellent leadership training, maternity benefits, and a highly inclusive culture.",
+        requirements: ["Operations Management", "Supply Chain", "Team Leadership", "Process Optimization"], industry: "E-Commerce", department: "Operations", roleCategory: "Fulfillment Operations", education: "Any Graduate / MBA", experience: "3-7 Years"
     },
 
-    // ========== Engineering (3) ==========
+    // ========== Full Time Jobs ==========
     {
-        id: 25, title: "Mechanical Design Engineer", company: "Tata Motors", location: "Pune", salary: "₹8L - ₹14L",
-        type: "Full-time", posted: "2 days ago", applicants: 32, category: "Engineering",
-        description: "Design and develop automotive components for next-generation electric vehicles. Use CAD/CAE tools for modeling, simulation, and optimization.\n\nBe part of Tata Motors' ambitious EV journey and contribute to sustainable mobility.",
-        requirements: ["SolidWorks", "CATIA", "FEA Analysis", "Automotive Design"], industry: "Automotive", department: "R&D", roleCategory: "Mechanical Engineering", education: "B.Tech/M.Tech Mechanical", experience: "2-5 Years"
+        id: 13, title: "Senior Backend Engineer", company: "Stripe", location: "Bangalore", salary: "₹45L - ₹70L",
+        type: "Full Time", posted: "Just now", applicants: 54, category: "Full-time",
+        description: "Stripe is expanding its engineering hub in Bangalore. We are looking for Senior Backend Engineers to build the economic infrastructure of the internet. You will design extremely high-throughput APIs, ensure financial ledger accuracy, and scale distributed systems.\n\nThis is a standard Full Time role reporting to the Bangalore office 3 days a week.",
+        requirements: ["Ruby/Java/Go", "Distributed Systems", "API Design", "PostgreSQL"], industry: "Fintech", department: "Engineering", roleCategory: "Backend Development", education: "B.Tech/M.Tech", experience: "5-10 Years"
     },
     {
-        id: 26, title: "Civil Site Engineer", company: "L&T Construction", location: "Delhi NCR", salary: "₹6L - ₹10L",
-        type: "Full-time", posted: "5 days ago", applicants: 40, category: "Engineering",
-        description: "Oversee construction activities for large-scale infrastructure projects. Manage contractors, ensure quality standards, and maintain project timelines.\n\nWork on landmark projects like metro rail, highways, and commercial complexes.",
-        requirements: ["AutoCAD", "Site Management", "Quality Control", "Project Planning"], industry: "Construction", department: "Project Execution", roleCategory: "Civil Engineering", education: "B.Tech Civil", experience: "1-4 Years"
+        id: 14, title: "Enterprise Account Executive (Full Time)", company: "Oracle", location: "Mumbai", salary: "₹20L - ₹35L",
+        type: "Full Time", posted: "2 days ago", applicants: 38, category: "Full-time",
+        description: "Drive Oracle Cloud Infrastructure (OCI) sales into top-tier enterprise accounts. You will manage the entire sales cycle, from prospecting C-level executives to negotiating complex, multi-million dollar cloud contracts.\n\nFull-time permanent role with an uncapped commission structure.",
+        requirements: ["B2B Sales", "Cloud Infrastructure", "Negotiation", "C-Level Presentations"], industry: "Cloud Software", department: "Sales", roleCategory: "Enterprise Sales", education: "MBA", experience: "6-10 Years"
     },
     {
-        id: 27, title: "Electronics Hardware Engineer", company: "Samsung R&D", location: "Noida", salary: "₹12L - ₹20L",
-        type: "Full-time", posted: "1 day ago", applicants: 15, category: "Engineering",
-        description: "Design PCBs and embedded systems for Samsung's next-generation consumer electronics. Work on cutting-edge hardware with global R&D teams.\n\nOpportunity to file patents and present at international conferences.",
-        requirements: ["PCB Design", "Embedded C", "VHDL/Verilog", "Signal Processing"], industry: "Consumer Electronics", department: "R&D - Hardware", roleCategory: "Electronics Engineering", education: "B.Tech/M.Tech ECE/EEE", experience: "2-6 Years"
-    },
-
-    // ========== Development / Software (3) ==========
-    {
-        id: 28, title: "Senior Frontend Developer", company: "TechFlow", location: "Bangalore", salary: "₹12L - ₹18L",
-        type: "Full-time", posted: "2 days ago", applicants: 45, category: "Development",
-        description: "We are looking for an experienced Frontend Developer with React expertise to join our fast-paced product team. You will be responsible for building high-performance web applications.\n\nKey Responsibilities:\n• Develop new user-facing features using React.js\n• Build reusable components and libraries\n• Optimize components for maximum performance",
-        requirements: ["React", "TypeScript", "Tailwind CSS", "Redux"], industry: "IT Services & Consulting", department: "Engineering - Software & QA", roleCategory: "Software Development", education: "B.Tech/B.E. in Computer Science", experience: "3-5 Years"
-    },
-    {
-        id: 29, title: "Backend Engineer (Go)", company: "Zerodha", location: "Bangalore", salary: "₹20L - ₹35L",
-        type: "Full-time", posted: "3 hours ago", applicants: 12, category: "Development",
-        description: "Build and maintain Zerodha's high-throughput trading systems that process millions of orders daily. Work with Go, PostgreSQL, and real-time data streams.\n\nWe are a bootstrapped, profitable company with a small engineering team. Every engineer has massive impact.",
-        requirements: ["Go", "PostgreSQL", "Redis", "WebSockets", "System Design"], industry: "Fintech", department: "Engineering", roleCategory: "Backend Development", education: "B.Tech/B.E.", experience: "3-7 Years"
-    },
-    {
-        id: 30, title: "Full Stack Developer", company: "WebSolutions", location: "Remote", salary: "₹20L - ₹35L",
-        type: "Full-time", posted: "Just now", applicants: 5, category: "Development",
-        description: "Work on both client-side and server-side of our applications. You will be responsible for the full software development lifecycle, from conception to deployment.\n\nWe are looking for a highly skilled Full Stack Developer who is comfortable with both front and back end programming.",
-        requirements: ["Node.js", "React", "MongoDB", "AWS", "Docker"], industry: "Internet / Web Services", department: "Engineering - Full Stack", roleCategory: "Software Development", education: "B.Tech/B.E.", experience: "4-8 Years"
+        id: 15, title: "Visual Designer", company: "Swiggy", location: "Bangalore", salary: "₹12L - ₹18L",
+        type: "Full Time", posted: "5 hours ago", applicants: 92, category: "Full-time",
+        description: "Join Swiggy's central design team as a Full Time Visual Designer. You will be responsible for creating stunning marketing campaigns, app banners, and brand illustrations that reach millions of hungry customers every day.\n\nMust have a strong portfolio demonstrating typography, color theory, and illustration skills.",
+        requirements: ["Figma", "Adobe Illustrator", "Typography", "Visual Storytelling"], industry: "Food Tech", department: "Design", roleCategory: "Graphic & Visual Design", education: "Degree in Design / Art", experience: "2-5 Years"
     },
 
-    // ========== Marketing (3) ==========
+    // ========== Night Shift Jobs ==========
     {
-        id: 31, title: "Digital Marketing Manager", company: "Growth Hackers", location: "Chennai", salary: "₹10L - ₹16L",
-        type: "Full-time", posted: "1 day ago", applicants: 28, category: "Marketing",
-        description: "Lead our digital marketing initiatives and drive growth through multiple channels. You will be responsible for strategy, execution, and optimization of marketing campaigns.\n\nResponsibilities:\n• Plan and execute all digital marketing, including SEO/SEM, email, social media and display advertising campaigns",
-        requirements: ["SEO", "SEM", "Google Analytics", "Content Strategy"], industry: "Marketing & Advertising", department: "Marketing & Communication", roleCategory: "Digital Marketing", education: "MBA in Marketing preferred", experience: "4-6 Years"
+        id: 16, title: "Customer Success Manager (US Night Shift)", company: "Freshworks", location: "Chennai", salary: "₹9L - ₹15L",
+        type: "Full-time", posted: "1 day ago", applicants: 45, category: "Night Shift",
+        description: "Manage a portfolio of North American enterprise clients for Freshworks. This is a dedicated Night Shift role (6 PM to 3 AM IST). You will ensure smooth onboarding, drive product adoption, and handle renewals for US-based customers.\n\nIncludes a generous night shift allowance and complimentary transport.",
+        requirements: ["Customer Success", "US Client Management", "CRM", "Excellent English"], industry: "SaaS", department: "Customer Success", roleCategory: "Account Management", education: "Any Graduate", experience: "3-6 Years"
     },
     {
-        id: 32, title: "Brand Manager", company: "Mamaearth", location: "Gurgaon", salary: "₹14L - ₹22L",
-        type: "Full-time", posted: "2 days ago", applicants: 35, category: "Marketing",
-        description: "Own the brand strategy for one of India's fastest-growing D2C brands. Lead product launches, manage brand communications, and drive consumer engagement.\n\nWork in a fast-paced, entrepreneurial environment where your ideas directly impact millions of consumers.",
-        requirements: ["Brand Strategy", "Consumer Insights", "P&L Management", "Campaign Planning"], industry: "FMCG / D2C", department: "Marketing", roleCategory: "Brand Management", education: "MBA Marketing", experience: "3-6 Years"
+        id: 17, title: "L1 SOC Analyst (Night Shift)", company: "Wipro", location: "Pune", salary: "₹4L - ₹7L",
+        type: "Full-time", posted: "3 days ago", applicants: 110, category: "Night Shift",
+        description: "Monitor global client networks for security threats as a Level 1 Security Operations Center Analyst. This role requires rotation entirely in the Night Shift to ensure 24/7 coverage for our European and American clients.\n\nInvestigate alerts, triage incidents, and escalate to L2 teams when required.",
+        requirements: ["Cybersecurity", "SIEM Tools", "Network Security", "Incident Triage"], industry: "IT Services", department: "Cybersecurity", roleCategory: "Security Operations", education: "B.Tech IT/CS", experience: "1-3 Years"
     },
     {
-        id: 33, title: "Performance Marketing Specialist", company: "PhonePe", location: "Bangalore", salary: "₹12L - ₹18L",
-        type: "Full-time", posted: "4 hours ago", applicants: 10, category: "Marketing",
-        description: "Scale user acquisition campaigns across Google, Meta, and programmatic channels. Optimize CAC, manage multi-crore budgets, and run creative experiments.\n\nJoin India's leading digital payments company and drive growth at scale.",
-        requirements: ["Google Ads", "Facebook Ads", "App Install Campaigns", "Attribution", "SQL"], industry: "Fintech", department: "Growth Marketing", roleCategory: "Performance Marketing", education: "Any Graduate", experience: "2-4 Years"
-    },
-
-    // ========== Digital Marketing (10 new) ==========
-    {
-        id: 34, title: "SEO Specialist", company: "Nykaa", location: "Mumbai", salary: "₹8L - ₹14L",
-        type: "Full-time", posted: "3 hours ago", applicants: 15, category: "Marketing",
-        description: "Own the organic search strategy for India's leading beauty and fashion e-commerce platform. Conduct keyword research, on-page optimization, technical SEO audits, and link-building campaigns.\n\nKey Responsibilities:\n• Develop and execute comprehensive SEO strategies\n• Perform technical SEO audits and implement fixes\n• Build high-quality backlink profiles\n• Track and report on KPIs including organic traffic, rankings, and conversions",
-        requirements: ["SEO", "Google Search Console", "Ahrefs/SEMrush", "Technical SEO", "Content Strategy"], industry: "E-Commerce / Beauty", department: "Marketing", roleCategory: "SEO & Organic Growth", education: "Any Graduate", experience: "2-4 Years"
-    },
-    {
-        id: 35, title: "Social Media Manager", company: "Swiggy", location: "Bangalore", salary: "₹10L - ₹16L",
-        type: "Full-time", posted: "Just now", applicants: 8, category: "Marketing",
-        description: "Lead Swiggy's social media presence across Instagram, Twitter, LinkedIn, and YouTube. Create viral content strategies, manage community engagement, and build a brand voice loved by millions.\n\nKey Responsibilities:\n• Plan and publish content across all social platforms\n• Monitor trends and execute real-time marketing\n• Manage community engagement and crisis communications\n• Report on social KPIs and optimize strategy accordingly",
-        requirements: ["Social Media Strategy", "Content Creation", "Community Management", "Instagram & Twitter", "Analytics"], industry: "Food Tech", department: "Brand Marketing", roleCategory: "Social Media", education: "Any Graduate", experience: "3-5 Years"
-    },
-    {
-        id: 36, title: "Content Marketing Lead", company: "Razorpay", location: "Bangalore", salary: "₹14L - ₹22L",
-        type: "Full-time", posted: "1 day ago", applicants: 22, category: "Marketing",
-        description: "Build and lead Razorpay's content marketing engine. Develop thought leadership content, whitepapers, case studies, and blog articles that position Razorpay as the go-to fintech platform.\n\nKey Responsibilities:\n• Develop and execute a B2B content strategy\n• Create long-form content: guides, whitepapers, case studies\n• Lead a team of content writers and editors\n• Measure content performance and iterate on strategy",
-        requirements: ["Content Marketing", "B2B Writing", "SEO", "Editorial Management", "HubSpot"], industry: "Fintech", department: "Marketing", roleCategory: "Content Marketing", education: "MBA / Any Graduate", experience: "4-7 Years"
-    },
-    {
-        id: 37, title: "PPC Campaign Manager", company: "MakeMyTrip", location: "Gurgaon", salary: "₹12L - ₹20L",
-        type: "Full-time", posted: "2 days ago", applicants: 18, category: "Marketing",
-        description: "Manage high-budget PPC campaigns across Google Ads, Bing Ads, and Meta for India's leading travel platform. Optimize keyword bidding, ad copy, landing pages and targeting to maximize ROI.\n\nKey Responsibilities:\n• Plan, execute and optimize PPC campaigns across search and display\n• Manage multi-crore monthly ad budgets\n• A/B test ad creatives, landing pages, and bidding strategies\n• Build weekly/monthly performance reports with actionable insights",
-        requirements: ["Google Ads", "Meta Ads", "PPC Strategy", "A/B Testing", "Google Analytics"], industry: "Travel & Tourism", department: "Performance Marketing", roleCategory: "PPC / Paid Media", education: "Any Graduate", experience: "3-5 Years"
-    },
-    {
-        id: 38, title: "Email Marketing Specialist", company: "Myntra", location: "Bangalore", salary: "₹7L - ₹12L",
-        type: "Full-time", posted: "5 hours ago", applicants: 12, category: "Marketing",
-        description: "Design and execute email marketing campaigns that drive engagement, retention, and revenue for Myntra's 50M+ user base. Build automated email journeys for onboarding, cart abandonment, and seasonal promotions.\n\nKey Responsibilities:\n• Design and send marketing emails and newsletters\n• Build automated lifecycle email campaigns\n• Segment audiences and personalize messaging\n• Analyze email performance and optimize continuously",
-        requirements: ["Email Marketing", "Marketing Automation", "CleverTap/MoEngage", "HTML Email", "A/B Testing"], industry: "E-Commerce / Fashion", department: "CRM & Lifecycle Marketing", roleCategory: "Email & CRM", education: "Any Graduate", experience: "2-4 Years"
-    },
-    {
-        id: 39, title: "Growth Marketing Manager", company: "CRED", location: "Bangalore", salary: "₹18L - ₹30L",
-        type: "Full-time", posted: "1 day ago", applicants: 25, category: "Marketing",
-        description: "Drive user acquisition and retention for CRED's premium user base. Design and execute growth experiments across paid, organic, and referral channels. Own the full marketing funnel.\n\nKey Responsibilities:\n• Design and run growth experiments across channels\n• Own key metrics: CAC, LTV, activation rate, retention\n• Build referral and viral growth loops\n• Collaborate with product and engineering on growth features",
-        requirements: ["Growth Hacking", "Data Analysis", "SQL", "A/B Testing", "Product Marketing"], industry: "Fintech", department: "Growth", roleCategory: "Growth Marketing", education: "MBA / B.Tech", experience: "4-7 Years"
-    },
-    {
-        id: 40, title: "Influencer Marketing Coordinator", company: "boAt", location: "Delhi NCR", salary: "₹6L - ₹10L",
-        type: "Full-time", posted: "2 days ago", applicants: 30, category: "Marketing",
-        description: "Manage influencer partnerships and creator collaborations for India's #1 audio brand. Identify, negotiate, and onboard influencers across Instagram, YouTube, and emerging platforms.\n\nKey Responsibilities:\n• Scout and onboard influencers across multiple platforms\n• Manage end-to-end influencer campaigns\n• Negotiate contracts and manage partnerships\n• Track ROI and report on influencer campaign metrics",
-        requirements: ["Influencer Marketing", "Instagram", "YouTube", "Negotiation", "Campaign Management"], industry: "Consumer Electronics / D2C", department: "Brand Marketing", roleCategory: "Influencer Marketing", education: "Any Graduate", experience: "1-3 Years"
-    },
-    {
-        id: 41, title: "Marketing Analytics Manager", company: "Paytm", location: "Noida", salary: "₹16L - ₹24L",
-        type: "Full-time", posted: "3 days ago", applicants: 14, category: "Marketing",
-        description: "Build the marketing analytics infrastructure for one of India's largest digital payment platforms. Create dashboards, attribution models, and customer segmentation frameworks.\n\nKey Responsibilities:\n• Build marketing attribution models (multi-touch, incrementality)\n• Create dashboards and automated reports for marketing teams\n• Analyze customer journeys and identify optimization opportunities\n• Manage the marketing analytics tech stack",
-        requirements: ["SQL", "Python", "Tableau/PowerBI", "Marketing Attribution", "Google Analytics"], industry: "Fintech", department: "Marketing Analytics", roleCategory: "Marketing Analytics", education: "B.Tech / MBA Analytics", experience: "4-6 Years"
-    },
-    {
-        id: 42, title: "Brand Strategist", company: "Zomato", location: "Gurgaon", salary: "₹14L - ₹22L",
-        type: "Full-time", posted: "1 day ago", applicants: 20, category: "Marketing",
-        description: "Shape the future of one of India's most iconic consumer brands. Develop brand guidelines, positioning frameworks, and creative strategies that keep Zomato top-of-mind for 200M+ users.\n\nKey Responsibilities:\n• Develop and maintain brand identity and guidelines\n• Lead ideation and execution of brand campaigns\n• Manage creative and media agency relationships\n• Conduct consumer research and competitive analysis",
-        requirements: ["Brand Strategy", "Campaign Planning", "Creative Direction", "Consumer Insights", "Agency Management"], industry: "Food Tech", department: "Brand Marketing", roleCategory: "Brand Strategy", education: "MBA Marketing", experience: "4-7 Years"
-    },
-    {
-        id: 43, title: "Digital Marketing Director", company: "Flipkart", location: "Bangalore", salary: "₹35L - ₹55L",
-        type: "Full-time", posted: "Just now", applicants: 5, category: "Marketing",
-        description: "Lead the entire digital marketing function for one of India's largest e-commerce companies. Own strategy, team leadership, and P&L for digital channels including search, social, email, app marketing, and programmatic.\n\nKey Responsibilities:\n• Set digital marketing strategy and annual budgets\n• Lead and mentor a 20+ person marketing team\n• Drive innovation in martech and AI-powered marketing\n• Own digital channel P&L and report to CMO",
-        requirements: ["Digital Strategy", "Team Leadership", "P&L Management", "MarTech", "Data-Driven Marketing"], industry: "E-Commerce", department: "Marketing", roleCategory: "Marketing Leadership", education: "MBA", experience: "10-15 Years"
+        id: 18, title: "US IT Recruiter (Night Shift)", company: "Collabera", location: "Baroda", salary: "₹5L - ₹8L + Incentives",
+        type: "Full-time", posted: "10 hours ago", applicants: 85, category: "Night Shift",
+        description: "Source and recruit IT professionals for Fortune 500 clients in the United States. You will work the core US Night Shift (6:30 PM - 3:30 AM IST). Source candidates via Dice, Monster, and LinkedIn, and manage W2/C2C negotiations.\n\nUncapped incentives for every placement made. Best-in-class night shift facilities provided.",
+        requirements: ["US IT Recruitment", "W2 / C2C / 1099", "Dice / Monster", "Sourcing"], industry: "Staffing & Recruiting", department: "Human Resources", roleCategory: "Talent Acquisition", education: "Any Graduate", experience: "1-4 Years"
     }
 ];
 
