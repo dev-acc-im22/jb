@@ -47,10 +47,21 @@ const RecruiterDashboard = () => {
                             )}
                         </div>
                         <div>
-                            <h1 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
-                                {effectiveCompanyName}
-                            </h1>
-
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                <h1 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
+                                    {effectiveCompanyName}
+                                </h1>
+                                {user?.plan && (
+                                    <span style={{
+                                        fontSize: '0.7rem', fontWeight: 800, color: '#2563EB',
+                                        backgroundColor: '#EFF6FF', padding: '2px 8px',
+                                        borderRadius: '6px', textTransform: 'uppercase',
+                                        border: '1px solid #DBEAFE'
+                                    }}>
+                                        {user.plan}
+                                    </span>
+                                )}
+                            </div>
                         </div>
                     </div>
 

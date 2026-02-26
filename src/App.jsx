@@ -31,6 +31,9 @@ import ResumeBuilder from './pages/ResumeBuilder'
 import ResumeChecker from './pages/ResumeChecker'
 import CoverLetterGenerator from './pages/CoverLetterGenerator'
 import Blog from './pages/Blog'
+import SearchResumes from './pages/SearchResumes'
+import Pricing from './pages/Pricing'
+import RecruiterPricing from './pages/RecruiterPricing'
 
 const HomeRoute = () => {
   const { user } = useJobs();
@@ -49,7 +52,8 @@ function App() {
             <Navbar />
             <Routes>
               <Route path="/" element={<HomeRoute />} />
-              <Route path="/employers" element={<ForEmployers />} />
+              <Route path="/for-employers" element={<ForEmployers />} />
+              <Route path="/employers" element={<RecruiterPricing />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/profile" element={<UserProfile />} />
@@ -74,6 +78,9 @@ function App() {
               <Route path="/resume-checker" element={<ResumeChecker />} />
               <Route path="/cover-letter" element={<CoverLetterGenerator />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/search-resumes" element={<SearchResumes />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/recruiter-pricing" element={<RecruiterPricing />} />
             </Routes>
           </div>
         </Router>
