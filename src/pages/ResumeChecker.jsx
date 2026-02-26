@@ -1,31 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Upload, CheckCircle, XCircle, AlertTriangle, FileText, Wand2, ArrowRight, BarChart3, Shield, Zap, ChevronDown, ChevronUp, RotateCcw, TrendingUp, Target, Eye, Lightbulb } from 'lucide-react';
+import { Upload, CheckCircle, XCircle, AlertTriangle, FileText, Wand2, BarChart3, Shield, Zap, ChevronDown, ChevronUp, RotateCcw, Eye, Lightbulb, ClipboardPaste, Sparkles } from 'lucide-react';
+import { extractTextFromFile, analyzeResume } from '../utils/resumeAnalyzer';
 
 const checkCategories = [
-    { label: 'ATS Compatibility', icon: Shield, color: '#2563EB', details: 'How well your resume parses through Applicant Tracking Systems' },
-    { label: 'Content Quality', icon: FileText, color: '#7C3AED', details: 'Grammar, impact verbs, and achievement-oriented language' },
-    { label: 'Formatting', icon: BarChart3, color: '#0891B2', details: 'Layout, font usage, section structure, and readability' },
-    { label: 'Keyword Match', icon: Zap, color: '#EA580C', details: 'Industry-standard keywords and skills presence' },
-];
-
-const sampleIssues = [
-    { type: 'error', text: 'Missing quantifiable achievements in work experience — add metrics like percentages, revenue, or user counts', section: 'Experience', priority: 'High' },
-    { type: 'error', text: 'No professional summary found — recruiters spend 6 seconds on first scan', section: 'Summary', priority: 'High' },
-    { type: 'warning', text: 'Email format may not be ATS-friendly — use a standard format like name@domain.com', section: 'Contact', priority: 'Medium' },
-    { type: 'warning', text: 'Consider adding 3–5 more technical skills relevant to your target role', section: 'Skills', priority: 'Medium' },
-    { type: 'warning', text: 'Resume exceeds recommended 1-page length for candidates with < 10 years experience', section: 'Format', priority: 'Medium' },
-    { type: 'success', text: 'Good use of action verbs — "led", "developed", "optimized" are strong choices', section: 'Experience', priority: 'Low' },
-    { type: 'success', text: 'Clean, consistent date formatting throughout the document', section: 'Experience', priority: 'Low' },
-    { type: 'success', text: 'Education section is well structured with relevant details', section: 'Education', priority: 'Low' },
-    { type: 'success', text: 'File format (PDF) is the preferred format for most ATS systems', section: 'Format', priority: 'Low' },
-];
-
-const sampleSuggestions = [
-    { title: 'Add a professional summary', desc: 'Start with a 2–3 sentence overview highlighting your years of experience, key skills, and career goals.' },
-    { title: 'Quantify your achievements', desc: 'Replace "improved performance" with "improved app performance by 40%, reducing load time from 3.2s to 1.9s".' },
-    { title: 'Optimize for ATS keywords', desc: 'Include keywords from the job description: "project management", "agile", "stakeholder communication".' },
-    { title: 'Add a skills section', desc: 'Create a dedicated skills section with 8–12 relevant hard and soft skills for better ATS parsing.' },
+    { label: 'ATS Compatibility', key: 'atsCompatibility', icon: Shield, color: '#2563EB', details: 'How well your resume parses through Applicant Tracking Systems' },
+    { label: 'Content Quality', key: 'contentQuality', icon: FileText, color: '#7C3AED', details: 'Grammar, impact verbs, and achievement-oriented language' },
+    { label: 'Formatting', key: 'formatting', icon: BarChart3, color: '#0891B2', details: 'Layout, font usage, section structure, and readability' },
+    { label: 'Keyword Match', key: 'keywordMatch', icon: Zap, color: '#EA580C', details: 'Job description keyword matching and skills alignment' },
 ];
 
 function AnimatedScore({ target, color, size = 120, strokeWidth = 8 }) {
@@ -99,33 +81,91 @@ export default function ResumeChecker() {
     const [fileName, setFileName] = useState('');
     const [analyzing, setAnalyzing] = useState(false);
     const [done, setDone] = useState(false);
-    const [scores, setScores] = useState([null, null, null, null]);
+    const [analysisResult, setAnalysisResult] = useState(null);
     const [dragOver, setDragOver] = useState(false);
     const [activeFilter, setActiveFilter] = useState('all');
     const [expandedSuggestion, setExpandedSuggestion] = useState(0);
+    const [jobDescription, setJobDescription] = useState('');
+    const [resumeFile, setResumeFile] = useState(null);
+    const [error, setError] = useState('');
+    const [analyzePhase, setAnalyzePhase] = useState('');
     const fileRef = useRef(null);
 
-    const handleUpload = (name) => {
-        setFileName(name || 'resume_john_doe.pdf');
+    const handleUpload = async (file) => {
+        if (!file) return;
+
+        // Validate file
+        const ext = file.name.split('.').pop().toLowerCase();
+        if (!['pdf', 'docx', 'doc', 'txt'].includes(ext)) {
+            setError('Please upload a PDF, DOCX, or TXT file.');
+            return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+            setError('File size must be under 5MB.');
+            return;
+        }
+
+        setError('');
+        setFileName(file.name);
+        setResumeFile(file);
         setUploaded(true);
         setAnalyzing(true);
-        setTimeout(() => {
+        setAnalyzePhase('Extracting text...');
+
+        try {
+            // Step 1: Extract text
+            const resumeText = await extractTextFromFile(file);
+
+            if (!resumeText || resumeText.trim().length < 10) {
+                setError('Could not extract text from the file. Please try a different format.');
+                setAnalyzing(false);
+                setUploaded(false);
+                return;
+            }
+
+            // Step 2: Analyze
+            setAnalyzePhase('Analyzing keywords...');
+            await new Promise(r => setTimeout(r, 400));
+
+            setAnalyzePhase('Checking ATS compatibility...');
+            await new Promise(r => setTimeout(r, 400));
+
+            setAnalyzePhase('Generating suggestions...');
+            const result = await analyzeResume(resumeText, jobDescription);
+            await new Promise(r => setTimeout(r, 300));
+
+            setAnalysisResult(result);
             setAnalyzing(false);
             setDone(true);
-            setScores([78, 85, 92, 65]);
-        }, 2500);
+        } catch (err) {
+            console.error('Analysis error:', err);
+            setError(`Analysis failed: ${err.message}. Try a different file format.`);
+            setAnalyzing(false);
+            setUploaded(false);
+        }
     };
 
     const handleReset = () => {
         setUploaded(false);
         setDone(false);
         setAnalyzing(false);
-        setScores([null, null, null, null]);
+        setAnalysisResult(null);
         setFileName('');
         setActiveFilter('all');
+        setResumeFile(null);
+        setError('');
     };
 
-    const overallScore = done ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
+    const overallScore = analysisResult?.overallScore || 0;
+    const scores = analysisResult ? [
+        analysisResult.categoryScores.atsCompatibility,
+        analysisResult.categoryScores.contentQuality,
+        analysisResult.categoryScores.formatting,
+        analysisResult.categoryScores.keywordMatch,
+    ] : [0, 0, 0, 0];
+
+    const issues = analysisResult?.issues || [];
+    const suggestions = analysisResult?.suggestions || [];
 
     const getScoreColor = (s) => {
         if (s >= 80) return '#059669';
@@ -146,10 +186,10 @@ export default function ResumeChecker() {
         return <CheckCircle size={16} color="#059669" />;
     };
 
-    const filteredIssues = activeFilter === 'all' ? sampleIssues : sampleIssues.filter(i => i.type === activeFilter);
-    const errorCount = sampleIssues.filter(i => i.type === 'error').length;
-    const warningCount = sampleIssues.filter(i => i.type === 'warning').length;
-    const successCount = sampleIssues.filter(i => i.type === 'success').length;
+    const filteredIssues = activeFilter === 'all' ? issues : issues.filter(i => i.type === activeFilter);
+    const errorCount = issues.filter(i => i.type === 'error').length;
+    const warningCount = issues.filter(i => i.type === 'warning').length;
+    const successCount = issues.filter(i => i.type === 'success').length;
 
     return (
         <div style={{ fontFamily: "'Montserrat', sans-serif", background: '#F8FAFC', minHeight: '100vh' }}>
@@ -193,7 +233,6 @@ export default function ResumeChecker() {
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             backgroundClip: 'text',
-                            textFillColor: 'transparent',
                             display: 'inline-block'
                         }}>
                             AI Resume Checker
@@ -202,7 +241,7 @@ export default function ResumeChecker() {
                             Get instant, detailed feedback on ATS compatibility, content quality, formatting, and keyword optimization.
                         </p>
                     </div>
-                    {/* Stats with glass background */}
+                    {/* Stats */}
                     <div style={{
                         display: 'flex', gap: '0', background: 'rgba(255,255,255,0.1)',
                         borderRadius: '16px', padding: '1.1rem 0.5rem',
@@ -230,63 +269,137 @@ export default function ResumeChecker() {
                 {/* Upload Area */}
                 {!uploaded && (
                     <div style={{ marginTop: '-1.75rem', position: 'relative', zIndex: 2 }}>
+                        {error && (
+                            <div style={{
+                                background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '12px',
+                                padding: '0.85rem 1.25rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem',
+                                color: '#991B1B', fontSize: '0.85rem', fontWeight: 600
+                            }}>
+                                <XCircle size={16} /> {error}
+                            </div>
+                        )}
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: '1.5rem', alignItems: 'start' }}>
-                            {/* Upload Card */}
-                            <div
-                                onClick={() => handleUpload('resume_john_doe.pdf')}
-                                onDragOver={e => { e.preventDefault(); setDragOver(true); }}
-                                onDragLeave={() => setDragOver(false)}
-                                onDrop={e => { e.preventDefault(); setDragOver(false); const f = e.dataTransfer.files[0]; handleUpload(f?.name); }}
-                                style={{
-                                    background: 'white', borderRadius: '20px', padding: '3rem 2.5rem',
-                                    border: dragOver ? '2px dashed #2563EB' : '2px dashed #CBD5E1',
-                                    textAlign: 'center', cursor: 'pointer', transition: 'all 0.25s',
-                                    boxShadow: dragOver ? '0 12px 40px rgba(37,99,235,0.15)' : '0 8px 30px rgba(0,0,0,0.06)',
-                                    transform: dragOver ? 'scale(1.01)' : 'scale(1)'
-                                }}
-                                onMouseOver={e => { if (!dragOver) { e.currentTarget.style.borderColor = '#93C5FD'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(37,99,235,0.1)'; } }}
-                                onMouseOut={e => { if (!dragOver) { e.currentTarget.style.borderColor = '#CBD5E1'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.06)'; } }}
-                            >
-                                <input
-                                    ref={fileRef} type="file" accept=".pdf,.docx,.txt"
-                                    style={{ display: 'none' }}
-                                    onChange={e => { const f = e.target.files[0]; if (f) handleUpload(f.name); }}
-                                />
-                                <div style={{
-                                    width: '72px', height: '72px', borderRadius: '18px',
-                                    background: 'linear-gradient(135deg, #EFF6FF, #DBEAFE)',
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                    margin: '0 auto 1.25rem', border: '1px solid #BFDBFE',
-                                    boxShadow: '0 4px 12px rgba(37,99,235,0.1)'
-                                }}>
-                                    <Upload size={28} color="#2563EB" />
-                                </div>
-                                <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '1.15rem', marginBottom: '0.5rem' }}>
-                                    Drop your resume here or click to upload
-                                </div>
-                                <div style={{ color: '#64748B', fontSize: '0.88rem', marginBottom: '1.5rem', lineHeight: 1.5 }}>
-                                    Supports PDF, DOCX, and TXT • Max 5MB
-                                </div>
-                                <button style={{
-                                    background: 'linear-gradient(135deg, #2563EB, #3B82F6)', color: 'white',
-                                    border: 'none', padding: '0.85rem 2.5rem', borderRadius: '12px',
-                                    fontWeight: 700, fontSize: '0.92rem', cursor: 'pointer',
-                                    fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                                    boxShadow: '0 4px 14px rgba(37,99,235,0.3)', transition: 'all 0.2s'
-                                }}
-                                    onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(37,99,235,0.35)'; }}
-                                    onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(37,99,235,0.3)'; }}
-                                >
-                                    <Upload size={16} /> Upload Resume
-                                </button>
+                            {/* Left Column — Upload + JD */}
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                                {/* Upload Card */}
                                 <div
-                                    onClick={e => { e.stopPropagation(); fileRef.current?.click(); }}
-                                    style={{ fontSize: '0.76rem', color: '#3B82F6', marginTop: '1rem', cursor: 'pointer', fontWeight: 600, transition: 'color 0.2s' }}
-                                    onMouseOver={e => e.currentTarget.style.color = '#1D4ED8'}
-                                    onMouseOut={e => e.currentTarget.style.color = '#3B82F6'}
+                                    onDragOver={e => { e.preventDefault(); setDragOver(true); }}
+                                    onDragLeave={() => setDragOver(false)}
+                                    onDrop={e => { e.preventDefault(); setDragOver(false); const f = e.dataTransfer.files[0]; if (f) setResumeFile(f); setFileName(f?.name || ''); }}
+                                    onClick={() => fileRef.current?.click()}
+                                    style={{
+                                        background: 'white', borderRadius: '20px', padding: '2.5rem 2rem',
+                                        border: dragOver ? '2px dashed #2563EB' : resumeFile ? '2px solid #059669' : '2px dashed #CBD5E1',
+                                        textAlign: 'center', cursor: 'pointer', transition: 'all 0.25s',
+                                        boxShadow: dragOver ? '0 12px 40px rgba(37,99,235,0.15)' : '0 8px 30px rgba(0,0,0,0.06)',
+                                        transform: dragOver ? 'scale(1.01)' : 'scale(1)'
+                                    }}
+                                    onMouseOver={e => { if (!dragOver && !resumeFile) { e.currentTarget.style.borderColor = '#93C5FD'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(37,99,235,0.1)'; } }}
+                                    onMouseOut={e => { if (!dragOver && !resumeFile) { e.currentTarget.style.borderColor = '#CBD5E1'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.06)'; } }}
                                 >
-                                    or select a file from your device
+                                    <input
+                                        ref={fileRef} type="file" accept=".pdf,.docx,.txt"
+                                        style={{ display: 'none' }}
+                                        onChange={e => { const f = e.target.files[0]; if (f) { setResumeFile(f); setFileName(f.name); } }}
+                                    />
+                                    {resumeFile ? (
+                                        <>
+                                            <div style={{
+                                                width: '56px', height: '56px', borderRadius: '14px',
+                                                background: '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                margin: '0 auto 1rem', border: '1px solid #BBF7D0'
+                                            }}>
+                                                <CheckCircle size={24} color="#059669" />
+                                            </div>
+                                            <div style={{ fontWeight: 700, color: '#059669', fontSize: '0.95rem', marginBottom: '0.25rem' }}>
+                                                {fileName}
+                                            </div>
+                                            <div style={{ color: '#64748B', fontSize: '0.78rem' }}>
+                                                Click to change file
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div style={{
+                                                width: '64px', height: '64px', borderRadius: '16px',
+                                                background: 'linear-gradient(135deg, #EFF6FF, #DBEAFE)',
+                                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                margin: '0 auto 1rem', border: '1px solid #BFDBFE',
+                                                boxShadow: '0 4px 12px rgba(37,99,235,0.1)'
+                                            }}>
+                                                <Upload size={26} color="#2563EB" />
+                                            </div>
+                                            <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '1rem', marginBottom: '0.35rem' }}>
+                                                Drop your resume here or click to upload
+                                            </div>
+                                            <div style={{ color: '#64748B', fontSize: '0.82rem', lineHeight: 1.5 }}>
+                                                Supports PDF, DOCX, and TXT • Max 5MB
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
+
+                                {/* Job Description Input */}
+                                <div style={{
+                                    background: 'white', borderRadius: '16px', padding: '1.5rem',
+                                    border: '1px solid #E2E8F0', boxShadow: '0 4px 16px rgba(0,0,0,0.04)'
+                                }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.75rem' }}>
+                                        <ClipboardPaste size={16} color="#2563EB" />
+                                        <span style={{ fontWeight: 700, fontSize: '0.88rem', color: '#0F172A' }}>
+                                            Paste Job Description
+                                        </span>
+                                        <span style={{
+                                            fontSize: '0.6rem', fontWeight: 700, color: '#EA580C',
+                                            background: '#FFF7ED', padding: '0.15rem 0.5rem', borderRadius: '100px',
+                                            border: '1px solid #FED7AA', marginLeft: '0.25rem'
+                                        }}>RECOMMENDED</span>
+                                    </div>
+                                    <textarea
+                                        value={jobDescription}
+                                        onChange={e => setJobDescription(e.target.value)}
+                                        placeholder="Paste the full job description here for accurate keyword matching and an ATS score tailored to this specific role..."
+                                        style={{
+                                            width: '100%', minHeight: '120px', maxHeight: '200px',
+                                            border: '1.5px solid #E2E8F0', borderRadius: '10px',
+                                            padding: '0.85rem', fontFamily: "'Montserrat', sans-serif",
+                                            fontSize: '0.82rem', color: '#334155', resize: 'vertical',
+                                            outline: 'none', transition: 'border-color 0.2s',
+                                            lineHeight: 1.6, boxSizing: 'border-box'
+                                        }}
+                                        onFocus={e => e.target.style.borderColor = '#93C5FD'}
+                                        onBlur={e => e.target.style.borderColor = '#E2E8F0'}
+                                    />
+                                    <div style={{ fontSize: '0.68rem', color: '#94A3B8', marginTop: '0.4rem' }}>
+                                        {jobDescription.length > 0
+                                            ? `${jobDescription.split(/\s+/).filter(w => w).length} words entered`
+                                            : 'Tip: A JD helps give you an accurate keyword match score'}
+                                    </div>
+                                </div>
+
+                                {/* Analyze Button */}
+                                <button
+                                    onClick={() => resumeFile && handleUpload(resumeFile)}
+                                    disabled={!resumeFile}
+                                    style={{
+                                        width: '100%',
+                                        background: resumeFile
+                                            ? 'linear-gradient(135deg, #2563EB, #3B82F6)'
+                                            : '#CBD5E1',
+                                        color: 'white',
+                                        border: 'none', padding: '1rem', borderRadius: '14px',
+                                        fontWeight: 700, fontSize: '0.95rem', cursor: resumeFile ? 'pointer' : 'not-allowed',
+                                        fontFamily: 'inherit', display: 'flex', alignItems: 'center',
+                                        justifyContent: 'center', gap: '0.5rem',
+                                        boxShadow: resumeFile ? '0 6px 20px rgba(37,99,235,0.3)' : 'none',
+                                        transition: 'all 0.25s'
+                                    }}
+                                    onMouseOver={e => { if (resumeFile) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 28px rgba(37,99,235,0.35)'; } }}
+                                    onMouseOut={e => { if (resumeFile) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(37,99,235,0.3)'; } }}
+                                >
+                                    <Sparkles size={18} />
+                                    {resumeFile ? 'Analyze Resume' : 'Upload a Resume First'}
+                                </button>
                             </div>
 
                             {/* Right Sidebar — What We Check */}
@@ -352,11 +465,11 @@ export default function ResumeChecker() {
                         }} />
                         <style>{`@keyframes rcSpin { to { transform: rotate(360deg); } }`}</style>
                         <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '1.05rem' }}>Analyzing your resume...</div>
-                        <div style={{ color: '#64748B', fontSize: '0.82rem', marginTop: '0.3rem' }}>Checking ATS compatibility, formatting, and keywords</div>
+                        <div style={{ color: '#64748B', fontSize: '0.82rem', marginTop: '0.3rem' }}>{analyzePhase}</div>
                         <div style={{
                             display: 'flex', gap: '0.5rem', justifyContent: 'center', marginTop: '1.25rem'
                         }}>
-                            {['ATS Check', 'Content Scan', 'Format Analysis', 'Keywords'].map((s, i) => (
+                            {['ATS Check', 'Content Scan', 'Format Analysis', 'Keyword Match'].map((s, i) => (
                                 <span key={i} style={{
                                     fontSize: '0.68rem', fontWeight: 600, padding: '0.25rem 0.65rem',
                                     borderRadius: '100px', background: '#F1F5F9', color: '#64748B'
@@ -367,7 +480,7 @@ export default function ResumeChecker() {
                 )}
 
                 {/* Results */}
-                {done && (
+                {done && analysisResult && (
                     <div style={{ marginTop: '-1.25rem', position: 'relative', zIndex: 2 }}>
                         {/* Top Score Bar */}
                         <div style={{
@@ -391,7 +504,8 @@ export default function ResumeChecker() {
                                     </span>
                                 </div>
                                 <div style={{ fontSize: '0.78rem', color: '#64748B', marginBottom: '1rem', lineHeight: 1.4 }}>
-                                    Your resume scores {overallScore}/100 overall. Fix the {errorCount} critical issues below to significantly improve your chances.
+                                    Your resume scores {overallScore}/100 overall.
+                                    {errorCount > 0 ? ` Fix the ${errorCount} critical issue${errorCount > 1 ? 's' : ''} below to significantly improve your chances.` : ' Looking great!'}
                                 </div>
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '1rem' }}>
                                     {checkCategories.map((cat, i) => (
@@ -400,6 +514,60 @@ export default function ResumeChecker() {
                                 </div>
                             </div>
                         </div>
+
+                        {/* Keyword Match Section */}
+                        {(analysisResult.matchedKeywords.length > 0 || analysisResult.missingKeywords.length > 0) && (
+                            <div style={{
+                                background: 'white', borderRadius: '16px', padding: '1.5rem',
+                                boxShadow: '0 4px 20px rgba(0,0,0,0.05)', border: '1px solid #E2E8F0',
+                                marginBottom: '1.25rem'
+                            }}>
+                                <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', margin: '0 0 1rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                                    <Zap size={16} color="#EA580C" /> Keyword Analysis
+                                    {jobDescription && (
+                                        <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#64748B', fontStyle: 'normal' }}>
+                                            — compared against your job description
+                                        </span>
+                                    )}
+                                </h3>
+                                <div style={{ display: 'flex', gap: '2rem' }}>
+                                    {/* Matched */}
+                                    {analysisResult.matchedKeywords.length > 0 && (
+                                        <div style={{ flex: 1 }}>
+                                            <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#059669', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                                                <CheckCircle size={13} /> Found in Resume ({analysisResult.matchedKeywords.length})
+                                            </div>
+                                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+                                                {analysisResult.matchedKeywords.map((kw, i) => (
+                                                    <span key={i} style={{
+                                                        fontSize: '0.72rem', fontWeight: 600, padding: '0.25rem 0.6rem',
+                                                        borderRadius: '100px', background: '#F0FDF4', color: '#166534',
+                                                        border: '1px solid #BBF7D0'
+                                                    }}>{kw}</span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                    {/* Missing */}
+                                    {analysisResult.missingKeywords.length > 0 && (
+                                        <div style={{ flex: 1 }}>
+                                            <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#DC2626', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                                                <XCircle size={13} /> Missing from Resume ({analysisResult.missingKeywords.length})
+                                            </div>
+                                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+                                                {analysisResult.missingKeywords.map((kw, i) => (
+                                                    <span key={i} style={{
+                                                        fontSize: '0.72rem', fontWeight: 600, padding: '0.25rem 0.6rem',
+                                                        borderRadius: '100px', background: '#FEF2F2', color: '#991B1B',
+                                                        border: '1px solid #FECACA'
+                                                    }}>{kw}</span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
 
                         {/* Two-column layout: Issues + Suggestions */}
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '1.25rem', alignItems: 'start' }}>
@@ -412,7 +580,7 @@ export default function ResumeChecker() {
                                     <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', margin: 0 }}>Detailed Feedback</h3>
                                     <div style={{ display: 'flex', gap: '0.35rem' }}>
                                         {[
-                                            { key: 'all', label: 'All', count: sampleIssues.length },
+                                            { key: 'all', label: 'All', count: issues.length },
                                             { key: 'error', label: 'Errors', count: errorCount, color: '#DC2626', bg: '#FEF2F2' },
                                             { key: 'warning', label: 'Warnings', count: warningCount, color: '#92400E', bg: '#FFFBEB' },
                                             { key: 'success', label: 'Passed', count: successCount, color: '#166534', bg: '#F0FDF4' },
@@ -489,7 +657,9 @@ export default function ResumeChecker() {
                                     </div>
                                     <div style={{ flex: 1, minWidth: 0 }}>
                                         <div style={{ fontWeight: 700, fontSize: '0.78rem', color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{fileName}</div>
-                                        <div style={{ fontSize: '0.65rem', color: '#94A3B8' }}>Uploaded just now • PDF</div>
+                                        <div style={{ fontSize: '0.65rem', color: '#94A3B8' }}>
+                                            {analysisResult.wordCount} words • {fileName.split('.').pop().toUpperCase()}
+                                        </div>
                                     </div>
                                 </div>
 
@@ -501,10 +671,10 @@ export default function ResumeChecker() {
                                     <div style={{ fontWeight: 700, fontSize: '0.88rem', color: '#0F172A', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                                         <Wand2 size={15} color="#7C3AED" /> AI Suggestions
                                     </div>
-                                    {sampleSuggestions.map((s, i) => (
+                                    {suggestions.map((s, i) => (
                                         <div key={i} style={{
                                             padding: '0.65rem 0',
-                                            borderBottom: i < sampleSuggestions.length - 1 ? '1px solid #F1F5F9' : 'none',
+                                            borderBottom: i < suggestions.length - 1 ? '1px solid #F1F5F9' : 'none',
                                             cursor: 'pointer'
                                         }}
                                             onClick={() => setExpandedSuggestion(expandedSuggestion === i ? -1 : i)}
