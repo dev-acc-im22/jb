@@ -103,7 +103,7 @@ const JobSeekerHomepage = () => {
                         </Link>
                         <div style={{ height: '1px', backgroundColor: '#E2E8F0', margin: '0.5rem' }}></div>
                         <Link to="#" style={{ display: 'block', padding: '0.5rem 1rem', color: '#94A3B8', textDecoration: 'none', fontSize: '0.8rem', textAlign: 'center' }}>
-                            How Naukri works?
+                            How JobBoard works?
                         </Link>
                     </motion.div>
                 </div>
@@ -281,7 +281,7 @@ const JobSeekerHomepage = () => {
                         <div style={{ display: 'flex', gap: '1rem', overflowX: 'auto', paddingBottom: '0.5rem', scrollbarWidth: 'none' }}>
                             {[
                                 { title: 'Career Objective Or Resume Objective Samples', date: '2 Feb 2026', bg: '#D1D5DB' },
-                                { title: 'Naukri JobSpeak: White-Collar Hiring Opens 2026 with 3%...', date: '1 Feb 2026', bg: '#1E293B' },
+                                { title: 'JobBoard JobSpeak: White-Collar Hiring Opens 2026 with 3%...', date: '1 Feb 2026', bg: '#1E293B' },
                                 { title: 'Job Application Letter Format, Samples, and Writing Tips (2026)', date: '29 Jan 2026', bg: '#E2E8F0' }
                             ].map((blog, i) => (
                                 <div key={i} style={{
@@ -293,7 +293,7 @@ const JobSeekerHomepage = () => {
                                     </div>
                                     <div style={{ padding: '1rem' }}>
                                         <h4 style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{blog.title}</h4>
-                                        <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>Naukri blog • {blog.date}</div>
+                                        <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>JobBoard blog • {blog.date}</div>
                                     </div>
                                 </div>
                             ))}

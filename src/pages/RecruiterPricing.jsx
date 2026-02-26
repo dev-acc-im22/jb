@@ -70,26 +70,6 @@ const RESUME_DB_PLANS = [
     }
 ];
 
-const EXPERT_SERVICES = [
-    {
-        title: 'Dedicated Recruiter', price: '₹5,000', period: '/mo',
-        desc: 'Get a dedicated recruitment expert who sources, screens, and shortlists candidates for you.',
-        features: ['End-to-end recruiting', 'Screening & shortlisting', 'Interview scheduling', 'Weekly reports'],
-        icon: HeadphonesIcon, color: '#2563EB'
-    },
-    {
-        title: 'Recruitment Drives', price: '₹8,000', period: '/drive',
-        desc: 'Organize large-scale hiring drives with our expert team managing logistics and assessments.',
-        features: ['Event planning & logistics', 'Assessment setup', 'Candidate management', 'Post-event analytics'],
-        icon: Target, color: '#7C3AED'
-    },
-    {
-        title: 'Campus Hiring', price: '₹4,000', period: '/campus',
-        desc: 'Connect with top colleges and universities to hire the best fresh talent.',
-        features: ['College network access', 'Campus event coordination', 'Bulk assessments', 'Offer management'],
-        icon: GraduationCap, color: '#10B981'
-    }
-];
 
 const FAQ_ITEMS = [
     { q: 'How does the free Starter plan work?', a: 'The Starter plan lets you post 1 job for free for 30 days. No credit card required. You can upgrade anytime to access premium features like AI matching and analytics.' },
@@ -360,63 +340,6 @@ const RecruiterPricing = () => {
                 </div>
             </section>
 
-            {/* ═══════ EXPERT ASSISTANCE ═══════ */}
-            <ScrollReveal>
-                <section style={{ padding: '5rem 2rem' }}>
-                    <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-                        <h2 style={{ fontSize: '2.2rem', textAlign: 'center', fontWeight: 800, color: '#0F172A', marginBottom: '0.75rem' }}>
-                            Get Expert Assistance
-                        </h2>
-                        <p style={{ textAlign: 'center', color: '#64748B', marginBottom: '3rem', fontSize: '1.05rem' }}>
-                            Let our recruitment experts do the heavy lifting
-                        </p>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-                            {EXPERT_SERVICES.map((svc, i) => (
-                                <ScrollReveal key={i} delay={i * 0.1}>
-                                    <motion.div
-                                        whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)' }}
-                                        style={{
-                                            background: 'white', borderRadius: '24px', padding: '2rem',
-                                            border: '1px solid #E2E8F0', transition: 'all 0.3s', height: '100%',
-                                            display: 'flex', flexDirection: 'column'
-                                        }}
-                                    >
-                                        <div style={{
-                                            width: '56px', height: '56px', borderRadius: '16px',
-                                            background: `${svc.color}10`, display: 'flex',
-                                            alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem'
-                                        }}>
-                                            <svc.icon size={28} color={svc.color} />
-                                        </div>
-                                        <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.5rem' }}>{svc.title}</h3>
-                                        <div style={{ marginBottom: '1rem' }}>
-                                            <span style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>{svc.price}</span>
-                                            <span style={{ color: '#64748B', fontWeight: 600, fontSize: '0.9rem' }}>{svc.period}</span>
-                                        </div>
-                                        <p style={{ color: '#64748B', lineHeight: 1.6, fontSize: '0.9rem', marginBottom: '1.5rem' }}>{svc.desc}</p>
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem', flex: 1 }}>
-                                            {svc.features.map((f, j) => (
-                                                <div key={j} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.85rem', color: '#334155' }}>
-                                                    <Check size={14} color="#10B981" strokeWidth={3} />
-                                                    <span>{f}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <button style={{
-                                            width: '100%', padding: '0.9rem', borderRadius: '12px',
-                                            border: '2px solid #E2E8F0', background: 'white',
-                                            color: '#0F172A', fontWeight: 700, fontSize: '0.9rem',
-                                            cursor: 'pointer', transition: 'all 0.2s'
-                                        }}>
-                                            Contact Sales
-                                        </button>
-                                    </motion.div>
-                                </ScrollReveal>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-            </ScrollReveal>
 
             {/* ═══════ TRUSTED BY ═══════ */}
             <ScrollReveal>

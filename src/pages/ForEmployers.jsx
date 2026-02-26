@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useJobs } from '../context/JobContext';
 import Button from '../components/ui/Button';
 import PostJobForm from '../components/employer/PostJobForm';
-import { CheckCircle, Search, FileText, Users, TrendingUp, MessageSquare, Sparkles, X, ArrowRight, Building2, Zap, Shield, BarChart3, Globe, Star, Lock } from 'lucide-react';
+import { CheckCircle, Check, Search, FileText, Users, TrendingUp, MessageSquare, Sparkles, X, ArrowRight, Building2, Zap, Shield, BarChart3, Globe, Star, Lock, HeadphonesIcon, Target, GraduationCap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const ScrollReveal = ({ children, delay = 0 }) => (
@@ -16,6 +16,27 @@ const ScrollReveal = ({ children, delay = 0 }) => (
         {children}
     </motion.div>
 );
+
+const EXPERT_SERVICES = [
+    {
+        title: 'Dedicated Recruiter', price: '₹5,000', period: '/mo',
+        desc: 'Get a dedicated recruitment expert who sources, screens, and shortlists candidates for you.',
+        features: ['End-to-end recruiting', 'Screening & shortlisting', 'Interview scheduling', 'Weekly reports'],
+        icon: HeadphonesIcon, color: '#2563EB'
+    },
+    {
+        title: 'Recruitment Drives', price: '₹8,000', period: '/drive',
+        desc: 'Organize large-scale hiring drives with our expert team managing logistics and assessments.',
+        features: ['Event planning & logistics', 'Assessment setup', 'Candidate management', 'Post-event analytics'],
+        icon: Target, color: '#7C3AED'
+    },
+    {
+        title: 'Campus Hiring', price: '₹4,000', period: '/campus',
+        desc: 'Connect with top colleges and universities to hire the best fresh talent.',
+        features: ['College network access', 'Campus event coordination', 'Bulk assessments', 'Offer management'],
+        icon: GraduationCap, color: '#10B981'
+    }
+];
 
 const ForEmployers = () => {
     const { user } = useJobs();
@@ -241,37 +262,179 @@ const ForEmployers = () => {
                             Everything you need to build your dream team
                         </p>
                     </ScrollReveal>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-                        {[
-                            { title: 'Smart Job Posts', icon: FileText, desc: 'AI-optimized job posts that reach the right candidates. Get 3x more quality applications.', color: '#2563EB' },
-                            { title: 'Resume Search', icon: Search, desc: 'Access our database of 10M+ verified resumes with advanced filters and AI matching.', color: '#7C3AED' },
-                            { title: 'Employer Branding', icon: TrendingUp, desc: 'Showcase your culture, benefits, and workplace to attract top-tier talent.', color: '#10B981' },
-                            { title: 'Smart Screening', icon: Shield, desc: 'Automated screening questions & assessments to filter candidates effectively.', color: '#F59E0B' },
-                            { title: 'Analytics Dashboard', icon: BarChart3, desc: 'Track views, applications, and conversion rates with real-time analytics.', color: '#EF4444' },
-                            { title: 'Global Reach', icon: Globe, desc: 'Post once, reach candidates across 50+ cities. Remote-friendly tools built in.', color: '#06B6D4' }
-                        ].map((item, i) => (
-                            <ScrollReveal key={i} delay={i * 0.08}>
-                                <motion.div
-                                    whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)' }}
-                                    style={{
-                                        padding: '2rem', borderRadius: '16px',
-                                        border: '1px solid #E2E8F0', backgroundColor: 'white',
-                                        transition: 'box-shadow 0.3s ease', cursor: 'pointer'
-                                    }}
-                                >
-                                    <div style={{
-                                        width: '52px', height: '52px', borderRadius: '12px',
-                                        background: `${item.color}12`,
-                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        marginBottom: '1.25rem'
-                                    }}>
-                                        <item.icon size={26} color={item.color} />
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+
+                        {/* CARD 1: JOB POSTING */}
+                        <ScrollReveal delay={0.1}>
+                            <motion.div
+                                whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)' }}
+                                style={{
+                                    padding: '2rem', borderRadius: '16px',
+                                    border: '1px solid #E2E8F0', backgroundColor: 'white',
+                                    transition: 'box-shadow 0.3s ease', display: 'flex', flexDirection: 'column', height: '100%'
+                                }}
+                            >
+                                <span style={{
+                                    alignSelf: 'flex-start', background: '#EFF6FF', color: '#2563EB',
+                                    padding: '0.4rem 0.8rem', borderRadius: '6px', fontSize: '0.75rem',
+                                    fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '1.5rem'
+                                }}>
+                                    Job Posting
+                                </span>
+
+                                <h3 style={{ fontSize: '1.75rem', marginBottom: '1.5rem', fontWeight: 800, color: '#0F172A', lineHeight: 1.2 }}>
+                                    Post a job and get relevant applies
+                                </h3>
+
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2.5rem', flex: 1 }}>
+                                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                                        <div style={{ marginTop: '0.4rem', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#CBD5E1', flexShrink: 0 }} />
+                                        <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+                                            Attract <span style={{ fontWeight: 700, color: '#0F172A' }}>qualified</span> candidates actively seeking new <span style={{ fontWeight: 700, color: '#0F172A' }}>opportunities</span>
+                                        </p>
                                     </div>
-                                    <h3 style={{ fontSize: '1.2rem', marginBottom: '0.6rem', fontWeight: 700, color: '#0F172A' }}>{item.title}</h3>
-                                    <p style={{ color: '#64748B', lineHeight: 1.6, fontSize: '0.9rem' }}>{item.desc}</p>
-                                </motion.div>
-                            </ScrollReveal>
-                        ))}
+                                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                                        <div style={{ marginTop: '0.4rem', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#CBD5E1', flexShrink: 0 }} />
+                                        <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+                                            <span style={{ fontWeight: 700, color: '#0F172A' }}>Customise</span> job posting to find candidates as per your <span style={{ fontWeight: 700, color: '#0F172A' }}>requirements</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={() => document.getElementById('pricing-plans').scrollIntoView({ behavior: 'smooth' })}
+                                    style={{
+                                        width: '100%', padding: '1rem', borderRadius: '12px',
+                                        border: '1.5px solid #2563EB', background: 'white',
+                                        color: '#2563EB', fontSize: '1rem', fontWeight: 600, cursor: 'pointer',
+                                        transition: 'all 0.2s'
+                                    }}
+                                    onMouseEnter={e => { e.target.style.background = '#EFF6FF' }}
+                                    onMouseLeave={e => { e.target.style.background = 'white' }}
+                                >
+                                    View plans
+                                </button>
+                            </motion.div>
+                        </ScrollReveal>
+
+                        {/* CARD 2: RESDEX */}
+                        <ScrollReveal delay={0.2}>
+                            <motion.div
+                                whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)' }}
+                                style={{
+                                    padding: '2rem', borderRadius: '16px',
+                                    border: '1px solid #E2E8F0', backgroundColor: 'white',
+                                    transition: 'box-shadow 0.3s ease', display: 'flex', flexDirection: 'column', height: '100%'
+                                }}
+                            >
+                                <span style={{
+                                    alignSelf: 'flex-start', background: '#EFF6FF', color: '#2563EB',
+                                    padding: '0.4rem 0.8rem', borderRadius: '6px', fontSize: '0.75rem',
+                                    fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '1.5rem'
+                                }}>
+                                    Resdex
+                                </span>
+
+                                <h3 style={{ fontSize: '1.75rem', marginBottom: '1.5rem', fontWeight: 800, color: '#0F172A', lineHeight: 1.2 }}>
+                                    Search JobBoard's resume database
+                                </h3>
+
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2.5rem', flex: 1 }}>
+                                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                                        <div style={{ marginTop: '0.4rem', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#CBD5E1', flexShrink: 0 }} />
+                                        <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+                                            Discover local talent in every city with India's <span style={{ fontWeight: 700, color: '#0F172A' }}>largest resume database</span>
+                                        </p>
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                                        <div style={{ marginTop: '0.4rem', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#CBD5E1', flexShrink: 0 }} />
+                                        <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+                                            Find the right fit as per your <span style={{ fontWeight: 700, color: '#0F172A' }}>specific preferences</span> like location, skills, & more
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={() => document.getElementById('pricing-plans').scrollIntoView({ behavior: 'smooth' })}
+                                    style={{
+                                        width: '100%', padding: '1rem', borderRadius: '12px',
+                                        border: '1.5px solid #2563EB', background: 'white',
+                                        color: '#2563EB', fontSize: '1rem', fontWeight: 600, cursor: 'pointer',
+                                        transition: 'all 0.2s'
+                                    }}
+                                    onMouseEnter={e => { e.target.style.background = '#EFF6FF' }}
+                                    onMouseLeave={e => { e.target.style.background = 'white' }}
+                                >
+                                    View plans
+                                </button>
+                            </motion.div>
+                        </ScrollReveal>
+
+                        {/* CARD 3: ASSISTED HIRING */}
+                        <ScrollReveal delay={0.3}>
+                            <motion.div
+                                whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)' }}
+                                style={{
+                                    padding: '2rem', borderRadius: '16px',
+                                    border: '1px solid #E2E8F0', backgroundColor: 'white',
+                                    transition: 'box-shadow 0.3s ease', display: 'flex', flexDirection: 'column', height: '100%',
+                                    position: 'relative', overflow: 'hidden'
+                                }}
+                            >
+                                {/* Newly Launched Ribbon */}
+                                <div style={{
+                                    position: 'absolute', top: '18px', right: '-32px',
+                                    background: '#F97316', color: 'white', fontSize: '0.75rem', fontWeight: 700,
+                                    padding: '0.25rem 3rem', transform: 'rotate(45deg)', boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                                    zIndex: 10, borderBottomLeftRadius: '4px', borderBottomRightRadius: '4px'
+                                }}>
+                                    Newly launched
+                                </div>
+
+                                <span style={{
+                                    alignSelf: 'flex-start', background: '#EFF6FF', color: '#2563EB',
+                                    padding: '0.4rem 0.8rem', borderRadius: '6px', fontSize: '0.75rem',
+                                    fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '1.5rem'
+                                }}>
+                                    Assisted Hiring
+                                </span>
+
+                                <h3 style={{ fontSize: '1.75rem', marginBottom: '1.5rem', fontWeight: 800, color: '#0F172A', lineHeight: 1.2 }}>
+                                    Get a dedicated hiring expert
+                                </h3>
+
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2.5rem', flex: 1 }}>
+                                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                                        <div style={{ marginTop: '0.4rem', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#CBD5E1', flexShrink: 0 }} />
+                                        <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+                                            Our <span style={{ fontWeight: 700, color: '#0F172A' }}>experts assess</span> your hiring needs to find the right candidates
+                                        </p>
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                                        <div style={{ marginTop: '0.4rem', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#CBD5E1', flexShrink: 0 }} />
+                                        <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+                                            Once we receive applies we will <span style={{ fontWeight: 700, color: '#0F172A' }}>screen, shortlist</span>, and share resumes with you
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={() => document.getElementById('pricing-plans')?.scrollIntoView({ behavior: 'smooth' })}
+                                    style={{
+                                        width: '100%', padding: '1rem', borderRadius: '12px',
+                                        border: '1.5px solid #2563EB', background: 'white',
+                                        color: '#2563EB', fontSize: '1rem', fontWeight: 600, cursor: 'pointer',
+                                        transition: 'all 0.2s'
+                                    }}
+                                    onMouseEnter={e => { e.target.style.background = '#EFF6FF' }}
+                                    onMouseLeave={e => { e.target.style.background = 'white' }}
+                                >
+                                    View plans
+                                </button>
+                            </motion.div>
+                        </ScrollReveal>
+
                     </div>
                 </div>
             </section>
@@ -334,6 +497,7 @@ const ForEmployers = () => {
                     </div>
                 </section>
             </ScrollReveal>
+
 
             {/* ======= CTA BANNER ======= */}
             <ScrollReveal>

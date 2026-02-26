@@ -13,8 +13,9 @@ const Navbar = ({ onPostJob }) => {
     const [showResumeTools, setShowResumeTools] = useState(false);
     const [showJobs, setShowJobs] = useState(false);
 
-    const employerPaths = ['/employers', '/for-employers', '/recruiter', '/search-resumes', '/post-job', '/pricing', '/recruiter-pricing'];
-    const isEmployerMode = employerPaths.some(p => location.pathname.startsWith(p)) || user?.role === 'employer';
+    const employerPaths = ['/employers', '/for-employers', '/recruiter', '/search-resumes', '/post-job', '/pricing', '/recruiter-pricing', '/recruiter-services', '/candidates'];
+    const searchParams = new URLSearchParams(location.search);
+    const isEmployerMode = employerPaths.some(p => location.pathname.startsWith(p)) || user?.role === 'employer' || searchParams.get('role') === 'employer';
 
     const handleLogout = () => {
         logout();
@@ -230,9 +231,9 @@ const Navbar = ({ onPostJob }) => {
                                 { to: '/search-resumes', icon: Search, label: 'Search Resumes', always: true },
                                 { to: '/post-job', icon: PlusCircle, label: 'Post a Job', always: true },
                                 { to: '/recruiter-dashboard', icon: LayoutDashboard, label: 'Recruiter Dashboard', always: false },
-                                { to: '/recruiter-dashboard', icon: Users, label: 'Candidates', always: false },
-                                { to: '/for-employers', icon: Briefcase, label: 'Services', always: true },
-                                { to: '/recruiter-pricing', icon: Crown, label: 'Pricing', always: true },
+                                { to: '/candidates', icon: Users, label: 'Candidates', always: false },
+                                { to: '/recruiter-services', icon: Briefcase, label: 'Services', always: false },
+                                { to: '/recruiter-pricing', icon: Crown, label: 'Pricing', always: false },
                             ]
                                 .filter(item => item.always || user)
                                 .map((item, i) => {
@@ -240,7 +241,7 @@ const Navbar = ({ onPostJob }) => {
                                     return (
                                         <Link
                                             key={i}
-                                            to={item.to}
+                                            to={user ? item.to : `/login?role=employer&returnUrl=${item.to}`}
                                             style={{
                                                 color: isActive ? 'white' : '#475569',
                                                 textDecoration: 'none',
