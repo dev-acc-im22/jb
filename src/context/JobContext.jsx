@@ -292,7 +292,46 @@ const MOCK_JOBS = [
     }
 ];
 
-const MOCK_VERSION = 'v4'; // Bump this when MOCK_JOBS changes to invalidate stale cache
+const MOCK_RESUMES = [
+    {
+        id: 1, name: "Arjun Sharma", title: "Senior React Developer", location: "Bangalore",
+        experience: "6 Years", skills: ["React", "TypeScript", "Node.js", "AWS"],
+        lastCompany: "TechFlow", education: "B.Tech Computer Science",
+        summary: "Passionate frontend engineer with expertise in building scalable web applications. Strong focus on performance and user experience."
+    },
+    {
+        id: 2, name: "Priya Patel", title: "Product Manager", location: "Mumbai",
+        experience: "4 Years", skills: ["Product Strategy", "Agile", "SQL", "Jira"],
+        lastCompany: "Growth Labs", education: "MBA Marketing",
+        summary: "Data-driven product manager with a track record of launching successful mobile apps in the fintech space."
+    },
+    {
+        id: 3, name: "Rahul Verma", title: "DevOps Engineer", location: "Remote",
+        experience: "5 Years", skills: ["Docker", "Kubernetes", "AWS", "Terraform", "CI/CD"],
+        lastCompany: "CloudScale", education: "B.E. Electronics",
+        summary: "Specializing in infrastructure automation and cloud-native architectures. Experienced in managing large-scale k8s clusters."
+    },
+    {
+        id: 4, name: "Ananya Iyer", title: "UI/UX Designer", location: "Hyderabad",
+        experience: "3 Years", skills: ["Figma", "Adobe XD", "User Research", "Prototyping"],
+        lastCompany: "DesignSync", education: "B.Des Visual Communication",
+        summary: "Creative designer focused on creating intuitive and accessible digital experiences. Strong portfolio in B2B SaaS design."
+    },
+    {
+        id: 5, name: "Vikram Singh", title: "Backend Developer (Go)", location: "Pune",
+        experience: "7 Years", skills: ["Go", "PostgreSQL", "Redis", "Microservices", "gRPC"],
+        lastCompany: "FinVault", education: "M.Tech Software Systems",
+        summary: "High-performance backend engineer with deep knowledge of distributed systems and financial messaging protocols."
+    },
+    {
+        id: 6, name: "Sanya Gupta", title: "Digital Marketing Specialist", location: "Delhi NCR",
+        experience: "4 Years", skills: ["SEO", "Google Ads", "Content Marketing", "Analytics"],
+        lastCompany: "AdRise", education: "B.A. Mass Communication",
+        summary: "Growth-oriented marketer with expertise in driving organic and paid acquisition for e-commerce brands."
+    }
+];
+
+const MOCK_VERSION = 'v5'; // Bumped for resumes
 
 export const JobProvider = ({ children }) => {
     const [jobs, setJobs] = useState(() => {
@@ -314,6 +353,11 @@ export const JobProvider = ({ children }) => {
             localStorage.setItem('jb_jobs_version', MOCK_VERSION);
             return MOCK_JOBS;
         }
+    });
+
+    const [resumes, setResumes] = useState(() => {
+        const savedResumes = localStorage.getItem('jb_resumes');
+        return savedResumes ? JSON.parse(savedResumes) : MOCK_RESUMES;
     });
 
     const [applications, setApplications] = useState(() => {
@@ -349,6 +393,10 @@ export const JobProvider = ({ children }) => {
     useEffect(() => {
         localStorage.setItem('jb_locations', JSON.stringify(locations));
     }, [locations]);
+
+    useEffect(() => {
+        localStorage.setItem('jb_resumes', JSON.stringify(resumes));
+    }, [resumes]);
 
     const addJob = (newJob) => {
         const jobWithId = {
@@ -507,7 +555,9 @@ export const JobProvider = ({ children }) => {
             login,
             logout,
             updateUser,
-            profileMetrics
+            profileMetrics,
+            resumes,
+            setResumes
         }}>
             {children}
         </JobContext.Provider>

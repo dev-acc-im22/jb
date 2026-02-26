@@ -1,4 +1,4 @@
-import { Briefcase, User, PlusCircle, LogOut, ChevronDown, ChevronUp, Building2, CircleUser, Crown, Settings, HelpCircle, BookOpen, ChevronRight, X, FileText, PenTool, Sparkles, CheckCircle } from 'lucide-react';
+import { Briefcase, User, PlusCircle, LogOut, ChevronDown, ChevronUp, Building2, CircleUser, Crown, Settings, HelpCircle, BookOpen, ChevronRight, X, FileText, PenTool, Sparkles, CheckCircle, Search, Users, LayoutDashboard } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
@@ -12,6 +12,10 @@ const Navbar = ({ onPostJob }) => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [showResumeTools, setShowResumeTools] = useState(false);
     const [showJobs, setShowJobs] = useState(false);
+
+    const employerPaths = ['/employers', '/for-employers', '/recruiter', '/search-resumes', '/post-job', '/pricing', '/recruiter-pricing', '/recruiter-services', '/candidates'];
+    const searchParams = new URLSearchParams(location.search);
+    const isEmployerMode = employerPaths.some(p => location.pathname.startsWith(p)) || user?.role === 'employer' || searchParams.get('role') === 'employer';
 
     const handleLogout = () => {
         logout();
@@ -53,7 +57,7 @@ const Navbar = ({ onPostJob }) => {
                 justifyContent: 'space-between'
             }}>
                 {/* Logo */}
-                <Link to={user?.role === 'employer' ? '/recruiter-dashboard' : '/'} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+                <Link to={isEmployerMode ? '/for-employers' : '/'} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
                     <div style={{
                         width: '40px',
                         height: '40px',
@@ -85,241 +89,341 @@ const Navbar = ({ onPostJob }) => {
                     fontWeight: 600,
                     fontSize: '0.95rem'
                 }}>
-                    {/* Jobs Dropdown */}
-                    <div
-                        style={{ position: 'relative' }}
-                        onMouseEnter={() => setShowJobs(true)}
-                        onMouseLeave={() => setShowJobs(false)}
-                    >
-                        <button style={{
-                            color: showJobs ? '#2563EB' : 'var(--neutral-800)',
-                            display: 'flex', alignItems: 'center', gap: '0.3rem',
-                            background: 'none', border: 'none', cursor: 'pointer',
-                            fontWeight: 600, fontSize: '0.95rem', fontFamily: 'inherit',
-                            padding: 0, transition: 'color 0.2s'
-                        }}>
-                            Jobs
-                            {showJobs ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
-                        </button>
+                    {!isEmployerMode ? (
+                        <>
+                            {/* Job Seeker Menu */}
+                            {/* Jobs Dropdown */}
+                            <div
+                                style={{ position: 'relative' }}
+                                onMouseEnter={() => setShowJobs(true)}
+                                onMouseLeave={() => setShowJobs(false)}
+                            >
+                                <button style={{
+                                    color: showJobs ? '#2563EB' : 'var(--neutral-800)',
+                                    display: 'flex', alignItems: 'center', gap: '0.3rem',
+                                    background: 'none', border: 'none', cursor: 'pointer',
+                                    fontWeight: 600, fontSize: '0.95rem', fontFamily: 'inherit',
+                                    padding: 0, transition: 'color 0.2s'
+                                }}>
+                                    Jobs
+                                    {showJobs ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
+                                </button>
 
-                        <AnimatePresence>
-                            {showJobs && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 8 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 8 }}
-                                    transition={{ duration: 0.15 }}
-                                    style={{
-                                        position: 'absolute', top: '100%', left: 0,
-                                        marginTop: '0.6rem', width: '520px',
-                                        background: 'white', borderRadius: '16px',
-                                        boxShadow: '0 25px 50px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.04)',
-                                        border: '1px solid #000',
-                                        padding: '1.25rem', zIndex: 1002,
-                                        display: 'flex', gap: '1.5rem',
-                                        fontFamily: "'Montserrat', sans-serif"
-                                    }}
-                                >
-                                    {/* Top border accent */}
-                                    <div style={{
-                                        position: 'absolute', top: 0, left: '10%', right: '10%',
-                                        height: '3px', borderRadius: '0 0 4px 4px',
-                                        background: 'linear-gradient(90deg, #2563EB, #3B82F6, #60A5FA)'
-                                    }} />
-                                    {/* Left Column - Quick Links */}
-                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                                        {[
-                                            'Work From Home Jobs', 'Part Time Jobs', 'Freshers Jobs',
-                                            'Jobs for women', 'Full Time Jobs', 'Night Shift Jobs'
-                                        ].map((item, i) => (
-                                            <React.Fragment key={i}>
-                                                <a
-                                                    href="#"
-                                                    style={{
-                                                        padding: '0.6rem 0.8rem',
-                                                        borderRadius: '10px',
-                                                        textDecoration: 'none',
-                                                        color: '#475569',
-                                                        fontSize: '0.9rem',
-                                                        fontWeight: 600,
-                                                        transition: 'all 0.2s',
-                                                        display: 'block'
-                                                    }}
-                                                    onMouseOver={e => {
-                                                        e.currentTarget.style.background = '#F8FAFC';
-                                                        e.currentTarget.style.color = '#0F172A';
-                                                    }}
-                                                    onMouseOut={e => {
-                                                        e.currentTarget.style.background = 'transparent';
-                                                        e.currentTarget.style.color = '#475569';
-                                                    }}
-                                                >
-                                                    {item}
-                                                </a>
-                                                {i < 5 && (
-                                                    <div style={{ height: '1px', backgroundColor: '#E2E8F0', margin: '0.1rem 0.5rem' }} />
-                                                )}
-                                            </React.Fragment>
-                                        ))}
-                                    </div>
+                                <AnimatePresence>
+                                    {showJobs && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 8 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 8 }}
+                                            transition={{ duration: 0.15 }}
+                                            style={{
+                                                position: 'absolute', top: '100%', left: 0,
+                                                marginTop: '0.6rem', width: '520px',
+                                                background: 'white', borderRadius: '16px',
+                                                boxShadow: '0 25px 50px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.04)',
+                                                border: '1px solid #000',
+                                                padding: '1.25rem', zIndex: 1002,
+                                                display: 'flex', gap: '1.5rem',
+                                                fontFamily: "'Montserrat', sans-serif"
+                                            }}
+                                        >
+                                            <div style={{
+                                                position: 'absolute', top: 0, left: '10%', right: '10%',
+                                                height: '3px', borderRadius: '0 0 4px 4px',
+                                                background: 'linear-gradient(90deg, #2563EB, #3B82F6, #60A5FA)'
+                                            }} />
+                                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                                                {[
+                                                    'Work From Home Jobs', 'Part Time Jobs', 'Freshers Jobs',
+                                                    'Jobs for women', 'Full Time Jobs', 'Night Shift Jobs'
+                                                ].map((item, i) => (
+                                                    <React.Fragment key={i}>
+                                                        <a href="#" style={{ padding: '0.6rem 0.8rem', borderRadius: '100px', textDecoration: 'none', color: '#475569', fontSize: '0.9rem', fontWeight: 600, transition: 'all 0.2s', display: 'block' }} onMouseOver={e => { e.currentTarget.style.background = '#F8FAFC'; e.currentTarget.style.color = '#0F172A'; }} onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#475569'; }}>
+                                                            {item}
+                                                        </a>
+                                                        {i < 5 && <div style={{ height: '1px', backgroundColor: '#E2E8F0', margin: '0.1rem 0.5rem' }} />}
+                                                    </React.Fragment>
+                                                ))}
+                                            </div>
+                                            <div style={{ width: '1px', backgroundColor: '#E2E8F0' }} />
+                                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                                                {[
+                                                    'Jobs By City', 'Jobs By Department', 'Jobs By Company',
+                                                    'Jobs By Qualification', 'Others'
+                                                ].map((item, i) => (
+                                                    <React.Fragment key={i}>
+                                                        <a href="#" style={{ padding: '0.6rem 0.8rem', borderRadius: '100px', textDecoration: 'none', color: '#475569', fontSize: '0.9rem', fontWeight: 600, transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} onMouseOver={e => { e.currentTarget.style.background = '#F8FAFC'; e.currentTarget.style.color = '#0F172A'; }} onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#475569'; }}>
+                                                            {item}
+                                                            <ChevronRight size={14} color="#94A3B8" />
+                                                        </a>
+                                                        {i < 4 && <div style={{ height: '1px', backgroundColor: '#E2E8F0', margin: '0.1rem 0.5rem' }} />}
+                                                    </React.Fragment>
+                                                ))}
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                            <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Companies</Link>
+                            <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Services</Link>
+                            <Link to="/" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                                Online Degrees
+                                <span style={{ fontSize: '0.6rem', fontWeight: 800, color: 'white', background: 'linear-gradient(135deg, #2563EB, #3B82F6, #60A5FA)', padding: '0.1rem 0.6rem', borderRadius: '100px', textTransform: 'uppercase', letterSpacing: '0.5px', boxShadow: '0 2px 4px rgba(37, 99, 235, 0.2)' }}>New</span>
+                            </Link>
 
-                                    {/* Vertical Divider */}
-                                    <div style={{ width: '1px', backgroundColor: '#E2E8F0' }} />
 
-                                    {/* Right Column - Browse By */}
-                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                                        {[
-                                            'Jobs By City', 'Jobs By Department', 'Jobs By Company',
-                                            'Jobs By Qualification', 'Others'
-                                        ].map((item, i) => (
-                                            <React.Fragment key={i}>
-                                                <a
-                                                    href="#"
-                                                    style={{
-                                                        padding: '0.6rem 0.8rem',
-                                                        borderRadius: '10px',
-                                                        textDecoration: 'none',
-                                                        color: '#475569',
-                                                        fontSize: '0.9rem',
-                                                        fontWeight: 600,
-                                                        transition: 'all 0.2s',
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'space-between'
-                                                    }}
-                                                    onMouseOver={e => {
-                                                        e.currentTarget.style.background = '#F8FAFC';
-                                                        e.currentTarget.style.color = '#0F172A';
-                                                    }}
-                                                    onMouseOut={e => {
-                                                        e.currentTarget.style.background = 'transparent';
-                                                        e.currentTarget.style.color = '#475569';
-                                                    }}
-                                                >
-                                                    {item}
-                                                    <ChevronRight size={14} color="#94A3B8" />
-                                                </a>
-                                                {i < 4 && (
-                                                    <div style={{ height: '1px', backgroundColor: '#E2E8F0', margin: '0.1rem 0.5rem' }} />
-                                                )}
-                                            </React.Fragment>
-                                        ))}
-                                    </div>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-                    <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Companies</a>
-                    <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Services</a>
+                            {/* Resume Tools Dropdown */}
+                            <div
+                                style={{ position: 'relative' }}
+                                onMouseEnter={() => setShowResumeTools(true)}
+                                onMouseLeave={() => setShowResumeTools(false)}
+                            >
+                                <button style={{
+                                    color: showResumeTools ? '#2563EB' : 'inherit',
+                                    display: 'flex', alignItems: 'center', gap: '0.3rem',
+                                    background: 'none', border: 'none', cursor: 'pointer',
+                                    fontWeight: 600, fontSize: '0.95rem', fontFamily: 'inherit',
+                                    padding: 0, transition: 'color 0.2s'
+                                }}>
+                                    Resume Tools
+                                    {showResumeTools ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
+                                </button>
 
-                    {/* Degree with New badge */}
-                    <a href="#" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                        Online Degrees
-                        <span style={{
-                            fontSize: '0.6rem', fontWeight: 800, color: 'white',
-                            background: 'linear-gradient(135deg, #2563EB, #3B82F6, #60A5FA)',
-                            padding: '0.1rem 0.6rem',
-                            borderRadius: '100px', textTransform: 'uppercase', letterSpacing: '0.5px',
-                            boxShadow: '0 2px 4px rgba(37, 99, 235, 0.2)'
-                        }}>New</span>
-                    </a>
+                                <AnimatePresence>
+                                    {showResumeTools && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 8 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 8 }}
+                                            transition={{ duration: 0.15 }}
+                                            style={{
+                                                position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
+                                                marginTop: '0.6rem', width: '270px',
+                                                background: 'white', borderRadius: '14px',
+                                                boxShadow: '0 25px 50px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.04)',
+                                                border: '1px solid #E2E8F0',
+                                                padding: '0.35rem', zIndex: 1002,
+                                                fontFamily: "'Montserrat', sans-serif"
+                                            }}
+                                        >
+                                            {/* Top border accent */}
+                                            <div style={{
+                                                position: 'absolute', top: 0, left: '10%', right: '10%',
+                                                height: '3px', borderRadius: '0 0 4px 4px',
+                                                background: 'linear-gradient(90deg, #2563EB, #3B82F6, #60A5FA)'
+                                            }} />
 
-                    {/* Resume Tools Dropdown */}
-                    <div
-                        style={{ position: 'relative' }}
-                        onMouseEnter={() => setShowResumeTools(true)}
-                        onMouseLeave={() => setShowResumeTools(false)}
-                    >
-                        <button style={{
-                            color: showResumeTools ? '#2563EB' : 'inherit',
-                            display: 'flex', alignItems: 'center', gap: '0.3rem',
-                            background: 'none', border: 'none', cursor: 'pointer',
-                            fontWeight: 600, fontSize: '0.95rem', fontFamily: 'inherit',
-                            padding: 0, transition: 'color 0.2s'
-                        }}>
-                            Resume Tools
-                            {showResumeTools ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
-                        </button>
+                                            {[
+                                                { title: 'AI Resume Builder', path: '/resume-builder' },
+                                                { title: 'AI Resume Checker', path: '/resume-checker' },
+                                                { title: 'AI Cover Letter Generator', path: '/cover-letter' },
+                                                { title: 'Blog', path: '/blog' },
+                                            ].map((item, i) => (
+                                                <React.Fragment key={i}>
+                                                    <Link
+                                                        to={item.path}
+                                                        style={{
+                                                            display: 'flex', alignItems: 'center', gap: '0.5rem',
+                                                            padding: '0.55rem 0.75rem', borderRadius: '10px',
+                                                            textDecoration: 'none', transition: 'background 0.15s',
+                                                            color: 'inherit', whiteSpace: 'nowrap'
+                                                        }}
+                                                        onMouseOver={e => e.currentTarget.style.background = '#F9FAFB'}
+                                                        onMouseOut={e => e.currentTarget.style.background = 'transparent'}
+                                                    >
+                                                        {i < 3 && (
+                                                            <span style={{
+                                                                fontSize: '0.55rem', fontWeight: 900,
+                                                                backgroundColor: '#EFF6FF',
+                                                                color: '#2563EB',
+                                                                padding: '0.12rem 0.5rem',
+                                                                borderRadius: '100px',
+                                                                letterSpacing: '0.5px',
+                                                                display: 'inline-flex',
+                                                                alignItems: 'center'
+                                                            }}>
+                                                                FREE
+                                                            </span>
+                                                        )}
+                                                        <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#111827' }}>
+                                                            {item.title}
+                                                        </span>
+                                                    </Link>
+                                                    {i < 3 && (
+                                                        <div style={{ height: '1px', background: '#F1F5F9', margin: '0.1rem 0.6rem' }} />
+                                                    )}
+                                                </React.Fragment>
+                                            ))}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
 
-                        <AnimatePresence>
-                            {showResumeTools && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 8 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 8 }}
-                                    transition={{ duration: 0.15 }}
-                                    style={{
-                                        position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
-                                        marginTop: '0.6rem', width: '270px',
-                                        background: 'white', borderRadius: '14px',
-                                        boxShadow: '0 25px 50px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.04)',
-                                        border: '1px solid #E2E8F0',
-                                        padding: '0.35rem', zIndex: 1002,
-                                        fontFamily: "'Montserrat', sans-serif"
-                                    }}
-                                >
-                                    {/* Top border accent */}
-                                    <div style={{
-                                        position: 'absolute', top: 0, left: '10%', right: '10%',
-                                        height: '3px', borderRadius: '0 0 4px 4px',
-                                        background: 'linear-gradient(90deg, #2563EB, #3B82F6, #60A5FA)'
-                                    }} />
+                            {
+                                user && (
+                                    <Link to="/profile" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                        <Settings size={16} /> Settings
+                                    </Link>
+                                )
+                            }
+                            {/* Resume Tools Dropdown */}
+                            <div
+                                style={{ position: 'relative' }}
+                                onMouseEnter={() => setShowResumeTools(true)}
+                                onMouseLeave={() => setShowResumeTools(false)}
+                            >
+                                <button style={{
+                                    color: showResumeTools ? '#2563EB' : 'inherit',
+                                    display: 'flex', alignItems: 'center', gap: '0.3rem',
+                                    background: 'none', border: 'none', cursor: 'pointer',
+                                    fontWeight: 600, fontSize: '0.95rem', fontFamily: 'inherit',
+                                    padding: 0, transition: 'color 0.2s'
+                                }}>
+                                    Resume Tools
+                                    {showResumeTools ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
+                                </button>
+                                <AnimatePresence>
+                                    {showResumeTools && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 8 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 8 }}
+                                            transition={{ duration: 0.15 }}
+                                            style={{
+                                                position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
+                                                marginTop: '0.6rem', width: '280px',
+                                                background: 'white', borderRadius: '16px',
+                                                boxShadow: '0 25px 50px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.04)',
+                                                border: '1px solid #000',
+                                                padding: '0.5rem', zIndex: 1002,
+                                                fontFamily: "'Montserrat', sans-serif"
+                                            }}
+                                        >
+                                            <div style={{ position: 'absolute', top: 0, left: '10%', right: '10%', height: '3px', borderRadius: '0 0 4px 4px', background: 'linear-gradient(90deg, #2563EB, #3B82F6, #60A5FA)' }} />
+                                            {[
+                                                { title: 'AI Resume builder', path: '/resume-builder' },
+                                                { title: 'AI Resume checker', path: '/resume-checker' },
+                                                { title: 'AI Cover letter generator', path: '/cover-letter' },
+                                                { title: 'Blog', path: '/blog' },
+                                            ].map((item, i) => (
+                                                <React.Fragment key={i}>
+                                                    <Link to={item.path} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0.85rem 1rem', borderRadius: '12px', textDecoration: 'none', transition: 'background 0.15s', color: 'inherit', whiteSpace: 'nowrap' }} onMouseOver={e => e.currentTarget.style.background = '#F9FAFB'} onMouseOut={e => e.currentTarget.style.background = 'transparent'}>
+                                                        {i < 3 && <span style={{ fontSize: '0.6rem', fontWeight: 900, backgroundColor: '#EFF6FF', color: '#2563EB', padding: '0.15rem 0.6rem', borderRadius: '100px', letterSpacing: '0.5px', display: 'inline-flex', alignItems: 'center' }}>FREE</span>}
+                                                        <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#111827' }}>{item.title}</span>
+                                                    </Link>
+                                                    {i < 3 && <div style={{ height: '1px', background: '#E2E8F0', margin: '0.2rem 0.75rem' }} />}
+                                                </React.Fragment>
+                                            ))}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            {/* Employer Menu */}
+                            {[
+                                { to: '/search-resumes', icon: Search, label: 'Search Resumes', always: true },
+                                { to: '/post-job', icon: PlusCircle, label: 'Post a Job', always: true },
+                                { to: '/recruiter-dashboard', icon: LayoutDashboard, label: 'Recruiter Dashboard', always: false },
+                                { to: '/candidates', icon: Users, label: 'Candidates', always: false },
+                                { to: '/recruiter-services', icon: Briefcase, label: 'Services', always: false },
+                                { to: '/recruiter-pricing', icon: Crown, label: 'Pricing', always: false },
+                            ]
+                                .filter(item => item.always || user)
+                                .map((item, i) => {
+                                    const isActive = location.pathname === item.to;
+                                    return (
+                                        <Link
+                                            key={i}
+                                            to={user ? item.to : `/login?role=employer&returnUrl=${item.to}`}
+                                            style={{
+                                                color: isActive ? 'white' : '#475569',
+                                                textDecoration: 'none',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.4rem',
+                                                padding: '0.45rem 0.85rem',
+                                                borderRadius: '100px',
+                                                background: isActive
+                                                    ? 'linear-gradient(135deg, #2563EB, #4F46E5, #7C3AED)'
+                                                    : '#F1F5F9',
+                                                border: isActive ? '1px solid transparent' : '1px solid #E2E8F0',
+                                                transition: 'all 0.25s ease',
+                                                fontSize: '0.85rem',
+                                                fontWeight: isActive ? 700 : 600,
+                                                boxShadow: isActive ? '0 2px 12px rgba(37,99,235,0.4)' : 'none'
+                                            }}
+                                            onMouseOver={e => {
+                                                if (!isActive) {
+                                                    e.currentTarget.style.backgroundColor = '#1E3A8A';
+                                                    e.currentTarget.style.borderColor = '#1E3A8A';
+                                                    e.currentTarget.style.color = 'white';
+                                                }
+                                            }}
+                                            onMouseOut={e => {
+                                                if (!isActive) {
+                                                    e.currentTarget.style.backgroundColor = '#F1F5F9';
+                                                    e.currentTarget.style.borderColor = '#E2E8F0';
+                                                    e.currentTarget.style.color = '#475569';
+                                                }
+                                            }}
+                                        >
+                                            <item.icon size={14} /> {item.label}
+                                        </Link>
+                                    );
+                                })}
+                        </>
 
-                                    {[
-                                        { title: 'AI Resume Builder', path: '/resume-builder' },
-                                        { title: 'AI Resume Checker', path: '/resume-checker' },
-                                        { title: 'AI Cover Letter Generator', path: '/cover-letter' },
-                                        { title: 'Blog', path: '/blog' },
-                                    ].map((item, i) => (
-                                        <React.Fragment key={i}>
-                                            <Link
-                                                to={item.path}
-                                                style={{
-                                                    display: 'flex', alignItems: 'center', gap: '0.5rem',
-                                                    padding: '0.55rem 0.75rem', borderRadius: '10px',
-                                                    textDecoration: 'none', transition: 'background 0.15s',
-                                                    color: 'inherit', whiteSpace: 'nowrap'
-                                                }}
-                                                onMouseOver={e => e.currentTarget.style.background = '#F9FAFB'}
-                                                onMouseOut={e => e.currentTarget.style.background = 'transparent'}
-                                            >
-                                                {i < 3 && (
-                                                    <span style={{
-                                                        fontSize: '0.55rem', fontWeight: 900,
-                                                        backgroundColor: '#EFF6FF',
-                                                        color: '#2563EB',
-                                                        padding: '0.12rem 0.5rem',
-                                                        borderRadius: '100px',
-                                                        letterSpacing: '0.5px',
-                                                        display: 'inline-flex',
-                                                        alignItems: 'center'
-                                                    }}>
-                                                        FREE
-                                                    </span>
-                                                )}
-                                                <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#111827' }}>
-                                                    {item.title}
-                                                </span>
-                                            </Link>
-                                            {i < 3 && (
-                                                <div style={{ height: '1px', background: '#F1F5F9', margin: '0.1rem 0.6rem' }} />
-                                            )}
-                                        </React.Fragment>
-                                    ))}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-
-                    {user && (
-                        <Link to="/profile" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                            <Settings size={16} /> Settings
-                        </Link>
                     )}
-                </div>
+
+                    {
+                        user && (() => {
+                            const isSettingsActive = location.pathname === '/profile';
+                            return (
+                                <Link
+                                    to="/profile"
+                                    style={{
+                                        color: isSettingsActive ? 'white' : '#475569',
+                                        textDecoration: 'none',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '0.4rem',
+                                        padding: '0.45rem 0.85rem',
+                                        borderRadius: '100px',
+                                        background: isSettingsActive
+                                            ? 'linear-gradient(135deg, #2563EB, #4F46E5, #7C3AED)'
+                                            : '#F1F5F9',
+                                        border: isSettingsActive ? '1px solid transparent' : '1px solid #E2E8F0',
+                                        transition: 'all 0.25s ease',
+                                        fontSize: '0.85rem',
+                                        fontWeight: isSettingsActive ? 700 : 600,
+                                        boxShadow: isSettingsActive ? '0 2px 12px rgba(37,99,235,0.4)' : 'none'
+                                    }}
+                                    onMouseOver={e => {
+                                        if (!isSettingsActive) {
+                                            e.currentTarget.style.backgroundColor = '#1E3A8A';
+                                            e.currentTarget.style.borderColor = '#1E3A8A';
+                                            e.currentTarget.style.color = 'white';
+                                        }
+                                    }}
+                                    onMouseOut={e => {
+                                        if (!isSettingsActive) {
+                                            e.currentTarget.style.backgroundColor = '#F1F5F9';
+                                            e.currentTarget.style.borderColor = '#E2E8F0';
+                                            e.currentTarget.style.color = '#475569';
+                                        }
+                                    }}
+                                >
+                                    <Settings size={14} /> Settings
+                                </Link>
+                            );
+                        })()
+                    }
+                </div >
 
                 {/* Actions */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                < div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     {!user ? (
                         <div style={{
                             display: 'flex',
@@ -334,30 +438,30 @@ const Navbar = ({ onPostJob }) => {
                                         padding: '0.5rem 1rem',
                                         borderRadius: '100px',
                                         border: 'none',
-                                        backgroundColor: location.pathname !== '/employers' ? 'white' : 'transparent',
-                                        color: location.pathname !== '/employers' ? 'var(--primary-600)' : 'var(--neutral-500)',
+                                        backgroundColor: !isEmployerMode ? 'white' : 'transparent',
+                                        color: !isEmployerMode ? 'var(--primary-600)' : 'var(--neutral-500)',
                                         fontWeight: 600,
                                         fontSize: '0.85rem',
                                         cursor: 'pointer',
-                                        boxShadow: location.pathname !== '/employers' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none',
+                                        boxShadow: !isEmployerMode ? '0 2px 4px rgba(0,0,0,0.05)' : 'none',
                                         transition: 'all 0.2s'
                                     }}
                                 >
                                     Job Seeker
                                 </button>
                             </Link>
-                            <Link to="/employers" style={{ textDecoration: 'none' }}>
+                            <Link to="/for-employers" style={{ textDecoration: 'none' }}>
                                 <button
                                     style={{
                                         padding: '0.5rem 1rem',
                                         borderRadius: '100px',
                                         border: 'none',
-                                        backgroundColor: location.pathname === '/employers' ? 'white' : 'transparent',
-                                        color: location.pathname === '/employers' ? 'var(--primary-600)' : 'var(--neutral-500)',
+                                        backgroundColor: isEmployerMode ? 'white' : 'transparent',
+                                        color: isEmployerMode ? 'var(--primary-600)' : 'var(--neutral-500)',
                                         fontWeight: 600,
                                         fontSize: '0.85rem',
                                         cursor: 'pointer',
-                                        boxShadow: location.pathname === '/employers' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none',
+                                        boxShadow: isEmployerMode ? '0 2px 4px rgba(0,0,0,0.05)' : 'none',
                                         transition: 'all 0.2s'
                                     }}
                                 >
@@ -549,9 +653,9 @@ const Navbar = ({ onPostJob }) => {
                     )}
 
 
-                </div>
-            </div>
-        </nav>
+                </div >
+            </div >
+        </nav >
     );
 };
 

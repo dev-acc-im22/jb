@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import ErrorBoundary from './components/ErrorBoundary'
 import Navbar from './components/layout/Navbar'
 import Home from './pages/Home'
@@ -31,6 +31,12 @@ import ResumeBuilder from './pages/ResumeBuilder'
 import ResumeChecker from './pages/ResumeChecker'
 import CoverLetterGenerator from './pages/CoverLetterGenerator'
 import Blog from './pages/Blog'
+import SearchResumes from './pages/SearchResumes'
+import Pricing from './pages/Pricing'
+import RecruiterPricing from './pages/RecruiterPricing'
+import RecruiterServices from './pages/RecruiterServices'
+import Candidates from './pages/Candidates'
+import PurchaseResdex from './pages/PurchaseResdex'
 
 const HomeRoute = () => {
   const { user } = useJobs();
@@ -38,6 +44,15 @@ const HomeRoute = () => {
     return <Navigate to="/recruiter-dashboard" replace />;
   }
   return <Home />;
+};
+
+const ProtectedRecruiterRoute = ({ children }) => {
+  const { user } = useJobs();
+  const location = useLocation();
+  if (!user || user.role !== 'employer') {
+    return <Navigate to={`/login?role=employer&returnUrl=${location.pathname}`} replace />;
+  }
+  return children;
 };
 
 function App() {
@@ -49,7 +64,8 @@ function App() {
             <Navbar />
             <Routes>
               <Route path="/" element={<HomeRoute />} />
-              <Route path="/employers" element={<ForEmployers />} />
+              <Route path="/for-employers" element={<ForEmployers />} />
+              <Route path="/employers" element={<RecruiterPricing />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/profile" element={<UserProfile />} />
@@ -63,7 +79,7 @@ function App() {
               <Route path="/recruiter-settings/security" element={<SettingsSecurity />} />
               <Route path="/recruiter-settings/email-templates" element={<SettingsEmailTemplates />} />
               <Route path="/employer-profile" element={<Navigate to="/recruiter-dashboard" replace />} />
-              <Route path="/post-job" element={<PostJobPage />} />
+              <Route path="/post-job" element={<ProtectedRecruiterRoute><PostJobPage /></ProtectedRecruiterRoute>} />
               <Route path="/edit-job/:id" element={<PostJobPage />} />
               <Route path="/job/:id/applicants" element={<JobApplicants />} />
               <Route path="/jobs/:id" element={<JobPage />} />
@@ -74,6 +90,12 @@ function App() {
               <Route path="/resume-checker" element={<ResumeChecker />} />
               <Route path="/cover-letter" element={<CoverLetterGenerator />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/search-resumes" element={<ProtectedRecruiterRoute><SearchResumes /></ProtectedRecruiterRoute>} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/recruiter-pricing" element={<ProtectedRecruiterRoute><RecruiterPricing /></ProtectedRecruiterRoute>} />
+              <Route path="/recruiter-services" element={<ProtectedRecruiterRoute><RecruiterServices /></ProtectedRecruiterRoute>} />
+              <Route path="/candidates" element={<ProtectedRecruiterRoute><Candidates /></ProtectedRecruiterRoute>} />
+              <Route path="/purchase-resdex" element={<ProtectedRecruiterRoute><PurchaseResdex /></ProtectedRecruiterRoute>} />
             </Routes>
           </div>
         </Router>
